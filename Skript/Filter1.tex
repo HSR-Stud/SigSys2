@@ -1,0 +1,1784 @@
+\renewcommand{\thesection}{\thechapter.\arabic{section}}
+\setcounter{Aufgabe}{0}\setcounter{Beispiel}{0}
+\chapter{Filtertheorie}\label{Kapitel_Filter}
+\section{Einf"uhrung in die analoge Filtertheorie}
+Ein elektrisches Filter ist ein Netzwerk, das ein Eingangssignal in
+gew"unschter Art und Weise in ein Ausgangssignal verwandelt. Die
+Signale k"onnen im Zeit- oder im Frequenzbereich betrachtet werden,
+dementsprechend k"onnen die Anforderungen im Zeit- oder
+Frequenzbereich definiert sein. Filter sind mehrheitlich
+{\bf frequenzselektive}, {\bf lineare Netzwerke}, welche gewisse Frequenzbereiche
+"ubertragen und andere d"ampfen. Kaum ein elektronisches Ger"at kommt
+ohne Filter aus.  Telefon, TV\index{TV}, Radio,\index{Radio}
+Radar und Daten"ubertragung sind einige Beispiele aus dem Gebiet der
+Nachrichtentechnik\index{Nachrichtentechnik}, in denen Filter eine wesentliche Rolle spielen
+\cite{MOS:89}.\\ Die frequenzselektiven Filter, mit denen wir uns im
+weiteren besch"aftigen wollen, lassen sich in die f"unf wichtigsten
+Grundtypen unterteilen \cite{ZVE:67}:\vspace*{3mm} \\ 
+\hspace*{2cm}$\bullet$ Tiefpass\index{Tiefpass} (TP),\\
+\hspace*{2cm}$\bullet$ Hochpass\index{Hochpass} (HP),\\
+\hspace*{2cm}$\bullet$ Bandpass\index{Band!pass} (BP),\\
+\hspace*{2cm}$\bullet$ Bandsperre\index{Band!sperre} (BS),\\
+\hspace*{2cm}$\bullet$ Allpass\index{Allpass} (AP).\vspace*{3mm} \\ 
+Es gibt weitere Filtertypen, die sich auf die f"unf % Kammfilter???
+Grundtypen zur"uck\-f"uhren lassen \cite{SCH:VAL:01}.  Seit dem ersten
+Konzept von elektrischen Filtern im Jahre 1915, wo unabh"angig
+voneinander G.A.~Campbell in Amerika und K.W.~Wagner in Europa das
+elektrische Wellenfilter\index{Wellenfilter} erfanden, wurden etliche
+Filterbauarten\index{Filter!bauarten} entwickelt. In der
+Tabelle~\ref{ubersichtstabelle} sind einige Filterbauarten in Form
+einer "Ubersicht dargestellt.\\ 
+\nit Je nach Anforderungen bez"uglich Frequenzbereich, Selektivit"at,
+Sensitivit"at, Stabilit"at\index{Stabilitat@Stabilit\"at}, Leistungsbedarf,
+dynamischen Bereich, Abmessungen (Fl"ache), Kosten,
+Erh"altlichkeit, St"uckzahl, usw.,
+stellt die eine oder andere Bauart die bessere L"osung dar \cite{LIN:BRA:LEH:85, MOS:89, SCH:VAL:01}.\\ 
+\nit In diesem Kapitel betrachten wir ausschliesslich analoge
+Filter\index{Filter!analog}. Der \"Ubergang zu den digitalen
+Filtern\index{Filter!digital} ist relativ einfach, sobald die
+$z$-Transformation\index{z-Transformation@{$z$-Transformation}}
+eingef\"uhrt ist und das Abtasttheorem\index{Abtasttheorem} betrachtet
+wurde. Mit der bilinearen Transformation\index{bilineare
+  Transformation}\index{Transformation!bilineare} kann aus einem
+analogen Filter das entsprechende digitale Filter entwickelt werden
+\cite{OPP:SCH:89}. Die Methode mit der {\bf bilinearen Transformation} wird
+auf IIR-Filter ({\bf I}nfinite {\bf I}mpulse {\bf R}esponse)\index{IIR-Filter}\index{Filter!IIR-} angewendet. F\"ur das Design von FIR-Filter\index{FIR-Filter}\index{Filter!FIR-} ({\bf F}inite {\bf I}mpulse {\bf R}esponse) verwendet
+man z.B. die ``Windowing''-Methode\index{Windowing} \cite{ING:PRO:97}.
+\clearpage
+%\normalsize
+\begin{table}[htb]
+\begin{center}
+\hspace*{0cm}
+\begin{tabular}{|c|c|c|l|l|}\hline
+  & & & & Filter mit Signalprozessor \hfill\cite{MOS:89}\\ \cline{5-5}
+  & & & & Filter mit Gate Logic \hfill\cite{MOS:89}\\ \cline{5-5}
+  & & & \rule{6.2mm}{0pt}
+      \begin{rotate}{90}%
+        \hspace*{-2.5mm} {\bf {\footnotesize \shortstack{diskrete\\ Werte}} }%
+      \end{rotate} 
+        & etc.  \\ \cline{4-5}
+  & & & & SC-Filter (Switched Capacitor) \hfill\cite{MOS:89}\\ \cline{5-5}
+  & & & & SI-Filter (Switched Current) \hfill\cite{MOS:89}\\ \cline{5-5}
+  & & & & N-Pfad Filter \hfill\cite{MOS:89}\\ \cline{5-5}
+  & \rule{2.2mm}{0pt}
+    \begin{rotate}{90}%
+      \hspace*{0.2cm} {\bf {\large zeitdiskret}}%
+    \end{rotate} 
+    & \rule{2.2mm}{0pt}
+      \begin{rotate}{90}%
+        \hspace*{5mm} {\bf {\small AKTIV} }%
+      \end{rotate} 
+      &  \rule{6.2mm}{0pt}
+      \begin{rotate}{90}%
+        \hspace*{0cm} {\bf {\footnotesize \shortstack{analoge\\ Werte}} }%
+      \end{rotate} 
+      & etc. \\ \cline{2-5} \cline{2-5}
+
+  & & &  & $LC$-Filter ``Simulation'' \hfill\cite{LIN:BRA:LEH:85, MOS:89}\\ \cline{5-5} 
+  & & &  & Gekoppelte Filterstrukturen \hfill\cite{MOS:89}\\ \cline{5-5}
+  & & &  & Filter in Kaskadenbauweise \hfill\cite{MOS:89}\\ \cline{5-5}
+  & &  \rule{2.2mm}{0pt}
+      \begin{rotate}{90}%
+        \hspace*{-2mm} {\bf {\small Aktiv $RC$} }%
+      \end{rotate} & \rule{6.2mm}{0pt}
+                      \begin{rotate}{90}%
+                       \hspace*{1mm} {\bf {\footnotesize \shortstack{konz.\\ Bauteile}} }%
+                       \end{rotate} &  etc. \\ \cline{3-5}
+
+  & & & & \shortstack{SAW-Filter (Surface Acoustic Wave) \hspace*{1cm}\cite{MOS:89}\\ 
+                       (Oberfl"achenwellenfilter)\hfill~}\\ \cline{5-5}
+  & & & & Hohlraumresonatoren (Topfkreisfilter) \hfill \cite{MOS:89}\\ \cline{5-5}
+  & & & \rule{6.2mm}{0pt}
+        \begin{rotate}{90}%
+        \hspace*{-1mm} {\bf {\footnotesize  \shortstack{verteilte\\ Bauteile}} }%
+        \end{rotate} & etc.   \hfill\cite{ZVE:67}    \\ \cline{4-5}
+  & & &  & Keramische Filter  \hfill\cite{LIN:BRA:LEH:85, MOS:89}\\ \cline{5-5}
+  & & &  & Quarz-Filter  \hfill\cite{MOS:89}\\ \cline{5-5}
+  & & &  & $RLC$-Filter \hfill\cite{MOS:89}\\ \cline{5-5}
+  & & &  & $RC$-Filter  \hfill\cite{LIN:BRA:LEH:85}\\ \cline{5-5} 
+  & & &  & $LC$-Filter  \hfill\cite{LIN:BRA:LEH:85}\\ \cline{5-5} 
+  & & &  & $LC$-Filter mit Quarz  \hfill\cite{LIN:BRA:LEH:85, ZVE:67}\\ \cline{5-5} 
+ 
+\rule{3.5mm}{0pt}
+\begin{rotate}{90}%
+  \hspace*{2.5cm} {\bf {\Large Filterbauarten}}%
+\end{rotate}  
+
+  &  \rule{2.2mm}{0pt}
+    \begin{rotate}{90}%
+      \hspace*{1.2cm} {\bf {\large kontinuierlich}}%
+    \end{rotate} 
+    &  \rule{2.2mm}{0pt}
+      \begin{rotate}{90}%
+        \hspace*{1.6cm} {\bf {\small Passiv} }%
+      \end{rotate} 
+      & \rule{6.2mm}{0pt}
+      \begin{rotate}{90}%
+        \hspace*{1mm} {\bf {\footnotesize  \shortstack{konzentrierte\\ Bauteile}} }%
+      \end{rotate} & etc.    \hfill\cite{ZVE:67}        \\ \hline
+
+\end{tabular}\caption{"Ubersicht "uber verschiedene Filterbauarten f"ur die Frequenzselektion\label{ubersichtstabelle}}
+\end{center}
+\end{table}\vspace*{-6mm}
+\nit
+Das Hauptgewicht unserer Betrachtungen wird nicht bei den
+einzelnen Bauarten liegen, sondern bei der Approximation der gew"unschten
+Filterfunktion durch eine
+{\bf realisierbare "Ubertragungsfunktion}.\\
+Dazu werden wir uns zuerst mit den Zusammenh"angen zwischen
+dem Frequenzgang und der "Ubertragungsfunktion besch"aftigen.
+Anschliessend werden wir einige Tief\-pass\-approximationen kennen lernen
+und erl"autern, wie daraus mit Hilfe von {\bf Frequenztransformationen} Hochpass-, Band\-pass- und Bandsperren-Filter
+generiert werden k"onnen.\index{Frequenztransformationen}
+
+\clearpage
+\section[Zusammenhang Frequenzgang $\leftrightarrow$ UTF]
+{Der Zusammenhang zwischen Frequenzgang und "Ubertragungsfunktion
+  (UTF)} Bei unseren Betrachtungen wollen wir uns auf
+LLF\footnote{linear lumped-parameter finite (LLF) networks}-Netzwerke\index{LLF}
+(lineare Netzwerke mit konzentrierten
+Elementen) beschr"anken.\\
+\begin{figure}[!htb]
+\begin{center}
+  \vspace*{-2mm}\bild{/filter/FIL2.fig.eps,width=0.5}\caption{LLF Netzwerk}
+\end{center}
+\vspace*{-6mm}
+\end{figure}\\
+Diese lassen sich bekanntlich mit einer Differentialgleichung\index{Differentialgleichung} der Form
+\begin{equation*}
+a_{n}\frac{d^{n} y}{dt^{n}} + a_{n-1}\frac{d^{n-1} y}{dt^{n-1}} + \cdots +
+a_{1}\frac{d y}{dt} + a_{0} y=
+b_{m}\frac{d^{m} x}{dt^{m}} + b_{m-1}\frac{d^{m-1} x}{dt^{m-1}} + \cdots +
+b_{1}\frac{d x}{dt} + b_{0} x
+\end{equation*} 
+und deren Laplace-Transformierten\\~~\\
+\myboxx{
+\begin{equation*}
+H(s)\equiv T(s)=\frac{Y(s)}{X(s)}=\frac{b_{m} s^{m} + b_{m-1} s^{m-1} +\cdots+b_{1} s 
++ b_{0}}{a_{n} s^{n} + a_{n-1} s^{n-1} + \cdots + a_{1} s + a_{0}}
+=\frac{N(s)}{D(s)}
+\end{equation*}} \\~~\\
+beschreiben.\\ Die
+"Ubertragungsfunktion des Netzwerkes $T(s)$, ist eine reelle,
+rationale Funktion\index{Funktion!reelle, rationale} in $s$ der
+Ordnung $n$.  Das Z"ahlerpolynom\index{Zae@{Z\"a}hlerpolynom} $N(s)$ und das
+Nennerpolynom\index{Nennerpolynom} $D(s)$ sind Polynome mit reellen
+und konstanten Koeffizienten, weil das Netzwerk aus linearen,
+konzentrierten Elementen besteht \cite{MOS:89}. Die
+Koeffizienten sind unabh"angig vom Eingangssignal.\\
+{\bf\boldmath{Die Wurzeln\index{Wurzeln} der Gleichung $N(s)=0$ ergeben die $m$
+ endlichen
+  Nullstellen ($z_{i}, i=1,\ldots, m$); die Wurzeln von $D(s)$ ergeben
+  die $n$ Pole des Systems ($p_{j}, j=1,\ldots, n$), die aus
+  Stabilit"atsgr"unden\index{Stabilitat@Stabilit\"at} in der linken
+  $s$-Halbebene\index{Halbebene!linke}
+  (LHE)\index{LHE|see{Halbebene!linke}} liegen m"ussen.}}  Damit l"asst
+sich $T(s)$ auch schreiben als:
+\begin{equation*}
+T(s)=K \cdot\frac{{\displaystyle \prod_{i=1}^{m}} (s - z_{i})}
+{{\displaystyle \prod_{j=1}^{n}} (s - p_{j})}
+\end{equation*}
+wobei $K=b_{m}/a_{n}$ ist. {\bf\boldmath{ Die
+  "Ubertragungsfunktion $T(s)$ ist also vollst"andig bestimmt durch ihre Pole
+  und Nullstellen, sowie durch eine multiplikative Konstante $K$.}}  Da
+die Wurzeln\index{Wurzeln} von Polynomen mit reellen Koeffizienten
+entweder reell sind oder in konjugiert-komplexen Paaren auftreten \cite{MOS:89}, ist
+es meist sinnvoll, die Systemfunktionen als Produkt von Faktoren 1.
+und 2.~Ordnung mit reellen Koeffizienten darzustellen:
+\begin{equation*}
+T(s)=K \cdot\frac{{\displaystyle\prod_{i=1}^{r}} (s^{2} + 2\sigma_{zi}\; s + 
+\omega_{zi}^{2})
+{\displaystyle\prod_{i=2r+1}^{m}}(s - z_{i})} 
+{{\displaystyle\prod_{j=1}^{t}} (s^{2} + 2\sigma_{pj}\; s + \omega_{pj}^{2})
+{\displaystyle\prod_{j=2t+1}^{n}}(s - p_{j})}
+\end{equation*}  
+oder anders geschrieben:
+\begin{equation*}
+T(s)=K \cdot\frac{{\displaystyle\prod_{i=1}^{r}} (s^{2} + 
+\displaystyle\frac{\omega_{zi}}
+{q_{zi}}\; s + \omega_{zi}^{2}) {\displaystyle\prod_{i=2r+1}^{m}}(s - z_{i})} 
+{{\displaystyle\prod_{j=1}^{t}} (s^{2} + 
+\displaystyle\frac{\omega_{pj}}{q_{pj}}\; s + 
+\omega_{pj}^{2}) {\displaystyle\prod_{j=2t+1}^{n}}(s - p_{j})}.
+\end{equation*}
+
+
+\section{Bestimmung des Frequenzganges aus der "Ubertra\-gungs\-funk\-tion}
+Um das Verhalten eines Netzwerks im eingeschwungenen Zustand zu
+ermitteln, ersetzen wir in der UTF $T(s)$ $s$ durch $j\omega$ und
+variieren die anregende
+Frequenz $\omega$ von $0$ bis $\infty$. {\bf\boldmath{Der praktisch bedeutsame Spezialfall\\~~\\
+  \framebox[\textwidth]{ \parbox{0.9\textwidth}{
+\begin{equation}
+\left. T(s)\right|_{{\displaystyle s=j\omega}}=T(j\omega)
+\end{equation} 
+}}\\~~\\ \nit wird als Frequenzgang bezeichnet.}}  $T(j\omega)$ kann in
+Polarform\index{Polarform} folgendermassen dargestellt werden:
+\begin{equation}
+\left. T(s)\right|_{s=j\omega}=T(j\omega)=|T(j\omega)|\cdot e^{j\varphi(\omega)}
+\end{equation}
+wobei $|T(j\omega)|$ als Amplitudengang\index{Amplitudengang} und
+$\varphi(\omega)$ als Phasengang\index{Phasen!gang} der
+Netzwerkfunktion\index{Netzwerk!funktion} bei der Frequenz $\omega$
+bezeichnet wird.  Wenn die Netzwerkfunktion eine
+Spannungs\-"ubertragungs\-funktion\index{Spannungsubertragungsfunktion@{Spannungs\"ubertragungsfunktion}}\index{Ubertragungsfunktion@{\"Ubertragungsfunktion}!Spannungs-} darstellt, ist es zweckm"assig mit dem
+Logarithmus der Funktion zu rechnen. Die
+Kaskadierung\index{Kaskadierung} mehrerer entkoppelter Teilnetzwerke
+kann dadurch anstatt durch Multiplikation der
+Teilfrequenzg"ange\index{Teilfrequenzgang} durch Addition der
+logarithmischen Teilfrequenzg"ange berechnet werden. {\bf\boldmath{Eine weitere
+  wichtige Gr"osse ist die Gruppenlaufzeit\index{Gruppenlaufzeit}
+  $\tau_{g}(\omega)$,
+  die wie folgt definiert ist \cite{MOS:89}:}}\\~~\\
+\myboxx{
+\begin{equation*}
+\tau_{g}(\omega)=\frac{ \bold{-} \partial \varphi(\omega)}{\partial \omega}.
+\end{equation*}
+}\\~~\\ \nit Zur Veranschaulichung wollen wir ein Beispiel dazu betrachten. Die
+Phase in Abb.~\ref{Zphase} hat eine konstante, negative Steigung.
+Somit ergibt sich f"ur $\tau_{g}(\omega)$ ein von $\omega$
+unabh"angiger, konstanter Wert.
+
+\clearpage
+\begin{figure}[!htb]% alt FIL6.ps
+\begin{center}
+
+{\psset{unit=0.63}
+\begin{pspicture}(20,15)
+% system
+\psset{linewidth=1.5pt}
+\psline(3,12)(7,12)\psline(3,14)(7,14)
+\psline(3,12)(3,14)\psline(7,12)(7,14)
+\psset{linewidth=1pt}
+\psdots[dotsize=3pt 3,dotstyle=*]%
+(1,13)(9,13)
+\psline(1,13)(3,13)\psline(7,13)(9,13)
+\uput[0](3.15,12.9){LTI-System}
+\uput[0](0.4,13.6){$x(t)$}
+\uput[0](8.4,13.6){$y(t)$}
+% Amplitude
+\psline{->}(12,11)(18,11)
+\psline{->}(12,11)(12,14) 
+\psline[linewidth=1.5pt,linecolor=red](12,13)(17.5,13)\uput[0](17.6,13){0~dB}
+\uput[0](13,10.3){$\longrightarrow \omega~ [\text{rad}]$}
+\rput[lb]{L}(11.8,11.2){$\rightarrow |H(j\omega)|~ [\text{dB}]$}
+% Phase
+\psline{->}(12,6)(18,6) 
+\psline{->}(12,6)(12,9) 
+\psline[linewidth=1.5pt,linecolor=red](12,8)(17.5,6)\psline(11.9,8)(12.1,8)\rput[lb](12.2,8.1){0~rad}
+\uput[0](13,5.3){$\longrightarrow \omega~ [\text{rad}]$}
+\rput[lb]{L}(11.8,6.2){$\rightarrow \varphi(\omega)~ [\text{rad}]$}
+% gruppenlaufzeit
+\psline{->}(12,1)(18,1) 
+\psline{->}(12,1)(12,4) 
+\psline[linewidth=1.5pt,linecolor=red](12,3)(17.5,3)
+\uput[0](13,0.3){$\longrightarrow \omega~ [\text{rad}]$}
+\rput[lb]{L}(11.8,1.2){$\rightarrow \tau_{g}(\omega)~ [\text{s}]$}
+% x(t)
+\psline{->}(2,6)(8,6) 
+\psline{->}(2,6)(2,9) 
+\psline[linewidth=1.5pt,linecolor=red](2,6)(3,6)(3,8)(4,9)(5,7)(7,7)
+\uput[0](3,5.3){$\longrightarrow t ~[\text{s}]$}
+\rput[lb]{L}(1.8,6.2){$\rightarrow x(t)$}
+% y(t)
+\psline{->}(2,1)(8,1) 
+\psline{->}(2,1)(2,4) 
+\psline[linewidth=1.5pt,linecolor=red](2,1)(4,1)(4,3)(5,4)(6,2)(8,2)
+\uput[0](3,0.3){$\longrightarrow t ~[\text{s}]$}
+\rput[lb]{L}(1.8,1.2){$\rightarrow y(t)$}
+
+\psline{->}(3,2)(4,2) 
+\psline(3,1)(3,6)\rput[lb](3.2,2.2){$\tau_{g}$}
+\end{pspicture}}
+\caption{Zusammenhang zwischen Phasengang $\varphi(\omega)$ und Gruppenlaufzeit $\tau_g(\omega)$ und die Auswirkung auf das Ausgangssignal $y(t)$\label{Zphase}}
+\end{center}
+\vspace*{-9mm}
+\end{figure}~\\ \nit Im Zeitbereich hat dies zur Folge, dass das Eingangssignal unverformt
+aber um $\tau_{g}$ verz"ogert am Ausgang erscheint. Der Grund liegt
+darin, dass alle Frequenzkomponenten des Eingangssignals gleich
+verz"ogert werden.  Ist $\tau_{g}$ nicht f"ur alle Frequenzen gleich,
+so erscheint ein aus mehreren Frequenzen bestehendes Eingangssignal am
+Ausgang verzerrt.
+
+\newpage
+\subsection{Bestimmung der UTF aus dem Frequenzgang}
+In vielen Anwendungsf"allen sind die Filterspezifikationen durch den
+Amplitudengang gegeben. Um ein Netzwerk mit vorgeschriebenem
+Amplitudengang zu realisieren, m"ussen wir zuerst die
+"Ubertragungsfunktion $T(s)$ finden.  Gegeben ist $|T(j\omega)|$,
+gesucht wird die entsprechende Funktion $T(s)$.  Da $T(s)$ das Verh"altnis
+zweier Polynome in $s$ mit reellen Koeffizienten ist, gilt:
+\begin{equation}
+T^{*}(j\omega)=T(-j\omega)
+\end{equation}
+wobei $T^{*}(j\omega)$ die konjugiert-komplexe Funktion von
+$T(j\omega)$ bezeichnet.  Ferner gilt:
+\begin{equation*}
+|T(j\omega)|^{2}=T(j\omega) \cdot T^{*}(j\omega)=T(j\omega) \cdot T(-j\omega)=T(s) \cdot T(-s)|_{s=j\omega}
+\end{equation*}
+\begin{equation}
+T(s) \cdot T(-s)=\left. |T(j\omega)|^{2} 
+\right|_{{\displaystyle\omega^{2}=-s^{2}}}\label{eq: tbetr}
+\end{equation}
+{\bf\boldmath{ $|T(j\omega)|^{2}$ wird dabei immer eine Funktion in $\omega^{2}$
+  sein, da der Amplitudengang eine gerade Funktion ist \cite{MOS:89}}.}  Unser
+Problem besteht nun darin, eine Funktion $T(s)$ aus einem gegebenen
+Produkt $T(s)\cdot T(-s)$ zu separieren. Dieses Problem ist nicht
+eindeutig l"osbar \cite{MOS:89}.  Um die Sache etwas zu vereinfachen
+schreiben wir:
+\begin{equation}
+T(s)=\frac{N(s)}{D(s)}
+\end{equation}
+eingesetzt in Formel~\ref{eq: tbetr} ergibt:
+\begin{equation}
+\frac{N(s)}{D(s)} \cdot \frac{N(-s)}{D(-s)}=\left. |T(j\omega)|^{2}
+\right|_{{\displaystyle\omega^{2}=-s^{2}}}
+\end{equation}
+Aus Stabilit"atsgr"unden\index{Stabilitat@Stabilit\"at} muss $D(s)$ ein
+Hurwitz-Polynom\index{Hurwitz!-Polynom} sein \cite{MOS:89}. Beschr"anken wir uns auf Minimalphasennetzwerke, so
+muss auch $N(s)$ ein Hurwitz-Polynom sein \cite{UNB:81}.
+\bsp{Veranschaulichung des Vorgehens}
+\begin{equation*}
+|T(j\omega)|^{2}=\frac{4+\omega^{2}}{1+\omega^{6}}
+\end{equation*}
+Ersetzen wir nun $\omega^{2}$ durch $-s^{2}$ , so erhalten wir:
+\begin{eqnarray*}
+|T(j\omega)|^{2}&=&\frac{4-s^{2}}{1-s^{6}}=\frac{(2-s)(2+s)}
+                    {(1-s^{3})(1+s^{3})}=\frac{(s+2)(s-2)}{(s-1)(s^{2}+s+1)(s+1)(s^{2}-s+1)}\\
+&=&\frac{N(s)}{D(s)}\cdot\frac{N(-s)}{D(-s)}
+\end{eqnarray*}
+Daraus resultiert folgendes Minimalphasennetzwerk:
+\begin{equation*}
+T(s)=\frac{s+2}{(s+1)(s^{2}+s+1)}=\frac{s+2}{s^{3}+2s^{2}+2s+1}=\frac{N(s)}
+     {D(s)}
+\end{equation*}
+oder als Nicht-Minimalphasennetzwerk:
+\begin{equation*}
+T(s)=\frac{s-2}{s^{3}+2s^{2}+2s+1}=\frac{N(-s)}{D(s)}.
+\end{equation*}
+Sind sowohl Amplituden- als auch Phasengang vorgeschrieben, so
+bestimmt man zuerst eine minimalphasige "Ubertragungsfunktion, die den
+vorgeschriebenen Amplitudengang aufweist. Der vorgeschriebene
+Phasengang wird dann durch zus"atzliche Allp"asse erreicht.
+\clearpage
+%%%%% Kapitel 3
+\section{Approximation im Frequenzbereich}
+Eine der wichtigsten Aufgabe der Filtertheorie\index{Filter!theorie}
+ist die Bestimmung einer "Ubertra\-gungs\-funk\-tion, die einen
+vorgegebenen Frequenzgang gew"ahrleistet. Wir wollen uns im Folgenden
+mit der Approximation eines vorgegebenen Amplitudengangs befassen. In
+der Filtertheorie wird das Problem in zwei Stufen gel"ost: 
+{\bf \begin{itemize}
+\item Approximation des gegebenen Amplitudengangs durch eine rational gebrochene
+      Funktion.
+\item Realisierung (Synthese) dieser "Ubertragungsfunktion durch ein Netzwerk.
+\end{itemize}
+}
+\paragraph{Das Toleranzschema}~\\ 
+Die technischen Anforderungen an die "Ubertragungseigenschaften eines
+Filters werden h"aufig im Frequenzbereich mit Hilfe eines
+Toleranzschemas (Abb.~\ref{Fspec}) beschrieben.
+\begin{figure}[!htb]%alt \bild{/filter/FIL13.ps,width=0.5}\
+\vspace*{-3mm}
+\begin{center}
+{\psset{unit=0.8}
+\begin{pspicture}(15,10)
+\psline{->}(-0.5,0)(13,0)
+\psline{->}(0,-0.5)(0,8) 
+\uput[0](1.5,-0.5){DB}\uput[0](8.5,-0.5){SB}\uput[0](-0.7,-0.5){0}
+\uput[0](-1.5,8.5){D\"ampfung}
+\uput[0](-1.5,7){$A(\Omega)$}\uput[0](13.1,-0.1){$\Omega$}
+\uput[0](3.6,-0.5){$\Omega_D$}\uput[0](6.6,-0.5){$\Omega_S$}
+
+\psline[linewidth=1.5pt](7,0)(7,4)(10,4)(10,6)(13,6) \uput[0](9.5,2.7){Matrize}
+\psline[linewidth=1.5pt](0,1)(4,1)(4,8) \uput[0](0.5,3){Stempel}
+
+\psplot[linecolor=red,linewidth=2pt]{0}{3.1}{x 4.2 mul RadtoDeg cos -0.5 mul 0.5 add}
+\psline[linecolor=red,linewidth=2pt](3.05,0.05)(4,1)(7,4)(9.8,6.8)
+\rput(9,7.2){\color{red}m\"oglicher D\"ampfungsverlauf}
+
+\psline{<->}(8,0)(8,4)\uput[0](8.1,2){$A_{\text{min}}$}
+\psline(-0.1,1)(0,1)\rput[rB](-0.2,0.8){$A_{\text{max}}$}
+
+
+
+\end{pspicture}}
+\vspace*{4mm}\caption{Filterspezifikation mittels Toleranzschema \label{Fspec}}
+\end{center}
+\vspace*{-6mm}
+\end{figure}~\\
+
+\nit {\bf\boldmath{Im Durchlassbereich\index{Durchlassbereich} (DB) bestimmt der Stempel\index{Stempel} die maximal zul"assige
+  D"ampfung\index{Dampfung@{D\"ampfung}} $A_{\max}$; im
+  Sperrbereich\index{Sperrbereich} (SB) bestimmt die
+  Matrize\index{Matrize} die minimal n"otige D"ampfung $A_{\min}$.}} Nun gilt es eine D"ampfungsfunktion\index{Dampfungsfunktion@D\"ampfungsfunktion} zu finden, die einerseits das
+Toleranzschema nicht verletzt und andererseits auf eine realisierbare
+Funktion f"uhrt.\\ Die Filterfunktionen HP, BP und BS lassen sich
+durch entsprechende Frequenztransformation (Abb.~\ref{bsb tp-hp}) aus
+einer TP-Funktion gewinnen.
+\begin{figure}[!htb]
+\begin{center}
+  \bild{/filter/FIL14.ps,width=0.5}\vspace*{-3mm}\caption{Beispiel: Toleranzschema-Transformation eines TP in einen HP \label{bsb tp-hp}}
+\end{center}
+\vspace*{-6mm}
+\end{figure}
+Es gen"ugt somit, wenn wir im weiteren einige Standardapproximationen des
+Tiefpasses betrachten. Auf die HP, BP und BS Transformationen kommen wir im
+Abschnitt~\ref{Frequtrans} zu sprechen.
+\paragraph{Die Frequenznormierung}~\\
+Um das Rechnen mit unhandlichen Zahlen zu umgehen und um die
+Approximation zu vereinheitlichen, f"uhren wir {\bf normierte Frequenzen}\index{Frequenz!normiert}
+ein.  Betrachten wir dazu das TP-Toleranzschema\index{Toleranzschema} in Abb.~\ref{norm}.
+\begin{figure}[!htb]
+\vspace*{-1mm}
+\begin{center}
+  \bild{/filter/FIL15.fig.eps,width=0.5}\vspace*{-3mm}\caption{Beispiel einer Normierung der Frequenzachse, wobei $\Omega_{D}<\Omega_{S}<2\Omega_{D}$\label{norm}}
+\end{center}
+\vspace*{-6mm}
+\end{figure}
+Die normierten Gr"ossen erhalten wir somit zu:\\~\\
+\myboxx{
+\begin{equation}
+S=\frac{s}{\omega_{r}} \hspace{2cm} \Omega=\frac{\omega}{\omega_{r}} 
+\hspace{2cm} \sigma'=\frac{\sigma}{\omega_{r}}
+\end{equation}}~\\~\\
+\nit Prinzipiell l"asst sich die Normierung mit einer beliebigen
+Referenzfrequenz durch\-f"uh\-ren. Bei TP und HP ist jedoch die
+Normierung bez"uglich der Grenzfrequenz des Durchlassbereiches
+$\omega_{D}$, also $\omega_{r}=\omega_{D}$ zweckm"assig. Bei BP und
+BS w"ahlen wir zur Normierung die Mittenfrequenz $\omega_{m}$. {\bf\boldmath{
+  Zur Entnormierung wird in der normierten Funktion $S$ durch
+  $s/\omega_{r}$ ersetzt.}}
+\subsection{Tiefpassapproximation}
+Um im Folgenden einige Standardapproximationen des Tiefpasses behandeln zu
+k"onnen, betrachten wir zuerst die Amplitudencharakteristik des idealen
+Tiefpasses mit der normierten Grenzfrequenz 1 (Abb.~\ref{amp-id}).
+\begin{figure}[!htb]
+\begin{center}
+  \bild{/filter/FIL16.fig.eps,width=0.4}\caption{Amplitudengang eines idealen Tiefpasses \label{amp-id}}
+\end{center}
+\vspace*{-6mm}
+\end{figure}~\\
+Alle Signale mit Frequenzen im Durchlassbereich (DB)\index{Durchlassbereich} werden ohne
+D"ampfung "ubertragen, w"ahrend Signale mit Frequenzen im Sperrbereich\index{Sperrbereich}
+(SB) kein Ausgangssignal ergeben.  {\bf Eine solche Charakteristik
+  kann mit einem physikalisch realisierbaren Netzwerk nicht ideal
+  nachgebildet werden.}  Diese Tatsache kann anhand einfacher
+"Uberlegungen gezeigt werden. Bekanntlich erscheint am Ausgang eines
+mit einem Dirac-Impuls\index{Dirac!Impuls} angeregten Systems die Laplace-R"ucktransformierte
+der "Ubertragungsfunktion $T(s)$, n"amlich\\~\\
+\mybox{\begin{equation}
+f_{\delta}(t)\equiv h(t)={\cal L}^{-1} \{ T(s) \}.
+\end{equation}}\\~~\\
+\nit Die Impulsantwort $h(t)$ des idealen Tiefpasses\index{Tiefpass!ideal} ist
+somit von der Form $\frac{\sin{x}}{x}$ (Abb.~\ref{stoss-id}) und erstreckt
+sich von $-\infty \leq t \leq \infty$. Aus Gr"unden der
+Kausalit"at\index{Kausalitat@{Kausalit\"at}} (Wirkung nicht vor Ursache) ist das
+Ausgangssignal eines Systems vor dem Impuls Null. Das Ausgangssignal
+des reellen Tiefpasses kann somit nicht ideal sein. Der ideale
+Tiefpass\index{Tiefpass!ideal} ist also physikalisch nicht
+realisierbar.
+
+\begin{figure}[!htb] %ehemals FIL17.ps
+\vspace*{-4mm}
+\begin{center}
+\bild{/filter/FIL_impuls_TP.eps,width=0.6}\vspace*{-3mm}
+\caption{Impulsantwort des idealen Tiefpasses $h(t)=\frac{\sin(t)}{\pi t}$\label{stoss-id}}   
+\end{center}
+\vspace*{-12mm}
+\end{figure}~\\
+
+\nit Die Amplitudenfunktion $|T(j\Omega)|$ ist eine gerade Funktion\index{Funktion!gerade}, also
+eine Funktion von $\Omega^{2}$ \cite{MOS:89}, denn es gilt:
+$|T(j\Omega)|=\sqrt{\Re [T(j\Omega)]^{2}+\Im [T(j\Omega)]^{2}}$. Weil
+$|T(j\Omega)| \geq 0$ ist, arbeiten wir im Folgenden mit
+$|T(j\Omega)|^{2}$ um Wurzelausdr"ucke zu vermeiden.
+Wir machen f"ur $|T(j\Omega)|^{2}$ den Ansatz:\\~\\
+\myboxx{\begin{equation}
+|T(j\Omega)|^{2}=\frac{1}{1+K(\Omega^{2})}
+\end{equation}}\\~~\\
+\nit Im Falle des Tiefpasses gilt f"ur die charakteristische Funktion\index{Funktion!charakteristische} $K(\Omega^{2})$:\\
+$
+\begin{array}{lrl}
+\hspace*{1cm}\mbox{Sperrbereich (SB):}\hspace{2cm}& K(\Omega^{2})\gg 1 &\hspace{1cm}\mbox{f"ur } \Omega>1 \\
+\hspace*{1cm}\mbox{Durchlassbereich (DB):} & 0\leq K(\Omega^{2})\ll 1 &\hspace{1cm}\mbox{f"ur } 0\leq\Omega<1
+\end{array}
+$
+\subsection{Approximation nach Butterworth}
+Die Approximation nach Butterworth\index{Butterworth} geht von
+folgendem Potenzansatz\index{Potenzansatz} f"ur die
+charakteristische Funktion\index{Funktion!charakteristische} aus:\\~~\\
+\myboxx{\begin{equation}
+K(\Omega^{2})=(\Omega^{2})^{n}
+\end{equation}}\\~~\\ 
+\nit wobei $n$ die Ordnung\index{Ordnung} des Filters und $\Omega$ die normierte Frequenz ist.
+Damit wird der Amplitudengang des Butterworth-Filters $n$.~Ordnung:\\~~\\
+\myboxx{\begin{equation}
+|T(j\Omega)|=\frac{1}{\sqrt{1+\Omega^{2n}}}.
+\end{equation}}\\~~\\
+\nit Wir sehen, dass der Amplitudengang mit zunehmendem $\Omega$ {\bf streng monoton} abnimmt.
+
+\subsubsection{Eigenschaften der Approximation }
+{\bf\boldmath{ Die Bedingungen f"ur einen idealen Tiefpass sind im
+  Durchlassbereich mit $K(\Omega^{2})=0$ und im Sperrbereich mit
+  $K(\Omega^{2})=\infty$ erf"ullt.}}  Beim Butterworth-Ansatz sind
+s"amtliche Nullstellen von $K(\Omega^{2})$ im Ursprung\index{Ursprung}, die Pole liegen alle im Unendlichen. Damit ergeben sich folgende Eigenschaften:\\
+\begin{itemize}
+\item Durchlassbereich
+\begin{itemize}
+\item F"ur $\Omega=0$ wird f"ur s"amtliche $n$: $\quad |T(0)|=\maxs{\Omega}|T(j\Omega)|=T_{\max}=1$.
+    
+\item F"ur $\Omega=1$ wird f"ur s"amtliche $n$: $\quad |T(j)|=\frac{T_{\max}}{\sqrt{2}}=\frac{1}{\sqrt{2}}$ entsprechend einem Abfall von 3.01~dB.
+\item $|T(j\Omega)|$ kann f"ur $|\Omega|<1$ in eine Binominalreihe entwickelt werden \cite{BRO:SEM:91}:
+      \begin{eqnarray*}
+      |T(j\Omega)|&=&\frac{1}{\sqrt{1+\Omega^{2n}}}=f(\Omega^{2})=1-\frac{1}{2}\Omega^{2n}+\frac{3}{8}\Omega^{4n}-\frac{5}{16}
+      \Omega^{6n}+\cdots\\       
+      \end{eqnarray*}
+      Folglich sind alle Ableitungen bei $\Omega=0$ gleich Null, d.h.
+      \[
+      \frac{df}{d(\Omega^{2})}=\frac{d^{2}f}{d(\Omega^{2})^{2}}=\cdots
+     =\frac{d^{n-1}f} {d(\Omega^{2})^{n-1}}=0 \hspace{1cm} \mbox{f"ur}
+      \hspace{.5cm} \Omega^{2} \rightarrow 0.
+      \]
+      
+      {\bf Der Amplitudengang hat also keine
+        Welligkeit\index{Welligkeit}\index{Welligkeit|see{Rippel}}, er ist ``maximal flach''.}
+\end{itemize}
+
+\item Sperrbereich
+\begin{itemize}
+\item F"ur $\Omega\gg1$ wird $|T(j\Omega)|\approx \frac{1}{\Omega^{n}}$. Der Amplitudenabfall mit steigendem $\Omega$ wird also umso
+      steiler, je gr"osser die Filterordnung\index{Ordnung!Filter-}\index{Filter!ordnung} ist.  Der Amplitudengang
+      f"ur $\Omega \rightarrow \infty$ in dB wird:
+      $\alpha_{\text{dB}}(\Omega) \approx - 20 \; n \log{\Omega}$. Es
+      ergibt sich eine asymptotische Steilheit von  \boldmath{ $-n \cdot 20\mbox{~\bf{dB/Dekade}}$, bzw. $-n\cdot 6.02\mbox{\bf{~dB/Oktave}}$}.
+
+\end{itemize}
+\item Allgemein
+\begin{itemize}
+\item $|T(j\Omega)|$ ist f"ur $0<\Omega<\infty$ eine streng-monoton fallende Funktion\index{monoton!streng}. 
+\end{itemize}
+\end{itemize}
+
+\begin{figure}[!htb]% made mit matlabfile butterworth_plot.m
+\vspace*{-3mm}
+\begin{center}
+  \bild{/filter/FILn001.eps,width=0.71}\vspace*{-2mm}\caption{$|T(j\Omega)|^2$ der normierten Butterworth-TP-Filter der Ordnung: 1,2,3,10 und 20.}\label{butterworth_quadrat}
+\end{center}
+\vspace*{-6mm}
+\end{figure}
+\aufg
+a) Erstellen Sie mit Hilfe von \matlogo~ eine identische Grafik wie Abb.~\ref{butterworth_quadrat}.\\ b) Wie gross ist $|T(j\Omega)|$ f"ur ein Butterworth-TP-Filter mit $n=123$ bei $\Omega=2$?\\
+% Loesung: a) siehe butterworth_plot
+% b)T(jO)=1/sqrt(1+2^(2*123))=9.403954806578300e-38 entspricht -740.5dB=10log10(1+2^(2*123))
+
+
+
+
+\subsubsection{\boldmath{Bestimmung von $T(S)$ aus der Funktion $|T(j\Omega)|$}}
+Ausgehend von\\~~\\
+\myboxx{\begin{equation}
+\left. |T(j\Omega)|^{2}\right|_{{\displaystyle\Omega^{2}=-S^{2}}}=
+\frac{1}{1+(-S^{2})^{n}}=T(S) \cdot T(-S)=\frac{1}{D(S) \cdot D(-S)}
+\end{equation}}\\~~\\
+wird\\~~\\
+\myboxx{\begin{equation}
+D(S) \cdot D(-S)=1+ (-S^{2})^{n} 
+\end{equation}}\\~~\\
+\nit wobei D(S) ein Hurwitz-Polynom sein muss.  Mit dem Ansatz\\~~\\
+\myboxx{\begin{equation}
+D(S)=\prod_{j=1}^{t}(S^{2}+a_{j}\cdot S+b_{j})\prod_{j=2t+1}^{n}(S-c_{j})
+\end{equation}}\\~~\\
+\nit bestimmen wir das Produkt $D(S) \cdot D(-S)$ und erhalten durch
+Koeffizientenvergleich die gesuchten Koeffizienten. Betrachten wir
+zur Erl"auterung das Butterworth-Filter\index{Butterworth!Filter} 2.~Ordnung:
+\begin{eqnarray*}
+ |T(j\Omega)|^{2}=\frac{1}{1+S^{4}}&\mbox{somit ist} & D(S) \cdot D(-S)=S^{4}+1.\\
+\mbox{Ansatz: } D(S)=S^{2}+a_{1}S+b_{1}  & \longrightarrow & D(S) \cdot D(-S)=S^{4}+(2b_{1}-a_{1}^{2})S^{2}+b_{1}^{2}
+\end{eqnarray*}
+Durch Koeffizientenvergleich erhalten wir $a_{1}=\sqrt{2}$, $b_{1}=1$
+und
+\[
+T(S)=\frac{1}{S^{2}+\sqrt{2}S+1}.
+\]
+$T(S)$ ist eine {\bf Allpol-Funktion}, d.h. $T(S)$ hat keine endlichen
+Nullstellen\index{Nullstellen}. Man spricht daher auch von einem {\bf Allpolnetzwerk}\index{Allpol!netzwerk@-netzwerk}
+oder {\bf Allpolfilter}.\index{Allpol!filter@-filter}
+
+
+\begin{figure}[!htb]% made mit matlabfile butterworth_plot.m
+\vspace*{-3mm} % FILn002.eps alt
+\begin{center}
+\bild{/filter/FIL_butt_amp.eps,width=0.71}\vspace*{-2mm}\caption{Amplitudeng"ange\index{Butterworth!Amplitudengang} der normierten Butterworth-Tiefpassfilter der Ordnung: 1,2,3,10 und 20.}\label{fig_fil_butterworth}
+\end{center}
+\vspace*{-6mm}
+\end{figure}
+
+\clearpage
+
+\begin{figure}[!htb]% made mit matlabfile buutterbrot.m
+\vspace*{-3mm}
+\begin{center}
+\bild{/filter/FIL_butt_phase.eps,width=0.71}\vspace*{-2mm}\caption{Phaseng"ange der normierten Butterworth-Tiefpassfilter der Ordnung: 1,2,3,10 und 20.}
+\end{center}
+\vspace*{-6mm}
+\end{figure}
+
+\begin{figure}[!htb]% made mit matlabfile buutterbrot.m
+\vspace*{-3mm}
+\begin{center}
+\bild{/filter/FIL_butt_tauG.eps,width=0.71}\vspace*{-2mm}\caption{Gruppenlaufzeiten der normierten Butterworth-Tiefpassfilter der Ordnung: 1,2,3,10 und 20.}
+\end{center}
+\vspace*{-6mm}
+\end{figure}
+
+
+\clearpage
+\subsubsection{Bestimmung der Pollage\index{Pol!lage@-lage}}
+Aus der Beziehung
+\[
+|T(S)|^{2}=\frac{1}{1+(-S^{2})^{n}}=\frac{1}{D(S) \cdot D(-S)}
+\]
+kann die Lage der Pole bestimmt werden.  Bei den Polen $P_{k}$ wird
+\[
+D(S) \cdot D(-S)|_{S=P_{k}}=1+(-S^{2})^{n}|_{S=P_{k}}=0
+\]
+d.h. 
+\[
+(-1)^{n} P_{k}^{2n}=-1=e^{j(2k-1)\pi} \hspace{1cm} k=1,2,\ldots, 2n
+\]
+somit liegen die Pole bei ($k=1,2,\ldots, 2n$):\\~~\\
+\myboxx{
+\begin{equation}
+P_{k}=e^{j\frac{(2k+n-1)}{2n}\pi}= \sigma'_{k}+j\tilde{\Omega}_{k} \label{eq: pollage_butterworth}
+\end{equation}
+\begin{eqnarray}
+\mbox{bzw.}\hspace{1cm} \sigma'_{k}&=&\cos{\left(\frac{2k+n-1}{2n}\pi\right)}\\
+\mbox{bzw.}\hspace{1cm}\tilde{\Omega}_{k}&=&\sin{\left(\frac{2k+n-1}{2n}\pi\right)}
+\end{eqnarray}}\\~~\\
+\nit {\bf{\boldmath d.h. alle Pole von $|T(j\Omega)|^{2}$ liegen auf dem
+Einheitskreis im Abstand $\pi/n$ (Abb.~\ref{pollage-bw}).}}  Ist $n$
+gerade, ergeben sich keine reellen Pole ; ist $n$ ungerade\index{ungerade}, gibt es 2
+reelle Pole bei $\pm 1$.
+
+\begin{figure}[!htb]
+\vspace*{-2mm}% alt /filter/FIL19.ps
+\begin{center}
+{\psset{unit=0.7}
+
+\begin{pspicture}(5,6)
+
+%%%%%%%%% n=2
+
+\psline{->}(-7,3)(-1,3) 
+\psline{->}(-4,0)(-4,6) 
+\uput[0](-1.7,3.6){$\sigma'$}\uput[0](-5.3,5.5){$j\Omega$}\uput[0](-2.2,2.6){1}
+\pscircle[linewidth=1pt,linecolor=red](-4,3){2}
+\psdots[dotsize=4pt 4,dotstyle=x]%
+(-5.41,4.41)(-5.41,1.59)(-2.59,4.41)(-2.59,1.59)
+\psdot[dotsize=12pt 12,dotstyle=square](-6.5,5.5)\uput[0](-7,5.5){$S$}
+\uput[0](-3,5.5){$n=2$}
+
+\uput[0](-5.73,3.2){$\pi/2$}
+\psarc{<->}(-4,3){1.6}{135}{225}
+\psline(-4,3)(-5.71,4.71)
+\psline(-4,3)(-5.71,1.29)
+
+\uput[0](-6.6,0){$D(S)$}\uput[0](-3.6,0){$D(-S)$}
+{\Huge
+\rput{90}(-5.5,0.2){\uput[0](0,0){\{}}
+\rput{90}(-2.5,0.2){\uput[0](0,0){\{}}}
+
+%%%%%%%%% n=3
+
+\psline{->}(0,3)(6,3) 
+\psline{->}(3,0)(3,6) 
+\uput[0](5.3,3.6){$\sigma'$}\uput[0](1.7,5.5){$j\Omega$}\uput[0](4.8,2.5){1}
+\pscircle[linewidth=1pt,linecolor=red](3,3){2}
+\psdots[dotsize=4pt 4,dotstyle=x]%
+(5,3)(1,3)(4,4.7321)(2,4.7321)(4,1.2679)(2,1.2679)
+\psdot[dotsize=12pt 12,dotstyle=square](0.5,5.5)\uput[0](0,5.5){$S$}
+\uput[0](4,5.5){$n=3$}
+
+\uput[0](1.37,3.4){$\pi/3$}
+\psarc{<->}(3,3){1.6}{120}{180}
+\psline(3,3)(1.8,5.07) 
+
+\uput[0](0.4,0){$D(S)$}\uput[0](3.4,0){$D(-S)$}
+{\Huge
+\rput{90}(1.5,0.2){\uput[0](0,0){\{}}
+\rput{90}(4.5,0.2){\uput[0](0,0){\{}}}
+
+%%%%%%%%% n=4
+
+\psline{->}(7,3)(13,3) 
+\psline{->}(10,0)(10,6) 
+\uput[0](12.3,3.6){$\sigma'$}\uput[0](8.7,5.5){$j\Omega$}\uput[0](11.8,2.6){1}
+\pscircle[linewidth=1pt,linecolor=red](10,3){2}
+\psdots[dotsize=4pt 4,dotstyle=x]%
+(11.85,3.77)(11.85,2.23)(8.15,3.77)(8.15,2.23)(10.77,4.85)(10.77,1.15)(9.23,4.85)(9.23,1.15)
+\psdot[dotsize=12pt 12,dotstyle=square](7.5,5.5)\uput[0](7,5.5){$S$}
+\uput[0](11,5.5){$n=4$}
+
+\uput[0](8.5,3.9){$\pi/4$}\psline(9.5,3.8)(8.5,2.6)
+\psarc{<->}(10,3){1.6}{157.5}{202.5}
+\psline(10,3)(8.15,3.772)
+\psline(10,3)(8.15,2.23)
+
+\uput[0](7.6,0){$D(S)$}\uput[0](10.2,0){$D(-S)$}
+{\Huge
+\rput{90}(8.7,0.2){\uput[0](0,0){\{}}
+\rput{90}(11.3,0.2){\uput[0](0,0){\{}}}
+\end{pspicture}
+
+
+}
+\caption{Pollage von normierten Butterworth-Tiefpassfiltern der 2.,~3. und 4.~Ordnung}\label{pollage-bw}
+\end{center}
+\vspace*{-6mm}
+\end{figure}\index{Pol!lage@-lage}
+
+
+\nit F"ur das Nennerpolynom $D(S)$ unserer "Ubertragungsfunktion brauchen wir nur
+die Pole in der LHE zu ber"ucksichtigen. $D(S)$ wird somit
+\begin{equation}
+D(S)=\prod_{i=1}^{n} (S-P_{i}),
+\end{equation}
+wobei $P_{i}$ die Pole in der LHE bezeichnen.  Zur Veranschaulichung
+betrachten wir wieder das Butterworth-Filter 2.~Ordnung:
+\[ 
+\left. T(S)\cdot T(-S)=\frac{1}{1+S^{4}}\right|_{{\displaystyle S=j\Omega}}=|T(j\Omega)|^{2}.
+\]
+Die Pole von $|T(j\Omega)|^{2}$ liegen nach Formel~\ref{eq: pollage_butterworth} somit bei:
+\begin{equation*}
+P_{1,2}=e^{j \frac{4\mp 1}{4}\pi}=-\frac{1}{\sqrt{2}}\pm j\frac{1}{\sqrt{2}},\quad\text{und}\quad
+P_{3,4}=e^{j \frac{8\mp 1}{4}\pi}=+\frac{1}{\sqrt{2}}\mp j\frac{1}{\sqrt{2}}.
+\end{equation*}
+In der LHE liegen nur die Pole $P_{1}$ und $P_{2}$. $D(S)$ wird also:
+\[
+D(S)=(S-P_{1})\cdot(S-P_{2})=S^{2}+\sqrt{2}S+1\quad\mbox{und damit}\quad T(S)=\frac{1}{S^{2}+\sqrt{2}S+1}.
+\]
+Auf diese Art lassen sich auch Nennerpolynome von Filtern h"oherer Ordnung bestimmen.
+\subsubsection{Bestimmung der Filterordnung}
+Zur Bestimmung der notwendigen Filterordnung\index{Filter!ordnung} gehen wir vom
+Toleranzschema in Abb.~\ref{tptol} aus.\\~~\\
+\begin{figure}[!htb]
+\vspace*{-3mm}
+\begin{center}
+  \bild{/filter/FIL20.fig.eps,width=0.5}\caption{Beispiel eines Tiefpass Toleranzschemas \label{tptol}}
+\end{center}
+\vspace*{-6mm}
+\end{figure}\\~~\\
+\nit Man beachte, dass der Butterworth-Ansatz\index{Butterworth!Ansatz} automatisch
+zur Normierung auf die 3~dB-Grenz\-frequenz\footnote{Exakt m"usste es die $1/\sqrt{2}$-Grenz\-frequenz, oder die $20\log{(1/\sqrt{2})}=3.01~\text{dB}$-Grenz\-frequenz heissen. Der Einfachheit halber, verwenden wir aber den Ausdruck ``3~dB-Grenz\-frequenz''.} f"uhrt (siehe Figuren~\ref{fig_fil_butterworth} und \ref{butterworth_quadrat}). Der
+D"ampfungsverlauf eines Butterworth-Filters $n$.~Ordnung ergibt sich
+zu:\\~~\\
+\myboxx{\begin{equation}
+A(\Omega)=20 \cdot \log{\frac{1}{|T(j\Omega)|}}=10\cdot\log{(1+\Omega^{2n})}.
+\end{equation}}\\~~\\
+\nit Bei den Frequenzen $\Omega_{D}$ und $\Omega_{S}$ m"ussen folgende Bedingungen 
+erf"ullt sein:
+\begin{eqnarray*}
+A(\Omega_{D})=10\log{(1+\Omega_{D}^{2n})}=A_{\max} &\text{ und }& A(\Omega_{S})=10\log{(1+\Omega_{S}^{2n})}=A_{\min}.
+\end{eqnarray*}
+Die Bedingungen lassen sich in folgende Form umformen:
+\begin{eqnarray*}
+\Omega_{S}^{2n}=10^{A_{\min}/10}-1 &\text{ und }&\Omega_{D}^{2n}=10^{A_{\max}/10}-1
+\end{eqnarray*}
+Aus dem Quotient dieser beiden Bedingungen 
+\[
+\frac{\Omega_{S}^{2n}}{\Omega_{D}^{2n}}=\frac{10^{A_{\min}/10}-1}
+{10^{A_{\max}/10}-1}=\left(\frac{\Omega_{S}}{\Omega_{D}}\right)^{2n}
+\]
+aufgel"ost nach $n$ erhalten wir die notwendige Filterordnung zu:\\~~\\
+\myboxx{
+\begin{equation}
+n \geq\frac{\log{\left[\displaystyle\frac{10^{A_{\min}/10}-1}
+{10^{A_{\max}/10}-1}\right]}}
+{2 \cdot \log{\left(\frac{\Omega_{S}}{\Omega_{D}}\right)}}.\label{eq: butterwort_ordnung}
+\end{equation}}
+\bsp{Bestimmung der Filterordnung $n$ eines Butterworth-Filters}
+$A_{\max}=0.1$~dB, $A_{\min}=30$~dB, $f_{D}=2$~kHz, $f_{S}=3$~kHz $\longrightarrow$ $\Omega_{D}=1,$ $\Omega_{S}=1.5$.
+\[\mbox{Damit ist}\quad
+n\geq\frac{\log{\displaystyle\left[\frac{10^{30/10}-1} {10^{0.1/10}-1}\right]}}{2 \cdot \log{\left(\frac{1.5}{1}\right)}}=13.15.
+\]
+Somit erf"ullt ein Butterworth-Filter 14.~Ordnung die
+gestellten Bedingungen. Die notwendige Filterordnung kann auch aus
+dem Nomogramm im Anhang (Abb.~\ref{nomo-BW}) ermittelt werden.
+\aufg
+a) Bestimmen Sie mit Hilfe des Nomogramms (Abb.~\ref{nomo-BW}) die Filterordnung des Butter\-worth-Filters f"ur $A_{\max}\text{=0.04~dB}$, $A_{\min}=\text{40~dB}$, $f_{D}=\text{4~kHz}$ und $f_{S}=\text{10~kHz}$.\\ 
+% Loesung: Ordnung 8\\
+b) "Uberpr"ufen Sie Ihr Resultat von a) mit Hilfe vom \mb {\tt buttord}.\\
+% buttord(2*pi*4000,2*pi*10000,0.04,40,'s')=8
+c) Verifizieren Sie  die Resultate von \matlogo~und vom Nomogramm mit Formel~\ref{eq: butterwort_ordnung}. Wie gross muss die Filterordnung gem"ass Formel~\ref{eq: butterwort_ordnung} sein?
+% n=log10((10^(4)-1)/(10^0.004-1))/2/log10(2.5)=7.5811
+\clearpage
+\subsection{Approximation durch kritisch-ged"ampfte Filter (Gauss-Filter)}
+Tiefpassfilter $n$. Ordnung mit  {\bf kritischer D"ampfung}\index{Filter!kritisch-gedampft@{kritisch-ged\"ampft}} (Gauss-Filter\index{Gauss!-Filter}) haben jeweils einen $n$-fachen Pol auf der negativen $\sigma$-Achse.\\ \nit Somit kann die Impuls- und die Sprungantwort nicht oszillieren und die kritisch ged"ampften Filter weisen im \"Ubergangsbereich eine geringe Flankensteilheit auf.\\ \nit Gauss-Filter\index{Gauss-Filter} h"oherer Ordnung entstehen z.~B. durch Serieschaltung\index{Serieschaltung} identischer Filter 1.~Ordnung\index{Ordnung}. Das kritisch ged"ampfte Filter\index{Filter!kritisch-gedampft@{kritisch-ged\"ampft}} $n$.~Ordnung ist:~\\~\\
+\myboxx{\begin{equation}
+H(s)=\frac{1}{\klam{1+\frac{s}{\omega_c}}^n},
+\end{equation}}~\\~\\
+wobei $\omega_c$ den 3-dB Punkt\index{3-dB!Punkt} jedes der $n$ Teilfilter bezeichnet. 
+\bsp{Will man bei der Kreisfrequenz $\omega_D$ des kritisch ged"ampften Tiefpassfilters $n.$~Ordnung eine D"ampfung von $\alpha $~dB haben, so muss $\omega_c$ (der $n$ identischen Teilfilter) wie folgt gew"ahlt werden:}~\\
+\myboxx{\begin{equation}
+\omega_c=\frac{\omega_D}{\sqrt{10^{\frac{\alpha}{10\cdot n}}-1}} 
+\end{equation}}~\\ \index{Kreisfrequenz}\index{Dampfung@D\"ampfung}
+
+\bsp{Normierte UTF $H(S)$ eines kritisch-ged"ampften Filters $5.$~Ordnung (normiert auf: $H(j)=\frac{1}{\sqrt{2}}\rightarrow \omega_c=2.5933$)}
+\begin{equation*}
+H(S)=\frac{117.2829}{S^5+12.9663\cdot+ S^4   67.2502\cdot S^3 +  174.3977\cdot S^2 +  226.1297\cdot S +  117.2829}
+\end{equation*}
+Weitere normierte UTF k"onnen im Kapitel~\ref{anhang_kritisch} gefunden werden.
+
+\bsp{Kritisch-ged"ampftes Filter (Gauss-Filter) 3.~Ordnung}
+\begin{figure}[!htb]
+\vspace*{-6mm}
+\begin{center}
+  
+{\psset{unit=0.8}
+\begin{pspicture}(14,5)
+\psline(0,1)(14,1) 
+
+\psline(0,4)(2.5,4)\psline(3.5,4)(6.2,4) 
+\psline(7.2,4)(9.9,4)\psline(10.9,4)(14,4) 
+
+
+\psdots[dotsize=3pt 3,dotstyle=*]%
+(0,1)(14,1)(0,4)(14,4)(4,1)(7.7,1)(11.4,1)(4,4)(7.7,4)(11.4,4)
+
+\psline(11.4,2.6)(11.4,4) 
+\psline(11.4,2.4)(11.4,1) 
+
+\psline(10.9,2.6)(11.9,2.6) 
+\psline(10.9,2.4)(11.9,2.4) 
+
+\psline(7.7,2.6)(7.7,4) 
+\psline(7.7,2.4)(7.7,1) 
+
+\psline(7.2,2.6)(8.2,2.6) 
+\psline(7.2,2.4)(8.2,2.4) 
+
+\psline(4,2.6)(4,4) 
+\psline(4,2.4)(4,1) 
+
+\psline(3.5,2.6)(4.5,2.6) 
+\psline(3.5,2.4)(4.5,2.4) 
+
+\multido{\dx=1+3.7}{4}{%
+\psdot[dotsize=15pt 15,dotstyle=triangle,dotangle=270](\dx,4)%
+}
+\psframe(2.5,3.7)(3.5,4.3)
+\psframe(6.2,3.7)(7.2,4.3)
+\psframe(9.9,3.7)(10.9,4.3)
+
+\uput[0](2.7,4.7){$R$}
+\uput[0](6.3,4.7){$R$}
+\uput[0](10,4.7){$R$}
+
+\uput[0](0.7,4){$1$}\uput[0](4.4,4){$1$}\uput[0](8.1,4){$1$}\uput[0](11.8,4){$1$}
+
+\uput[0](4.5,2.5){$C$}\uput[0](8.2,2.5){$C$}\uput[0](11.9,2.5){$C$}
+
+\rput[rb](-0.2,2.2){$x(t)$}\psline{->}(0,3.8)(0,1.2) 
+\rput[lb](14.2,2.2){$y(t)$}\psline{->}(14,3.8)(14,1.2) 
+
+\end{pspicture}}
+
+\vspace*{-8mm}
+\caption{Kritisch-ged"ampftes Filter (Gauss-Filter) bestehend aus drei identischen, mit idealen Einheitsverst"arkern entkoppelten (wirkungsfreien) $RC$-Tiefpassfiltern mit $\omega_c=\frac{1}{RC}$}\index{wirkungsfrei}
+\end{center}
+\vspace*{-6mm} 
+\end{figure}\index{RC-Tiefpass@{$RC$-Tiefpass}}
+
+
+
+\begin{figure}[!htb]
+\vspace*{-7mm}
+\begin{center}
+  \bild{/filter/FIL_kritisch_amp.eps,width=0.71}\vspace*{-3mm}\caption{Amplitudeng"ange von normierten, kritisch-ged"ampften Filtern (Gauss-Filter) der Ordnung: 1,~2,~3,~10,~100 und 1000. Aus der Abbildung ist ersichtlich, dass kritisch-ged"ampfte Filter nicht beliebig schnell vom Durchlassbereich in den Sperrbereich wechseln k"onnen (selbst nicht mit extrem hoher Ordnung).}
+\end{center}
+\vspace*{-6mm} 
+\end{figure}\index{Durchlassbereich}\index{Sperrbereich}
+
+\begin{figure}[!htb]
+\vspace*{-7mm}
+\begin{center}
+  \bild{/filter/FIL_krit_phase.eps,width=0.71}\vspace*{-3mm}\caption{Phaseng"ange $\Theta(\omega)$ von normierten, kritisch-ged"ampften Filtern der Ordnung: 1,~2,~3,~10 und 20.}
+\end{center}
+\vspace*{-6mm} 
+\end{figure}
+
+
+\begin{figure}[!htb]
+\vspace*{-7mm}
+\begin{center}
+  \bild{/filter/FIL_krit_tauG.eps,width=0.71}\vspace*{-3mm}\caption{Gruppenlaufzeiten $\tau_G(\omega)$ von normierten, kritisch-ged"ampften Filtern der Ordnung: 1,~2,~3,~10 und 20.}
+\end{center}
+\vspace*{-6mm} 
+
+\end{figure}
+\begin{figure}[!htb]
+\vspace*{-7mm}
+\begin{center}
+  \bild{/filter/FIL_krit_tauP.eps,width=0.71}\vspace*{-3mm}\caption{Phasenlaufzeiten $\tau_P(\omega)$ von normierten, kritisch-ged"ampften Filtern der Ordnung: 1,~2,~3,~10 und 20.}
+\end{center}
+\vspace*{-6mm} 
+\end{figure}
+
+
+
+\clearpage
+\subsection{Approximation\index{Approximation} nach Tschebyscheff\index{Tschebyscheff} (engl.~Che\-by\-shev)}
+Beim Butterworth-Ansatz waren s"amtliche Nullstellen der Funktion
+$K(\Omega^2)$ im Ursprung. Durch eine Verteilung der Nullstellen im
+Durchlassbereich\index{Durchlassbereich} erreicht man eine bessere
+Approximation der idealen Tiefpasscharakteristik.
+Dies geschieht mit dem Ansatz von Tschebyscheff\index{Tschebyscheff}\footnote{Wir verwenden auch die Bezeichnung Tschebyscheff-I. Eine weitere Approximationsart sind die inversen Tschebyscheff-Filter, auch Tschebyscheff-II Filter genannt.}\index{Tschebyscheff!invers}:\\~\\
+\myboxx{\begin{equation}
+K(\Omega^{2})=e^{2} \cdot C_{n}^{2}(\Omega), 
+\end{equation}}\\~\\
+wobei $e$ eine Konstante (Rippelfaktor\index{Rippel!faktor}) und
+$C_{n}$ ein Tschebyscheff-Polynom\index{Tschebyscheff!polynom} erster
+Art der Ordnung $n$ ist\index{Ordnung} \cite{GRA:RYZ:00, VAL:82}. F"ur $|\Omega|\leq 1$ ist $C_{n}(\Omega)$ definiert als:\\~\\
+\myboxx{\begin{equation}
+C_{n}(\Omega)=\cos{(n\arccos{\Omega})}. 
+\end{equation}}\\~\\
+Daraus folgt, dass $C_{0}(\Omega)=1$ und $C_{1}(\Omega)=\Omega$.  Zur
+Bestimmung der Polynome h"oherer Ordnung l"asst sich eine
+Rekursionformel herleiten. Dazu machen wir die Substitution $\Omega=
+\cos{\theta}$ (bzw. $\theta=\arccos{\Omega})$. Mit Hilfe des trigonometrischen Additions\-theorems folgt:\\
+$
+\begin{array}{llclcl} 
+\qquad & C_{n+1}(\Omega) &=& \cos{[(n+1)\theta]} &=&
+\cos{(n\theta)}\cos{\theta}- \sin{(n\theta)}\sin{\theta},\\ 
+\qquad &C_{n-1}(\Omega) &=&
+\cos{[(n-1)\theta]} &=& \cos{(n\theta)}\cos{\theta}+ 
+\sin{(n\theta)}\sin{\theta}.
+\end{array} 
+$\\
+Durch Addition von $C_{n-1}$ und $C_{n+1}$ erhalten wir:\\
+\[
+C_{n+1}(\Omega)+C_{n-1}(\Omega)=2\cos{(n\theta)}\cos{\theta}=
+2\cdot C_{n}(\Omega)\cdot\Omega,
+\]
+und $C_{n+1}(\Omega)=2\;\Omega\; C_{n}(\Omega)-C_{n-1}(\Omega)$. Damit ist die Rekursionsformel:\\~\\
+\myboxx{\begin{equation} 
+C_{n}(\Omega)=2\;\Omega\;C_{n-1}(\Omega)-C_{n-2}(\Omega). 
+\end{equation}}\\~\\
+Daraus lassen sich nun die Tschebyscheff-Polynome $C_{n}$ f"ur $n\geq 2$
+berechnen:
+\begin{eqnarray*} 
+C_{2}(\Omega)=2\Omega^{2}-1, & \hspace*{0.5cm}& C_{3}(\Omega)=4\Omega^{3}-3\Omega, \hspace{0.5cm}\mbox{usw. (Siehe auch Tabelle~\ref{c-poly}.)}  
+\end{eqnarray*}
+F"ur $|\Omega|\geq1$ gehen die hergeleiteten Polynome in die Funktion\\~\\
+\myboxx{\begin{equation}
+C_{n}(\Omega)=\cosh{(n\; {\rm Arcosh}\Omega)} 
+\end{equation}}\\~\\ \nit "uber.  Mit dem Polynom $C_{n}$ und dem Rippelfaktor $e$ wird der
+Amplitudengang des Tschebyscheff-Filters:\\~\\
+\myboxx{\begin{equation}
+|T(j\Omega)|=\frac{1}{\sqrt{1+e^{2}C_{n}^{2}}}. 
+\end{equation}}\\~\\
+\nit Das Tschebyscheff-Filter ist ebenfalls ein {\bf Allpolfilter}\index{Allpolfilter}.
+Zwischen der Konstanten $e$ und der maximalen D"ampfung $A_{\max}$ gilt
+die Beziehung $A_{\max}=10\log{(1+e^{2})}$ [dB], also $e=\sqrt{10^{A_{\max}/10}-1}$.
+F"ur $A_{\max}=0.1\mbox{dB}$ eines Tschebyscheff-Filter wird $e=0.1526$.
+\subsubsection{Eigenschaften der Approximation}
+{\bf{\boldmath Im Durchlassbereich\index{Durchlassbereich} schwankt
+    das Tschebyscheff-Polynom in den Grenzen $\pm 1$
+    (Abb.~\ref{g-c-poly}). Im Sperrbereich nimmt $C_n$ monoton mit
+    $\Omega$ zu.}}
+\begin{figure}[!htb] % alt\bild{/filter/FIL21.ps,width=0.8
+\vspace*{-3mm}
+\begin{center}% made mit Cn_polynome.m
+  \bild{/filter/Cn.eps,width=0.95}\caption{Graphen der
+    Tschebyscheff-Polynome $C_{n}(\Omega)$ im
+    Durchlassbereich ($|\Omega |\leq 1$)  f"ur $n=1, ~2,~\ldots~6$.\label{g-c-poly}}
+\end{center}
+\vspace*{-6mm} 
+\end{figure}~\\
+\nit Somit ergeben sich f"ur die Approximation folgende Eigenschaften:
+\begin{itemize} 
+\item Durchlassbereich 
+\begin{itemize} 
+\item F"ur  $\Omega=0$ wird f"ur ungerade $n$: $|T(0)|=\maxs{\Omega}|T(j\Omega)|=1=T_{\max}$,\\
+\hspace*{3.4cm}f"ur gerade $n$: $|T(0)|=\frac{T_{\max}}{\sqrt{1+e^{2}}}=\frac{1}{\sqrt{1+e^{2}}}$.
+
+\item F"ur $\Omega=1$ wird f"ur s"amtliche $n$: $|T(j)|=\frac{T_{\max}} {\sqrt{1+e^{2}}}=\frac{1}{\sqrt{1+e^{2}}}$.
+\item F"ur $|\Omega|<1$ wird $|T(j\Omega)|$ bei den Nullstellen von
+$C_{n}^{2}$ maximal, minimal bei den Maxima von $C_{n}^{2}$. Weil alle Rippel\index{Rippel} im Durchlassbereich gleiche Amplitude aufweisen, spricht man
+auch von einem "Aquirippel-Filter. 
+\end{itemize}
+\item Sperrbereich 
+\begin{itemize} 
+\item F"ur $\Omega\gg1$ wird $|T(j\Omega)|\approx \frac{1}{e\;C_{n}(\Omega)}$. 
+Weil $C_{n}(\Omega)$ ein Polynom der Ordnung $n$ ist, wird der Abfall umso
+steiler, je gr"osser die Ordnung des Filters ist.
+F"ur $\Omega\gg1$ ist $C_{n}(\Omega)\approx 2^{n-1}\cdot\Omega^{n}$
+und der Amplitudengang wird:
+\begin{eqnarray*}
+\alpha_{\text{dB}}(\Omega)&\approx&-20\cdot\log{e}-20\cdot\log{C_{n}(\Omega)},\\
+\alpha_{\text{dB}}(\Omega)&\approx&-20\cdot\log{e}-(n-1)\cdot 20\cdot\log{2}-20\cdot n \cdot\log{\Omega}.
+\end{eqnarray*}
+\nit Der Amplitudengang hat somit gleich wie beim Butterworth-Filter eine 
+asymptotische Steilheit von \boldmath{$-n\cdot 20~\mbox{\bf{dB/Dekade}},$ bzw. $-n\cdot 6.02~\mbox{\bf{dB/Oktave}}$}.
+\begin{figure}[!htb]% made with tschebyscheff_plot.m
+\begin{center}\vspace*{-4mm} 
+  \bild{/filter/FILn003.eps,width=0.71}\vspace*{-3mm}\caption{Amplitudeng"ange f"ur normierte Tschebyscheff-Tiefpassfilter mit $A_{\text{max}}=2$~dB der Ordnung: 1,2,3 und 10.}\index{Amplitudengang!Tschebyscheff}\index{Tschebyscheff!Amplitudengang}
+\end{center}
+\vspace*{-6mm} 
+\end{figure}
+\end{itemize}
+\end{itemize}
+
+
+\begin{figure}[!htb]% made with tschb1.m
+\begin{center}\vspace*{-6mm} 
+  \bild{/filter/FIL_ts1_phase.eps,width=0.71}\vspace*{-3mm}\caption{Phaseng"ange f"ur normierte Tschebyscheff-Tiefpassfilter mit $A_{\text{max}}=2$~dB der Ordnung: 1,2,3 und 10.}\index{Phasengang}
+\end{center}
+\vspace*{-6mm} 
+\end{figure}
+
+\clearpage
+
+
+\begin{figure}[!htb]% made with tschb1.m
+\begin{center}\vspace*{-0mm} 
+  \bild{/filter/FIL_ts1_tauG.eps,width=0.71}\vspace*{-3mm}\caption{Gruppenlaufzeiten f"ur normierte Tschebyscheff-Tiefpassfilter mit $A_{\text{max}}=2$~dB der Ordnung: 1,2,3 und 10.}\index{Gruppenlaufzeit}
+\end{center}
+\vspace*{-6mm} 
+\end{figure}
+
+
+\subsubsection{{\boldmath Bestimmung von $T(S)$ aus der Funktion $|T(j\Omega)|$}}
+Ausgehend von:
+\begin{equation}
+|T(j\Omega)|^{2}|_{j\Omega=S}=\frac{1}{1+e^{2}C_{n}^{2}(-jS)}
+=\frac{1}{D(S)\cdot D(-S)}
+\end{equation}
+wird
+\begin{equation}
+D(S) \cdot D(-S)=1 + e^{2}C_{n}^{2}(-jS)    
+\end{equation}
+wobei $D(S)$ ein Hurwitz-Polynom\index{Hurwitz!-Polynom} sein muss.
+
+\bsp{Tschebyscheff-Filter 2.~Ordnung}
+\begin{eqnarray*}
+|T(S)|^{2}=\frac{1}{1+e^{2}(-2S^{2}-1)^{2}}=
+\frac{K}{S^{4}+S^{2}+\frac{(1+e^{2})}{4e^{2}}}&=&\frac{K}{D(S)\cdot D(-S)}\\
+D(S)\cdot D(-S)=S^{4}+S^{2}+\frac{(1 + e^{2})}{4e^{2}}&=&(S^{2}+a_{1}S+b_{1})(S^{2}-a_{1}S+b_{1})
+\end{eqnarray*}
+und somit
+\begin{equation*}
+a_{1}=\sqrt{\frac{\sqrt{1+e^{2}}}{e}-1} \quad \mbox{und} \quad
+b_{1}=\frac{\sqrt{1+e^{2}}}{2e}.
+\end{equation*}
+Der Rippelfaktor\index{Rippel!faktor} $e$ kann aus der geforderten maximalen
+Durchlassd"ampfung $A_{\max}$ bestimmt werden.  F"ur
+$A_{\max}=0.1\;\text{dB}\;(e=0.1526)$ ergibt sich f"ur $D(S)$ somit:
+\begin{equation*}
+D(S)=S^{2}+a_{1}S+b_{1}=S^{2}+2.372 S+3.313.
+\end{equation*}
+Eine Zusammenstellung der Nennerpolynome der Tschebyscheff-Filter befindet
+sich im Anhang~\ref{anhang_Tschebyscheff}.
+\subsubsection{Lage der Pole}
+{\bf{\boldmath Die Pole eines Tschebyscheff-Filters $P_{kT}=\sigma'_{kT}+j\tilde{\Omega}_{kT}$ liegen auf einer Ellipse} \cite{MOS:89}}.\index{Ellipse} Sie lassen sich wie folgt aus 
+den auf dem Einheitskreis liegenden Butterworth-Polen\index{Butterworth!Pole} 
+$P_{kBW}=\sigma'_{kBW}+j\tilde{\Omega}_{kBW}$ bestimmen ($k=1, 2, \ldots, n$):\\
+\begin{eqnarray}
+\sigma'_{kT}=\sinh{\left[\frac{1}{n}{\rm Arsinh}\left(\frac{1}{e}\right)\right]}
+\cdot \sigma'_{kBW}&=&\sinh{\left[\frac{1}{n}{\rm Arsinh}\left(\frac{1}{e}\right)\right]}
+\cdot \cos{\left(\frac{2k+n-1}{2n}\pi\right)}, \nonumber \\
+\tilde{\Omega}_{kT}=\cosh{\left[\frac{1}{n}{\rm Arsinh}\left(\frac{1}{e}\right)
+\right]}\cdot \tilde{\Omega}_{kBW}&=&\cosh{\left[\frac{1}{n}{\rm Arsinh}\left(\frac{1}{e}\right)
+\right]}\cdot \sin{\left(\frac{2k+n-1}{2n}\pi\right)}. \nonumber 
+\end{eqnarray}
+{\bf{\boldmath F"ur das Nennerpolynom $D(S)$ unserer "Ubertragungsfunktion
+  $T(S)$ m"ussen wir wiederum nur die Pole in der LHE
+  ber"ucksichtigen.}}  Betrachten wir zur Erl"auterung ein
+Tschebyscheff-Filter 3.~Ordnung mit 3~dB Rippel im
+Durchlassbereich. Wir gehen f"ur die Berechnung vom Butter\-worth-Filter
+3.~Ordnung aus, dessen 3 Pole in der LHE auf dem Einheitskreis\index{Einheitskreis}
+liegen (Abb.~\ref{Pole-BW}).
+\begin{figure}[!htb]%matlab butterwort_pole_plot.m
+\vspace*{-3mm}
+\begin{center}
+  \bild{/filter/FILn006a.eps,width=0.7}\vspace*{-15mm}\caption{Pole des normierten Butterworth-Filters 3.~Ordnung \label{Pole-BW}}
+\end{center}
+\vspace*{-6mm} 
+\end{figure}\\
+\nit Die Pole f"ur das Tschebyscheff-Filter ergeben sich somit zu:
+\begin{equation}
+P_{T}=\sinh{(\lambda)}\cdot\sigma'_{BW}+j\cosh{(\lambda)}\cdot
+\tilde{\Omega}_{BW}
+\end{equation}
+dabei ist $\lambda=\left(\frac{1}{n}\right){\rm
+  Arsinh}\left(\frac{1}{e}\right)$ mit $e=\sqrt{10^{A_{\max}/10}-1}$
+und $n=3$. Mit den Beziehungen $\sinh{(x)}=(e^{x}-e^{-x})/2$,
+$\cosh{(x)}=(e^{x}+e^{-x})/2$ und ${\rm
+  Arsinh}(x)=\ln{(x+\sqrt{x^{2}+1})}$ \cite{BRO:SEM:91}, wird $\lambda={\rm
+  Arsinh}(1)/3=0.2938$, $\sinh{(\lambda)}=0.2980$ und
+$\cosh{(\lambda)}=1.043$. Die Tschebyscheff-Pole liegen somit bei:
+\begin{equation*}
+P_{1,3T}=-0.1493\pm j\;0.9038,\quad \text{und} \quad P_{2T}=-0.2986.
+\end{equation*}
+Die Tschebyscheff-Pole sind dabei wie in (Abb.~\ref{lage bw-t}) dargestellt
+aus den Butterworth-Polen hervorgegangen.
+\begin{figure}[!htb]% matlab pole_plot_butt_tsch.m
+\begin{center}
+  \bild{/filter/FIL24.ps,width=0.43}\caption{Lage der Butterworth- und Tschebyscheff-Pole f"ur $n=3$ und $A_{\max}=3$~dB.\label{lage bw-t}}
+\end{center}
+\vspace*{-6mm} 
+\end{figure}\\
+Das Nennerpolynom $D(S)$ wird somit:
+\begin{equation*}
+D(S)=(S-P_{1})(S-P_{3})\cdot (S-P_{2})=S^{3}+0.59724 S^{2}+0.92835S +0.25059.
+\end{equation*}
+Auf diese Art lassen sich auch Nennerpolynome von Filtern
+h"oherer Ordnung\index{Ordnung!hohere@h\"ohere} bestimmen.  Merke: Die Pole des Tschebyscheff-Filters
+lassen sich aus den Polen des Butterworth-\-Filters {\bf approximieren},
+in dem man annimmt, dass die Realteile\index{Realteil} der Pole des Butterworth-\-Filters mit einen Faktor
+$\varepsilon$ multipliziert werden
+(Abb.~\ref{approx T}: Stauchung zur imagin"aren Achse hin). Dabei ist $\varepsilon$ die Exzentrizit"at\index{Exzentrizitae@{Exzentrizit\"a}t} der
+entstehenden Ellipse\index{Ellipse}, gegeben durch:
+\begin{equation*}
+\varepsilon=\tanh{\left[\left(\frac{1}{n}\right){\rm Arsinh}\left(\frac{1}{e}\right)\right]}.
+\end{equation*}
+\aufg
+Bestimmen Sie die Ordnung sowie die normierte UTF des Tschebyscheff-Tiefpass\-filters f"ur: $\Omega_D=1$, $\Omega_S=3/2$, $A_{\max}=1$~dB und $A_{\min}=16$~dB.\\ \index{cheb1ord@{\tt cheb1ord}}
+% LsgOrdnung [n,wn]=cheb1ord(2,3,1,16,'s') n=4, wn=2
+% cheb1ap(n,1)=-0.1395 +/-0.9834j ; -0.3369+/-0.4073j
+ 
+
+\bsp{Approximation der  Tschebyscheff-Pole aus den Butterworth-Polen}
+F"ur das Butterworth-Filter 3.~Ordnung mit $A_{\text{max}}=3~\text{dB}$ ist $\varepsilon=0.2856$ (Abb.~\ref{approx T}).
+\begin{figure}[!htb]
+\vspace*{-3mm}
+\begin{center}
+  \bild{/filter/FIL25.ps,width=0.39}\caption{Approximation des Tschebyscheff-Filters durch Stauchung der 
+$\sigma'$-Achse \label{approx T}}
+\end{center}
+\vspace*{-6mm} 
+\end{figure}
+
+\subsubsection{Bestimmung der Filterordnung}
+Zur Bestimmung der notwendigen Filterordnung $n$ gehen wir wiederum vom
+Tief\-pass\-toleranzschema (Abb.~\ref{tptol}) aus. Der
+D"ampfungsverlauf eines Tschebyscheff-Filters $n.$~Ordnung wird:
+\begin{equation}
+A_{\text{dB}}(\Omega)=20\;\log{\frac{1}{|T(j\Omega)|}}=
+10\;\log{(1+e^{2}C_{n}^{2}(\Omega))}.
+\end{equation}
+\nit An der Stelle $\Omega_{D}$ wird $A(\Omega_{D})=A(1)=A_{\max}=10\;\log{(1+e^{2}C_{n}^{2}(1))}=
+10\;\log{(1+e^{2})}$.\\
+\nit F"ur $\Omega\geq1$ gilt $C_{n}(\Omega)=\cosh{(n\;{\rm Arcosh}\Omega)}$.
+Somit wird $A(\Omega)$ an der Stelle $\Omega_{S}/\Omega_{D}$:
+\[
+A(\Omega_{S}/\Omega_{D})=A_{\min}=10\;\log{[1+e^{2}(\cosh{(n\;{\rm Arcosh}\klam{\Omega_{S}/\Omega_{D}}})^{2}]}
+\]
+Mit $e^{2}=10^{A_{\max}/10}-1$ wird $A_{\min}=10\;\log{[1+(10^{A_{\max}/10}-1)
+(\cosh{(n\;{\rm Arcosh}\klam{\Omega_{S}/\Omega_{D}})})^{2}]}$.
+Bzw. $10^{A_{\min}/10}-1=(10^{A_{\max}/10}-1) (\cosh{(n\;{\rm Arcosh}\klam{\Omega_{S}/\Omega_{D}})})^{2}$
+aufgel"ost nach $n$:\\ ~~\\
+\myboxx{\begin{equation}
+n\geq\frac{{\rm Arcosh}\sqrt{\displaystyle\frac{10^{A_{\min}/10}-1}
+{10^{A_{\max}/10}-1}}}{{\rm Arcosh}\klam{\Omega_{S}/\Omega_{D}}}.\label{ordnung_tschebyscheff}
+\end{equation}}\\~\\
+\nit Die Identit"at ${\rm Arcosh}(x)=\ln{[x+\sqrt{x^{2}-1}]}$ kann bei der Berechnung der Ordnung hilfreich sein \cite{BRO:SEM:91}.
+\bsp{Bestimmung der Filterordnung\index{Filter!ordnung}}
+$A_{\max}=0.1$~dB, $A_{\min}=30$~dB, $f_{D}=2$~kHz und $f_{S}=3$~kHz. $\longrightarrow \; n\geq 6.26$. 
+D.h. ein Tschebyscheff-Filter 7.~Ordnung erf"ullt die gestellten
+Bedingungen.  Die notwendige Filterordnung\index{Filter!ordnung} l"asst sich auch aus dem
+Nomogramm im Anhang (Abb.~\ref{nomo-Tsche}) oder mit dem \matlogo-Befehl {\tt cheb1ord} bestimmen.\index{cheb1ord@{\tt cheb1ord}}
+% Matlabbefehl [n,wn]=cheb1ord(1,1.5,0.1,30,'s')
+\aufg
+Bestimmen Sie mit dem Nomogramm (Abb.~\ref{nomo-Tsche}), dem \matlogo-Befehl {\tt cheb1ord} und Formel~\ref{ordnung_tschebyscheff} die Ordnung des Tschebyscheff-TP-Filter mit $A_{\max}=1$~dB, $A_{\min}=50$~dB, und $\Omega_{S}/\Omega_D=3$.
+\clearpage
+\subsubsection{Der Einfluss der Filterordnung und des Rippelfaktors auf den  
+  Amplitudengang der Tschebyscheff-Filter}
+Wenn wir die Amplitudeng"ange f"ur ein fixes $n$ bei wachsendem
+Rippelfaktor $e$ betrachten, stellen wir eine Verbesserung der
+Charakteristik im Sperrbereich fest (Abb.~\ref{amp fix n}). 
+\vspace*{-3mm} \begin{figure}[!htb] % matlab tscheby_plot_e_n_vergleich
+ \begin{center}
+  \bild{/filter/FILn013.eps,width=0.66}\vspace*{-2mm}\caption{Amplitudeng"ange f"ur fixes $n=4$ bei wachsendem Rippelfaktor $e=0.25, 0.5, 0.75$ und 1}\label{amp fix n}
+\end{center}
+\end{figure}\\
+Ebenfalls bringt eine Erh"ohung der Filterordnung $n$ bei fixem
+Rippelfaktor $e$ eine Verbesserung des Sperrbereichs (Abb.~\ref{amp
+  fix e}). Somit haben wir zwei M"oglichkeiten, das Verhalten im
+Sperrbereich zu verbessern.\\
+\vspace*{-3mm} % matlab tscheby_plot_e_n_vergleich
+\begin{figure}[!htb]
+ \begin{center}
+  \bild{/filter/FILn012.eps,width=0.66}\vspace*{-2mm}\caption{Amplitudeng"ange f"ur fixes $e=1$ bei wachsender Ordnung $n=1, 2, 3$ und 7}
+ \label{amp fix e}
+\end{center}
+\vspace*{-6mm} 
+\end{figure}
+\newpage
+\subsection{Approximation nach Cauer\index{Cauer}} 
+Mit dem Cauer-Filter wird der D"ampfungsverlauf sowohl im Durchlassbereich als
+auch im Sperrbereich im tschebyscheff'schen Sinn approximiert. Man spricht
+deshalb auch von Complete-Chebyshev - oder Chebyshev-Cauer-Filtern (CC-Filter).
+\begin{figure}[!htb]
+\vspace*{-3mm}
+\begin{center}
+  \bild{/filter/FIL28.ps,width=0.5}\caption{Amplitudengang eines Cauer-Tiefpassfilters 5.~Ordnung}
+\end{center}
+\vspace*{-6mm} 
+\end{figure}\\
+\nit Ausgegangen wird vom Ansatz:\\~~\\
+\myboxx{\begin{eqnarray}
+K(\Omega^{2})=e^{2}  R_{n}^{2} (\Omega)
+\end{eqnarray}}\\~\\
+\nit wobei $e$ wieder eine Konstante und $R_{n} (\Omega)$ eine
+tschebyscheff-rationale Funktion der Ordnung $n$ ist \cite{VAL:82}.\index{Ordnung}.
+Das
+charakteristische Polynom\index{Polynom!charakteristische} $K(\Omega)=f(\Omega)/p(\Omega)$ ist eine rationale Funktion. Es gilt:\\
+\begin{tabular}{lll}
+\hspace*{0.5cm} DB:& $f(\Omega)=0$ \hspace {1cm} & D"ampfungs- oder 
+Reflexionsnullstellen $\Omega_{1}$, $\Omega_{3}$, $\ldots$\\
+\hspace*{0.5cm} SB:& $p(\Omega)=0$ & D"ampfungspole $\Omega_{2}$,$\Omega_{4}$, $\ldots$
+\end{tabular}\\
+Die Funktion $R_{n}(\Omega)$ kann eine gerade oder ungerade Funktion sein.
+Als gerade Funktion hat sie die Form:\\~\\
+\myboxx{\begin{equation*}
+R_{n}(\Omega)=k\frac{(\Omega^{2}-\Omega^{2}_{1})(\Omega^{2}-\Omega^{2}_{3})
+\ldots (\Omega^{2}-\Omega^{2}_{n-1})}{(\Omega^{2}-\Omega^{2}_{2})
+(\Omega^{2}-\Omega^{2}_{4})\ldots (\Omega^{2}-\Omega^{2}_{n})}=k\prod_{i=1}^{\frac{n}{2}}\frac{(\Omega^{2}-\Omega^{2}_{2i-1})}{(\Omega^{2}-\Omega^{2}
+_{2i})}
+\end{equation*}}\\~~\\
+Als ungerade Funktion hat sie die Form:\\~~\\
+\myboxx{\begin{equation*}
+R_{n}(\Omega)=k\Omega\frac{(\Omega^{2}-\Omega^{2}_{1})(\Omega^{2}-\Omega^{2}_{3})
+\ldots (\Omega^{2}-\Omega^{2}_{n-2})}{(\Omega^{2}-\Omega^{2}_{2})
+(\Omega^{2}-\Omega^{2}_{4})\ldots (\Omega^{2}-\Omega^{2}_{n-1})}=k\Omega\prod_{i=1}^{\frac{n-1}{2}}\frac{(\Omega^{2}-\Omega^{2}_{2i-1})}{(\Omega^{2}-\Omega^{2}
+_{2i})}
+\end{equation*}
+}\\~\\
+Ferner gilt: $R_{n}(1)=1$. F"ur die Berechnung der Frequenzen $\Omega_{k}$ ist von Cauer eine
+geschlossene L"osung angegeben worden \cite{DAN:74}. Sie f"uhrt zu
+Jakobi-elliptischen Funktionen\index{Funktion!Jakobi-elliptisch}. Die Cauer-Filter werden deshalb auch
+als elliptische Filter\index{Filter!elliptische}\index{Filter!Cauer-|see{Cauer}} bezeichnet. Die Werte
+f"ur die Pol- und Nullstellen\index{Nullstellen} k"onnen aus Filtertabellen (z.B. \cite{ZVE:67}) entnommen oder
+einfach mit dem \mb {\tt ellip} berechnet werden. Mit
+der Funktion $R_{n}$ und dem Rippelfaktor $e$ wird der Amplitudengang
+des Cauer-Filters:\\~\\
+\myboxx{\begin{equation}
+|T(j\Omega)|=\frac{1}{\sqrt{1+e^{2}R_{n}^{2}(\Omega)}}
+\end{equation}}~\\~\\
+Zwischen der Konstanten $e$ und der max. zul"assigen D"ampfung $A_{\max}$ im
+Durchlassbereich gilt $e=\sqrt{10^{A_{\max}/10}-1}$.\\
+\subsubsection{Eigenschaften der Approximation}
+{\bf{\boldmath Im Durchlassbereich schwankt die tschebyscheff-rationale Funktion\index{Funktion!tschebyscheff-rationale}
+  $R_{n} (\Omega)$ zwischen den Grenzen $\pm 1$. Im Sperrbereich
+  oberhalb $\Omega_{s}$ schwankt der Betrag von $R_{n} (\Omega)$
+  zwischen den Grenzen $L$}} (gegeben durch die min. zul"assige
+D"ampfung im SB) {\bf{\boldmath und $\infty$}} \cite{MOS:89}.
+\begin{figure}[!htb]
+\vspace*{-3mm}%\bild{/filter/FIL29.ps,width=0.7} alt 
+\begin{center}% Rn_polynom
+  \bild{/filter/Rn.eps,width=0.95}\caption{Die tschebyscheff-rationale Funktionen $R_{n} (\Omega,L)$  f"ur $n=1,~2,~3$ und $4$.}
+\end{center}
+\vspace*{-6mm} 
+\end{figure}~\\
+\nit Daraus resultieren nun folgende Eigenschaften:
+\begin{itemize}
+\item Durchlassbereich
+\begin{itemize}
+\item F"ur $\Omega=0$ wird f"ur ungerade $n$: $|T(0)|=\maxs{\Omega}|T(j\Omega)|=1=T_{\max},$\\
+      \hspace*{3.4cm}f"ur gerade $n$: $|T(0)|=\frac{T_{\max}}{\sqrt{1+e^{2}}}=\frac{1}{\sqrt{1+e^{2}}}$.
+\item F"ur $\Omega=1$ wird f"ur s"amtliche $n$: $|T(j)|=\frac{T_{\max}}{\sqrt{1+e^{2}}}=\frac{1}{\sqrt{1+e^{2}}}$.
+\item F"ur $|\Omega| < 1$ wird $|T(j\Omega)|$ maximal bei den Nullstellen von
+      $R_{n}^{2}$, minimal bei den Maxima von $R_{n}^{2}$. Alle Rippel im
+      Durchlassbereich weisen gleiche Amplitude auf. Es gilt wiederum: $e^2=10^{A_{\max}/10}-1$.
+\end{itemize}
+\item Sperrbereich
+\begin{itemize}
+\item F"ur $\Omega > 1$ schwankt der Amplitudengang nach dem "Ubergangsbereich
+      zwischen $0$ und $\frac{1}{\sqrt{1+e^{2}L^{2}}}$. Die Rippel im
+      Sperrbereich weisen auch alle gleiche Amplitude auf, wobei $(eL)^2=10^{A_{\min}/10}-1$.
+\end{itemize}
+\end{itemize}
+
+
+\begin{figure}[!htb]% made with cauer2.m
+\begin{center}\vspace*{-0mm} 
+  \bild{/filter/FIL_cauer_amp.eps,width=0.71}\vspace*{-3mm}\caption{Amplitudeng"ange f"ur normierte Cauer-Tiefpassfilter mit $A_{\text{max}}=10$~dB, $A_{\text{min}}=90$~dB  der Ordnung: 1,2,3,4 und 6.}\index{Cauer!-Amplitudengang}
+\end{center}
+\vspace*{-6mm} 
+\end{figure}
+
+\begin{figure}[!htb]% made with cauer2.m
+\begin{center}\vspace*{-0mm} 
+  \bild{/filter/FIL_cauer_phase.eps,width=0.71}\vspace*{-3mm}\caption{Phaseng"ange f"ur normierte Cauer-Tiefpassfilter mit $A_{\text{max}}=10$~dB, $A_{\text{min}}=90$~dB  der Ordnung: 1,2,3,4 und 6. Die Phasenspr"unge von $+\pi$ ergeben sich jeweils beim Durchgang durch eine Nullstelle auf der $j\omega$-Achse}\index{Cauer!-Phasengang}\index{Phasensprung}
+\end{center}
+\vspace*{-6mm} 
+\end{figure}
+
+\clearpage
+\begin{figure}[!htb]% made with cauer2.m
+\begin{center}\vspace*{-0mm} 
+  \bild{/filter/FIL_cauer_tauG.eps,width=0.71}\vspace*{-3mm}\caption{Gruppenlaufzeiten f"ur normierte Cauer-Tiefpassfilter mit $A_{\text{max}}=10$~dB, $A_{\text{min}}=90$~dB  der Ordnung: 1,2,3,4 und 6.}\index{Cauer!-Gruppenlaufzeit}
+\end{center}
+\vspace*{-6mm} 
+\end{figure}
+
+
+\subsubsection{{\boldmath{Bestimmung der Filterordnung, der Lage der Pol- und Nullstellen   und der "Ubertragungsfunktion $T(S)$}}}
+Die notwendige Filterordnung des Cauer-Filters l"asst sich anhand von
+$A_{\max}$, $A_{\min}$ und $\Omega_S/\Omega_D$ mit \matlogo-Befehl {\tt
+  ellipord} oder aus dem Nomogramm\index{Nomogramm} im Anhang
+(Abb.~\ref{nomo-CC}) bestimmen. Die Formel f"ur die Ordnung lautet \cite{ING:PRO:97}:\\
+\myboxx{
+\begin{equation}
+\hspace*{-3mm}n\geq\frac{K\left(\left( \frac{\Omega_D}{\Omega_S}\right)^2\right)  K\left(1-\frac{10^{A_{\max}/10}-1}{10^{A_{\min}/10}-1}\right) } {K\left(1-\left(\frac{\Omega_D}{\Omega_S}\right)^2\right )K\left(\frac{10^{A_{\max}/10}-1}{10^{A_{\min}/10}-1} \right)},\text{mit}\quad K(k)=\int_0^{\frac{\pi}{2}}\frac{d\theta}{\sqrt{1-k\sin^2\theta}}\label{ordnung_cauer}
+\end{equation}}\\~\\
+wobei $K(k)$ das vollst"andige elliptische Integral\index{elliptisches Integral!vollstae@{vollst\"a}ndiges} erster Gattung in der Legendreschen Normalform\index{Legendresche Normalform} ist \cite{BRO:SEM:91}.\\
+\nit Ebenso lassen sich die Pol- und
+Nullstellen mit dem \matlogo-Befehl {\tt ellipord} bestimmen oder aus Filtertabellen entnehmen.
+Da das Cauer-Filter endliche Nullstellen besitzt, ist es {\bf kein
+  Allpolfilter}.
+
+\clearpage
+\bsp{Bestimmung der Filterordnung $n$ eines Cauer-Filters}
+$A_{\max}=0.1$~dB, $A_{\min}=30$~dB, $f_{D}=2$~kHz und $f_{S}=3$~kHz.\\~\\
+\nit Mit den genannten Spezifikationen ergibt sich mit Formel~\ref{ordnung_cauer} $n=4.0653$. Somit ist die ben"otigte
+Filterordnung\index{Ordnung}\index{Filter!ordnung|see{Ordnung}}
+$n=5$, was wir auch mit dem \mb {\tt ellipord} oder dem Nomogramm
+(Abb.~\ref{nomo-CC}) finden. F"ur die gleichen Spezifikationen
+ben"otigen wir ein Butterworth-Filter 14.~Ordnung oder ein
+Tschebyscheff-Filter 7.~Ordnung.  Die normierten Pole, Nullstellen und Konstante
+$K$ erhalten wir zum Beispiel mit dem \mb {\tt [Z,P,K]=ellip(5,0.1,30,1,'s')} zu\\
+\begin{equation*}
+\begin{aligned}
+\text{Pole: }\\
+P_{1}  &=&- 0.76123,\hspace*{2.1cm}\\    
+P_{2,3}&=&- 0.38597 \pm j 0.86132, \\
+P_{4,5}&=&- 0.080464 \pm j 1.0538. 
+\end{aligned}\hspace*{-5mm}
+\begin{aligned}
+\text{Nullstellen:}\\
+Z_{1,2}&=& \pm j 1.2616,\\
+Z_{3,4}&=& \pm j 1.7798,\\
+{}
+\end{aligned}\hspace*{-5mm}
+\begin{aligned}
+\text{Konstante:}\\
+K&=& 0.1502,\\
+{}\\
+{}
+\end{aligned}
+\end{equation*}\\
+Sie liegen wie folgt in der $S$-Ebene:
+\begin{figure}[!htb]
+\vspace*{-4mm}
+\begin{center}
+  \bild{/filter/FILn010.eps,width=0.71}\vspace*{-5mm}\caption{Lage der Pol- und Nullstellen beim Cauer-Filter 5.~Ordnung f"ur $A_{\max}=0.1$~dB, $A_{\min}=30$~dB, $f_{D}=2$~kHz und $f_{S}=3$~kHz}
+\end{center}
+\vspace*{-6mm}
+\end{figure}\\
+Es resultiert damit folgende normierte "Ubertragungsfunktion $T(S)$:
+\begin{equation*}
+T(S)=K \cdot\frac{{\displaystyle \prod_{i=1}^{4}} (S-Z_{i})}
+{{\displaystyle \prod_{j=1}^{5}} (S-P_{j})}=\frac{0.152\cdot (S^{2}+1.592)(S^{2}+3.168)}{(S+0.761)(S^{2}+0.772 S+0.891)(S^{2}+0.161S+1.117)}.
+\end{equation*}
+
+\clearpage
+F"ur $|T(j\Omega)|$ ergibt sich damit folgende Form:
+\begin{figure}[!htb] % made with Cauer_plot.m
+\begin{center}
+  \bild{/filter/FILn009.eps,width=0.71}\caption{Amplitudengang des Cauer-Tiefpassfilters 5.~Ordnung f"ur $A_{\max}=0.1$~dB, $A_{\min}=30$~dB, $f_{D}=2$~kHz und $f_{S}=3$~kHz}
+\end{center}
+\vspace*{-6mm} 
+\end{figure}\\~\\
+\nit Mit der Verwendung der Filtertabellen werden wir uns im 
+Kapitel~\ref{ent-mit-tab} etwas eingehender befassen. Die Verwendung von \matlogo-Befehlen
+ist jedoch wesentlich einfacher als die Verwendung der Tabellen.
+
+
+
+
+
+
+\clearpage
+\subsection{Approximation nach Bessel}
+Bei den bisher betrachteten Approximationen wurde versucht, den
+idealen Amplitudengang m"oglichst gut nachzubilden. Wir stellten keine
+Anforderungen an den Phasengang.  Im  wollen wir Tiefp"asse
+mit m"oglichst linearer Phase, d.h. konstanter Gruppenlauf
+realisieren.  Nach dem Verschiebungssatz der Laplace-Transformation\index{Laplace}
+ben"otigt man zur Bildung eines Laufzeitgliedes mit der Laufzeit
+$T_{0}$ eine "Ubertragungsfunktion der Form:\\~\\
+\myboxx{\begin{equation}
+T(S)=K e^{-ST_{0}}
+\end{equation}}\\~~\\
+\nit bzw. $\ln{T(S)}=\ln{K}-j\Omega T_{0}=\alpha(\Omega)+j \varphi(\Omega)$. F"ur die Gruppenlaufzeit gilt somit:\\~~\\
+\myboxx{\begin{equation}
+\tau_{g}(\Omega)=\frac{-d\varphi(\Omega)}{d\Omega}=T_{0}=\text{konstant.}
+\end{equation}}\\~\\
+Ohne Einschr"ankung  k"onnen wir $T_{0}=1$
+w"ahlen. Setzen wir weiter $K=1$, so erhalten wir:
+\begin{equation}
+T(S)=e^{-S}=\frac{1}{e^{S}} \approx \frac{1}{D(S)}.
+\end{equation}
+Unsere Aufgabe besteht nun darin, die transzendente
+Funktion\index{Funktion!transzendente} $e^{S}$ durch ein
+Hurwitz-Polynom\index{Hurwitz!-Polynom} m"oglichst gut zu approximieren.
+Wir gehen nun von folgendem Ansatz aus $D(S) \approx  e^{S}=\cosh{(S)} + \sinh{(S)}=g(S) + u(S)$. Mit
+\begin{eqnarray*}
+\text{ }\cosh{(S)}=1 + \frac{S^{2}}{2!} + \frac{S^{4}}{4!} +\ldots \text{ und } \sinh{(S)}=\frac{S}{1!} + \frac{S^{3}}{3!} + \frac{S^{5}}{5!} +\ldots\quad. \nonumber
+\end{eqnarray*}
+Damit $D(S)$ ein Hurwitz-Polynom wird, m"ussen bei der Kettenbruchzerlegung\index{Kettenbruchzerlegung} von
+$\frac{g(S)}{u(S)}$ (bzw. $\frac{u(S)}{g(S)}$ ) alle Koeffizienten existieren
+und positiv sein.
+\begin{eqnarray}
+\frac{\cosh{(S)}}{\sinh{(S)}} &=& \frac{1 + \frac{S^{2}}{2!} + \frac{S^{4}}{4!}
++\ldots}{\frac{S}{1!} + \frac{S^{3}}{3!} + \frac{S^{5}}{5!} +\ldots}
+\nonumber\\
+&=& \underbrace{
+\displaystyle\frac{1}{S}+
+\displaystyle\frac{1}{
+\displaystyle\frac{3}{S}+
+\displaystyle\frac{1}{
+\displaystyle\frac{5}{S}+\ldots+
+\displaystyle\frac{1}{
+\displaystyle\frac{2n-1}{S}}}}
+}_{\mbox{$n$~Glieder}}
+\end{eqnarray}
+Im Sinne einer Approximation brechen wir die Kettenbruchzerlegung nach
+$n$ Gliedern ab. Das resultierende Polynom $g_{n}(S) + u_{n}(S)$ wird
+als Bessel-Polynom $B_{n}(S)$ bezeichnet. Es ist ein striktes
+Hurwitz-Polynom der Ordnung $n$ und stellt eine Approximation von
+$D(S)$ dar.  Zur Erl"auterung betrachten wir ein Filter 3.~Ordnung. Es
+m"ussen zur Bildung von $D(S)$ also die ersten 3 Glieder der
+Kettenbruchzerlegung\index{Kettenbruchzerlegung} ber"ucksichtigt
+werden:
+\[
+\frac{g_{3}(S)}{u_{3}(S)} 
+=\frac{1}{S}+
+\displaystyle\frac{1}{
+\displaystyle\frac{3}{S}+
+\displaystyle\frac{1}{
+\displaystyle\frac{5}{S}}}
+=\frac{6S^{2}+15}{S^{3}+15S}
+\]
+Damit wird $D(S)=g_{3} (S) + u_{3} (S)=S^{3}+6S^{2}+ 15 S + 15$
+und f"ur $T(S)$ erhalten wir:
+\[
+T(S)=\frac{K}{S^{3}+6S^{2}+15S+15}
+\]
+mit der gew"ahlten Normierung $T(0)=1$ wird $K=15$. F"ur die Gruppenlaufzeit
+folgt:
+\begin{equation*}
+\tau_{g}(\Omega)=-\frac{d\varphi(\Omega)}{d\Omega}=-\frac{d \left[ -\arctan{\left(\frac{15\Omega-\Omega^{3}}{15-6\Omega^{2}}\right)}\right]}{d\Omega}=\frac{6\Omega^{4}+45\Omega^{2}+225}{\Omega^{6}+6\Omega^{4}
+        +45\Omega^{2}+225}.
+\end{equation*}
+An den speziellen Punkten $\Omega=0$ und $\Omega=
+1$ ist $\tau_{g}(0)=1$ und $\tau_{g}(1)=0.99625$.
+\subsubsection{Bestimmung der Bessel-Polynome mittels Rekursionsformel}
+Die Bessel-Polynome $B_{n}(S)$ k"onnen auch mit folgender
+Rekursionsformel\index{Rekursionsformel}
+bestimmt werden:\\~~\\
+\myboxx{
+\begin{equation}
+B_{n}(S)=(2n-1)B_{n-1}+S^{2}B_{n-2}\label{eq: bessel_rekursion}
+\end{equation}}\\~~\\
+wobei $B_0 (S)=1$ und $B_1(S)=S+1$.\\ Zu Beginn der Betrachtungen
+haben wir $T_{0}=1$ gesetzt, d.h. die hergeleiteten
+"Uber\-tragungs\-funktionen sind alle auf eine
+Gruppenlaufzeit\index{Gruppenlaufzeit} von 1 normiert.  Um die
+D"ampfungsverl"aufe der Bessel-Filter mit denen der Butterworth-Filter
+vergleichen zu k"onnen, m"ussen wir die D"ampfung auch auf
+$A(1)=3~\mbox{dB}$ normieren. Dazu muss die Gruppenlaufzeit die Werte
+gem"ass (Tab.~\ref{werte-glaufz}) annehmen, d.h., $S$ wird durch $ST_0$ umnormiert.
+
+\bsp{Berechnung von $T_0$ f"ur das Bessel-Filter 3.~Ordnung}
+\begin{eqnarray}
+|T(ST_0)|_{S=j\cdot 1}&=&\left|\frac{15}{(ST_0)^3+6\cdot(ST_0)^2+15\cdot ST_0+15} \right|_{S=j\cdot 1}\nonumber \\ 
+&=&\frac{15}{\left|-jT_0^3-6T_0^2+15jT_0+15 \right|}=\frac{1}{\sqrt{2}}
+\end{eqnarray}
+Somit wird $(15-6T_0^2)^2+(15T_0-T_0^3)^2=2\cdot 15^2$ und $\rightarrow T_0=1.7557$. Werte von $T_0$ f\"ur Bessel-Filter anderer Ordnung sind in Tabelle~\ref{werte-glaufz} zu finden.
+\bsp{Umnormierung einer UTF eines Bessel-Filters 2.~Ordnung}
+Normiert auf $T_{0}=1$ ergibt sich mit dem Bessel-Polynom\index{Bessel!Polynom} $B_2(S)$ aus der Tabelle~\ref{b-poly}:\\
+\parbox[t]{0.7\textwidth}{
+\[
+T(S)=\frac{3}{S^{2}+3S+3}.
+\]
+}\\
+Aus der Tabelle~\ref{werte-glaufz} entnehmen wir $T_{0}=1.3617$, damit geht $S$ in $ST_{0}$ 
+"uber. Normiert auf $A(1)=3\mbox{~dB}$ erhalten wir:\\
+\parbox{0.9\textwidth}{
+\[
+T(S)=\frac{3}{(1.3617S)^{2}+3(1.3617S)+3}=\frac{1.6180}{S^{2}+2.2032S+1.6180}.
+\]
+}\\
+\\
+Abb.~\ref{fg-Bessel} zeigt den Amplitudengang der auf $A(1)=3$~dB normierten
+Bessel-Tiefpassfilter verschiedener Ordnung.
+\begin{figure}[!htb]
+\vspace*{-3mm}
+\begin{center}
+\bild{/filter/FILn007.eps,width=0.71}\caption{Amplitudeng"ange der normierten Bessel-Tiefpassfilter der Ordnung: 1,2,3 und 10.\label{fg-Bessel}}
+\end{center}
+\vspace*{-6mm}
+\end{figure}
+
+\begin{figure}[!htb]
+\vspace*{-3mm}
+\begin{center}
+\bild{/filter/FIL_bess_phase.eps,width=0.71}\caption{Phaseng"ange der normierten Bessel-Tiefpassfilter der Ordnung: 1,2,3,10 und 20.}
+\end{center}
+\vspace*{-6mm}
+\end{figure}
+
+
+\clearpage
+
+\begin{figure}[!htb]
+\vspace*{1mm}
+\begin{center}
+\bild{/filter/FIL_bess_tauG.eps,width=0.71}\caption{Gruppenlaufzeiten der normierten Bessel-Tiefpassfilter der Ordnung: 1,2,3,10 und 20.}\index{Gruppenlaufzeit}
+\end{center}
+\vspace*{-6mm}
+\end{figure}
+
+\begin{figure}[!htb]
+\vspace*{0mm}
+\begin{center}
+\bild{/filter/FIL_bess_tauP.eps,width=0.71}\caption{Phasenlaufzeiten der normierten Bessel-Tiefpassfilter der Ordnung: 1,2,3,10 und 20.}\index{Phasenlaufzeit}
+\end{center}
+\vspace*{-6mm}
+\end{figure}
+
+
+\clearpage
+\subsection{Vergleich der Tiefpassapproximationen}
+In diesem Abschnitt betrachten wir die Vor- und Nachteile der vorgestellten
+Tief\-pass\-approximationen. In der Praxis werden h"aufig
+nicht nur Anforderungen an den Amplitudengang, sondern auch an die
+Linearit"at des Phasengangs gestellt. Wir werden unser Augenmerk daher
+speziell auf den Amplituden- und Phasengang und das daraus
+resultierende Zeitverhalten der
+Filter richten.\\
+Da bei Cauer-Filtern\index{Cauer} der Frequenzgang nicht nur von der
+Filterordnung, sondern auch noch von der geforderten D"ampfung im
+Sperrbereich abh"angt, lassen sie sich nicht "ubersichtlich in
+allgemein g"ultiger Form darstellen. Wir werden uns daher bei der
+Diskussion auf die Filtertypen Butterworth\index{Butterworth}, Tschebyscheff\index{Tschebyscheff} und Bessel\index{Bessel}
+beschr"anken.
+
+\subsubsection{Vergleich der Pollagen}
+Es ist interessant, die Lage der Pole der drei gezeigten Approximationen
+miteinander zu vergleichen (Abb.~\ref{lage-pole}).
+\begin{figure}[!htb]
+\begin{center}
+  \bild{/filter/FIL32.ps,width=0.3}\caption{Lage der Pole in der $S$-Ebene f"ur Filter 3. Ordnung \label{lage-pole}}
+\end{center}
+\vspace*{-6mm}
+\end{figure}~~\\
+\nit Die Pole f"ur maximal flachen Amplitudengang (Butterworth) liegen auf einem
+Halbkreis.  Liegen die Pole n"aher der $j\Omega$-Achse (Ellipse), so
+erhalten wir einen konstanten Rippel\index{Rippel} im DB (Tschebyscheff). Liegen jedoch die Pole
+weit entfernt von der $j\Omega$-Achse, so wird die Phase linearer (Bessel-Filter).
+
+\subsubsection{Vergleich der Frequenzg"ange}
+Um das Verhalten im Frequenzbereich vergleichend beurteilen zu k"onnen,
+stellen wir den Amplitudengang, den Phasengang und die daraus abgeleitete
+Gr"osse, die Gruppenlaufzeit, der verschiedenen Filter einander gegen"uber.
+\begin{figure}[!htb] % plot_delay_phase_utf.m ohne cauer und cheb2ap macht nicht sinn
+\vspace*{-3mm}\begin{center}
+  \bild{/filter/FILn020.eps,width=1.1}\vspace*{-7mm}\caption{Vergleich der Filtercharakteristiken mit a) Bessel-, b) Butterworth-, c) Tschebyscheff- (0.1~dB) und d) Tschebyscheff- (2~dB) Approximation, wobei die Ordnungen $n=1,2,3,5,8$ und 10 dargestellt sind.}
+\end{center}
+\vspace*{-6mm}
+\end{figure}
+
+\begin{itemize}
+\item Das Bessel-Filter weist den flachsten "Ubergang zwischen Durchlass und  
+Sperrbereich auf. Es stellt somit die schlechteste N"aherung an den idealen  
+Tiefpassamplitudengang dar. Daf"ur besitzt es eine sehr lineare Phase und  
+daraus abgeleitet eine nahezu konstante Gruppenlaufzeit.
+
+\item Das Butterworth-Filter zeigt mit steigender Filterordnung einen merklich  
+steileren "Ubergang zwischen DB und SB. Die Gruppenlaufzeit zeigt bei der  
+Grenzfrequenz schon eine leicht "Uberh"ohung\index{Uberhoehung@{\"Uberh\"ohung}}.
+
+\item Das Tschebyscheff-Filter erf"ullt unsere W"unsche bez"uglich Amplitudengang
+noch besser. Erkaufen m"ussen wir uns dies jedoch mit einem noch
+schlechteren Gruppenlaufzeitverhalten. Lassen wir im Durchlassbereich noch
+gr"osseren Rippel zu, verl"auft der "Ubergang zwischen DB und SB noch
+steiler. Das Verhalten der Gruppenlaufzeit\index{Gruppenlaufzeit} verschlechtert sich jedoch abermals
+erheblich.
+\end{itemize}
+{\bf Es l"asst sich also feststellen, dass bei einem Minimalphasennetzwerk bei
+immer besserer Ann"aherung an den idealen Amplitudengang sich das
+Zeitverhalten zunehmend verschlechtert}. Dieser Sachverhalt ist auch f"ur das hier
+nicht aufgef"uhrte Cauer-Filter zutreffend.
+
+\subsubsection{Vergleich des Zeitverhaltens}
+Bei den verschiedenen Approximationen (mit Ausnahme des
+Bessel-Filters) haben wir uns auf eine m"oglichst gute Nachbildung des
+idealen Amplitudenganges\index{Amplitudengang!idealer} konzentriert.
+Es gibt aber auch viele Anwendungen, bei denen das Zeitverhalten des
+Filters von grossem Interesse ist.  Bevor wir die Sprung- und
+Impulsantworten\footnote{F\"ur die Ausdr"ucke Sprung-(antwort) wird
+  auch Schritt-(antwort) verwendet. Ebenfalls ist Stoss-(antwort)
+  anstelle von Impuls-(antwort) in
+  Gebrauch.\index{Sprungantwort}\index{Impuls!antwort}\index{Stossantwort|see{Impulsantwort}}\index{Schrittantwort|see{Sprungantwort}}}
+der verschiedenen Tiefpassapproximationen vergleichen, wollen wir kurz
+die notwendigen Definitionen betrachten.\\
+\paragraph{Definitionen der Sprung- und Impulsantwort}~\\
+\nit {\bf a) Die Sprungantwort\index{Sprungantwort}}\\
+\nit Als Sprungantwort $f_{u}(t)=h(t)\ast u(t)$ bezeichnet man die
+Antwort eines Systems, auf einen Einheitsschritt $u(t)$.  Praktisch
+auftretenden Sprungantworten lassen sich durch fol\-gen\-de 4
+Gr"os\-sen n"a\-he\-rungs\-wei\-se beschreiben:\\
+\begin{tabular}{lll}
+\hspace*{9mm}$t_{r}:$ \hspace*{1cm}& Anstiegszeit\index{Anstiegszeit}& (rise time)\index{rise time}\\
+\hspace*{9mm}$t_{d}:$             & Verz"ogerungszeit\index{Verzogerungszeit@{Verz\"ogerungszeit}} & (delay time)\index{delay time}\\
+\hspace*{9mm}$t_{s}:$     & Einschwingzeit\index{Einschwingzeit} & (settling time)\\
+\hspace*{9mm}$o:$                 & "Uberschwingen\index{Uberschwingen@{\"Uberschwingen}} & (overshoot)\index{overshoot}\\
+\hspace*{9mm}$\Delta:$            & "Restfehler & (residual error)\index{residual error} \\
+\end{tabular}\\
+\begin{figure}[!htb]
+\vspace*{-3mm}% matlab plot_impuls_sprung_character.m FIL35
+\begin{center}
+  \bild{/filter/FILn025.eps,width=0.67}\caption{Die charakteristischen Gr"ossen der Sprungantwort (anhand der TP-Sprungantwort des normierten Butterworth-Filters der Ordnung 9)}
+\end{center}
+\vspace*{-6mm}
+\end{figure}~\\
+\nit Die Einschwingzeit $t_s$ wird meist mit einem Restfehler von $\Delta=1\%$ angegeben. Im
+Falle eines Tiefpasses mit nicht zu grossem "Uberschwingen $(o<5\%)$
+gilt zwischen der Anstiegszeit $t_r$ und der
+3~dB-Bandbreite\index{3-dB!Bandbreite} ungef"ahr die Beziehung:
+\[
+t_{r} \approx \frac{2.2}{\omega_{c}}.
+\]
+Die Verz"ogerungszeit $t_d$ entspricht in etwa der mittleren
+Gruppenlaufzeit des
+Filters.\\
+\nit {\bf b) Die Impulsantwort $h(t)$}\\
+\nit Als Impulsantwort\index{Impuls!antwort} $f_{\delta}(t)\equiv h(t)$
+bezeichnet man das Ausgangssignal eines Systems, das am Eingang mit
+einem Dirac-Impuls\index{Dirac!Impuls} $\delta(t)$ angeregt wurde. Meist wird
+f"ur die Bezeichnung der Impulsantwort $h(t)$ verwendet.
+Praktisch auftretende Impulsantworten\index{Impuls!antwort} weisen etwa die in
+Abb.~\ref{grossen-stoss} dargestellte Form auf.\\
+\begin{figure}[!htb]
+\begin{center}% matlab plot_impuls_sprung_character.m 
+  \bild{/filter/FILn024.eps,width=0.7}\vspace*{-3mm}\caption{Die charakteristischen Gr"ossen einer Impulsantwort (anhand der  TP-Impulsantwort des normierten Butterworth-Filters der Ordnung 9)}
+\label{grossen-stoss}
+\end{center}
+\vspace*{-6mm}
+\end{figure}\\
+\begin{tabular}{ll}
+\hspace*{9mm}$t_{m}:$ \hspace*{1cm} & Mittlere Impulsl"ange \\
+\hspace*{9mm}$t_{d}:$              & Verz"ogerungszeit \\
+\end{tabular}\\
+\nit F"ur einen Tiefpass mit nicht zu grossem "Uberschwingen gilt f"ur die
+mittlere Impulsl"ange $t_m$:
+\[
+t_{m} \approx \frac{2.2}{\omega_{c}}.
+\]
+\nit Das Maximum der Impulsantwort erscheint etwa um die mittlere
+Gruppenlaufzeit $t_d$ des Systems verz"ogert.\\
+\nit {\bf c) Der Zusammenhang zwischen Sprung- und Impulsantwort}\\
+\nit Zwischen der Sprung- und der Impulsantwort gilt (Kapitel~\ref{Kapitel_Signale_zeitbereich}):
+\begin{equation}
+f_{u}(t)=\int_{-\infty}^{t} h(\tau) d\tau\quad\text{bzw.}\quad h(t)=\frac{\partial f_{u}(t)}{\partial t}.
+\end{equation}\\
+Dies ist leicht aus den entsprechenden Gleichungen im Frequenzbereich zu
+sehen:
+\begin{eqnarray}
+F_{u}(S)=\frac{1}{S}H(S)\qquad&\text{und}&\qquad F_{\delta}(S)=H(S).\nonumber
+\end{eqnarray}                 
+\paragraph{Einfluss des Frequenzganges auf das Zeitverhalten}~\\
+Sowohl die aus der Phase abgeleitete Gruppenlaufzeit wie auch der
+Amplitudengang nehmen (erw"unscht oder unerw"unscht) Einfluss auf das
+Zeitverhalten eines Systems. Dies, weil z.B. ein Impuls im Zeitbereich im
+Frequenzbereich eine konstante Amplitudendichte "uber alle Frequenzen
+aufweist. Der Amplitudengang "andert nun die spektrale Zusammensetzung, die
+Gruppenlaufzeit die zeitliche Lage der einzelnen Frequenzkomponenten des
+Eingangssignals.
+
+\paragraph{Vergleich der verschiedenen Tiefpassapproximationen}~\\
+Beim Vergleich der Frequenzg"ange\index{Frequenz!gang} haben wir
+festgestellt, dass mit einer besseren Ann"aherung an den idealen
+Amplitudengang sich das Gruppenlaufzeitverhalten zunehmend
+verschlechtert. Diese Tatsache findet auch im Zeitverhalten ihren
+Niederschlag.\\
+\newpage
+\paragraph{Sprungantworten}\index{Sprungantwort}~\\
+\begin{figure}[!htb]% alle bilder mit plot_impuls_sprung.m
+\vspace*{-3mm}
+\begin{center}
+  \bild{/filter/FILn014.eps,width=0.75}\caption{Sprungantwort von Bessel-Filtern der Ordnung $n=1,2,3,5,8$ und 10}
+\end{center}
+\vspace*{-6mm}
+\end{figure}
+
+\begin{figure}[!htb]
+\vspace*{-3mm}
+\begin{center}
+  \bild{/filter/FILn016.eps,width=0.75}\caption{Sprungantwort von Butterworth-Filtern der Ordnung $n=1,2,3,5,8$ und 10}
+\end{center}
+\vspace*{-6mm}
+\end{figure}
+\newpage
+\begin{figure}[!htb] % plot_impuls_spung.m
+\begin{center}
+  \bild{/filter/FILn018.eps,width=0.75}\caption{Sprungantwort von Tschebyscheff-Filtern mit 0.1~dB Rippel der Ordnung $n=1,2,3,5,8$ und 10}\label{FIL_ABB_SPRUNG_tscheby}
+\end{center}
+\vspace*{-9mm}
+\end{figure}
+\aufg
+Bestimmen Sie die Sprungantworten von Abb.~\ref{FIL_ABB_SPRUNG_tscheby} mit Hilfe des \mb {\tt step}.\index{step@{\tt step}}
+\paragraph{Impulsantworten}\index{Impuls!antwort}~\\
+\begin{figure}[!htb]
+\vspace*{-3mm}
+\begin{center}
+  \bild{/filter/FILn015.eps,width=0.75}\caption{Impulsantwort von Bessel-Filtern der Ordnung $n=1,2,3,5,8$ und 10}
+\end{center}
+\vspace*{-6mm}
+\end{figure}
+\newpage
+\begin{figure}[!!htbp]
+\vspace*{-3mm}
+\begin{center}
+  \bild{/filter/FILn017.eps,width=0.75}\caption{Impulsantwort von Butterworth-Filtern der Ordnung $n=1,2,3,5,8$ und 10}
+\end{center}
+\vspace*{-6mm}
+\end{figure}
+
+\begin{figure}[!!htbp]
+\vspace*{-3mm}
+\begin{center}
+  \bild{/filter/FILn019.eps,width=0.75}\caption{Impulsantwort von Tschebyscheff-Filtern mit 0.1~dB Rippel}\label{impuls_tscheby}
+\end{center}
+\vspace*{-6mm}
+\end{figure}
+\aufg
+Bestimmen Sie die Impulsantworten von Abb.~\ref{impuls_tscheby} mit Hilfe des \mb {\tt impulse}.\\
+\newpage
+\nit Die Frage, welches Filter das Beste ist, l"asst sich nicht generell
+beantworten. Es h"angt davon ab, ob gutes Frequenz- und / oder gutes
+Zeitverhalten erw"unscht ist.\\ ~\\ \nit Bei der Daten"ubertragung sind nur
+kleine Verzerrungen zugelassen, da die "Uberlagerung zeitlich
+aufeinanderfolgender Impulse zu Fehlern f"uhren kann. Es ist neben
+der Frequenzselektivit"at\index{Frequenz!selektivitae@{selektivit\"a}t} auch ein gutes
+Gruppenlaufzeitverhalten\index{Gruppenlaufzeit} wichtig. Solche Filter
+werden durch Kaskadierung zweier Sektionen realisiert. Die erste Sektion formt
+den erforderlichen Amplitudengang mit einem bekannten Filtertyp, die
+zweite korrigiert das unzureichende Gruppenlaufzeitverhalten mit einem Allpassnetzwerk.
+\paragraph{Bemerkung zu weiteren Filterapproximationsarten}~\\
+Es existiert unter anderem eine ``inverse''
+Tschebyscheff-Approximation\index{Tschebyscheff!invers}, welche, im
+Gegensatz zur ``normalen''
+Tschebyscheff-Approximation\index{Tschebyscheff!Approximation}, den
+Rippel im Sperrbereich besitzt und im Durchlassbereich flach ist
+(siehe \mb {\tt cheb2ap}). Die Ordnung dieser inversen
+Tschebyscheff-Filter ist gleich gross wie die vom Tschebyscheff-Filter
+\cite{VAL:82}. Das ``inverse'' Tschebyscheff-TP-Filter ist aber kein
+Allpol-Filter. \\ Es gibt weitere Approximationsm"oglichkeiten die wir
+hier nicht besprechen. Den interessierten Leser verweise ich auf
+\cite{VAL:82, ZVE:67}.  \clearpage

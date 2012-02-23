@@ -1,0 +1,1793 @@
+\section[Frequenztransformationen]
+{"Ubergang zu beliebigen Filtern durch Frequenztransformation
+\label{Frequtrans}}
+Wie schon im vorangehenden Abschnitt erw"ahnt, lassen sich die HP, BP
+und BS-"Uber\-tragungs\-funktionen aus einer TP-Approximation gewinnen.
+Das Hauptgewicht unserer bisherigen Betrachtungen lag daher bei der
+Approximation von TP-Filtern.\\
+{\bf Die Approximation eines HP, BP oder BS-Filters wird in drei
+  Schritten durchgef"uhrt:
+\begin{itemize}
+\item[1.] Transformation eines vorgeschriebenen Toleranzschemas in ein
+          ent\-spre\-chen\-des TP-Toleranzschema.
+
+\item[2.] Approximation des TP-Toleranzschemas in bekannter Weise.
+
+\item[3.] R"ucktransformation der gefundenen \"Ubertragungsfunktion\index{Ubertragungsfunktion@\"Ubertragungsfunktion}.
+\end{itemize}
+}
+\subsection{Die Tiefpass-Hochpasstransformation}
+Die normierte HP-"Ubertragungsfunktion kann durch folgende
+Frequenztransformation aus der normierten TP-"Uber\-tragungsfunktion gewonnen
+werden:\\~\\
+\myboxx{\begin{equation}
+        \text{TP}\longrightarrow \text{HP}\qquad\qquad\text{~~bzw.~~}\qquad\qquad  S \longrightarrow \frac{1}{S}
+\end{equation}}~\\~\\
+Somit ist der Zusammenhang zwischen den beiden \"Ubertragungsfunktionen:\\~\\
+\myboxx{\begin{equation}
+H_{HP}(S)=H_{TP}\left(\frac{1}{S}\right).
+\end{equation}}~\\~\\
+Die Toleranzschemen gehen somit wie folgt ineinander "uber:
+\begin{figure}[!htb]
+\vspace*{-3mm} % alt \bild{/filter/FIL44.ps,width=0.7}\
+\begin{center}
+{\psset{unit=0.67}
+\begin{pspicture}(-10,0)(10,8.3)%\showgrid
+\psline{->}(-9,1)(-3,1)\rput[l](-2.8,1){$\Omega$}
+\psline{->}(-9,1)(-9,7)\rput[B](-9,7.3){$A_{HP}(\Omega)$}
+\psset{linewidth=1.5pt}
+\psline[linecolor=red](-9,6)(-6,6)(-6,1)
+\psline[linecolor=red](-5,6.5)(-5,2)(-3,2)
+\psset{linewidth=1pt}
+\psline(-6,1.1)(-6,0.9)\psline(-5,1.1)(-5,0.9)
+\rput[T](-6,0.4){$\Omega_{S_{HP}}$} \rput[T](-5,0.4){$1$}
+\psline{<->}(-8,1)(-8,6)\rput[l](-7.8,3){$A_{\text{min}}$}
+\psline(-4.5,0.5)(-4.5,2.8)\rput[l](-4.3,2.8){$A_{\text{max}}$}
+\psline{->}(-4.5,0.5)(-4.5,1)\psline{->}(-4.5,2.5)(-4.5,2)
+
+\rput*(-0.5,4){$\Omega_{TP}=\frac{\displaystyle 1}{\displaystyle\Omega_{HP}}$}
+
+\psline{->}(3,1)(9,1)\rput[l](9.2,1){$\Omega$}
+\psline{->}(3,1)(3,7)\rput[B](3,7.3){$A_{TP}(\Omega)$}
+\psset{linewidth=1.5pt}
+\psline[linecolor=red](3,2)(6,2)(6,6.5)
+\psline[linecolor=red](7,1)(7,6)(9,6)
+\psset{linewidth=1pt}
+\psline(6,1.1)(6,0.9)\psline(7,1.1)(7,0.9)
+\rput[T](6,0.4){$1$} \rput[T](7,0.4){$\Omega_{S_{TP}}$}
+\psline{<->}(7.5,1)(7.5,6)\rput[l](4.2,3){$A_{\text{max}}$}
+\psline(4,0.5)(4,2.8)\rput[l](7.7,3){$A_{\text{min}}$}
+\psline{->}(4,0.5)(4,1)\psline{->}(4,2.5)(4,2)
+
+\end{pspicture}}
+  \caption{Transformation der Toleranzschemen Hochpass (HP) $\longrightarrow$ Tiefpass (TP)}
+\end{center}
+\vspace*{-6mm}
+\end{figure}\\
+Zwischen den normierten Eckfrequenzen der Sperrbereiche $\Omega_{S_{TP}}$ und $\Omega_{S_{HP}}$ gilt die
+Beziehung:\\~\\
+\myboxx{\begin{equation}
+\Omega_{S_{TP}}=\frac{1}{\Omega_{S_{HP}}}
+\end{equation}}~\\~\\
+Das Problem reduziert sich somit auf eine Tiefpassapproximation.
+\bsp{}
+Gesucht sei ein HP nach Tschebyscheff mit Toleranzschema gem"ass
+Abb.~\ref{bsp-hp}.
+\begin{figure}[!htb]
+\vspace*{-3mm}
+\begin{center}
+  \bild{/filter/FIL45.ps,width=0.7}\vspace*{-5mm}\caption{Beispiel HP-TP Transformation \label{bsp-hp}}
+\end{center}
+\vspace*{-6mm}
+\end{figure}~\\
+F"ur die notwendige Filterordnung\index{Filter!ordnung} erhalten wir
+mit dem Nomogramm im Anhang (Tab.~\ref{nomo-Tsche}) den Wert $n=4$
+(oder mit {\tt cheb1ord(1000,500,2,35,'s')} oder \newline {\tt
+  cheb1ord(1,2,2,35,'s')})\index{cheb1ord@{\tt cheb1ord}}. Mit der Tabelle~\ref{fak-2} ergibt sich das Nennerpolynom des
+normierten Tiefpasses 
+{\footnotesize \begin{equation*} T(S)=
+    \frac{0.16345}{(S^{2}+0.210S+0.929)(S^{2}+0.506S+0.222)}
+   =\frac{0.16345}{S^{4}+0.716S^{3}+1.256S^{2}+0.517S+0.206}.
+\end{equation*}}\\
+\nit Die gesuchte HP-"Ubertragungsfunktion l"asst sich durch direkte
+Substitution von $S$ durch $1/S$ berechnen.
+Sie l"asst sich aber auch sehr anschaulich aus den Singularit"aten von
+$T_{TP}(S)$ gewinnen oder direkt mit dem \mb {\tt cheby1(4,2,1,'high','s')}.
+\subsubsection{TP-HP Transformation durch direkte Substitution}
+Durch Substitution von $S$ durch $1/S$  ergibt sich aus dem allgemeinen, normierten
+Tiefpass:
+\begin{equation*}
+T_{TP}(S)=\frac{K}{b_{n}S^{n}+b_{n-1}S^{n-1}+...+b_{1}S+b_{0}}
+\end{equation*}\\
+\nit der allgemeine, normierte HP:
+\begin{equation*}
+T_{HP}(S)=\frac{KS^{n}}{b_{0}S^{n}+b_{1}S^{n-1}+...+b_{n-1}S+b_{n}}.
+\end{equation*}\\
+\nit F"ur unser Beispiel erhalten wir:
+{\footnotesize
+\begin{equation*}
+T_{HP}(S)=\frac{0.16345\cdot S^{4}}{0.206S^{4}+0.517S^{3}+1.256S^{2}+0.716S+1}=\frac{0.7943\cdot S^{4}}{(S^{2}+0.225S+1.078)(S^{2}+2.285S+4.505)}.
+\end{equation*}}\\
+\nit Realisieren wir das Filter durch Kaskadierung von aktiven Stufen 2.~Ordnung,
+so ist letztere Darstellung von Vorteil.
+\subsubsection{TP-HP Transformation durch Transformation der Singularit"aten}
+Diese Betrachtungsweise ist vor allem beim Bandpass und bei der
+Bandsperre von Interesse, der Vollst"andigkeit halber wollen wir sie
+jedoch auch hier auff"uhren.  Durch den "Ubergang $S \longrightarrow 1/S$ werden auch die Singularit"aten entsprechend
+transformiert:\\~~\\
+\myboxx{
+\begin{equation*}
+\text{Pole:}\quad P_{kHP}=\frac{1}{P_{kTP}}\qquad\qquad\text{Nullstellen:}\quad Z_{iHP}=\frac{1}{Z_{iTP}}
+\end{equation*}}\\~~\\
+\nit Betrachten wir wieder unser Beispiel $T_{TP}(S)=\frac{0.16345}{(S^{2}+0.210S+0.929)(S^{2}+0.506S+0.222)}$. Die Singularit"aten transformieren sich wie folgt:
+\begin{figure}[!htb]
+\vspace*{-3mm}
+\begin{center}
+  \bild{/filter/FIL46.ps,width=0.7}\caption{Transformation der Singularit"aten  TP-HP}
+\end{center}
+\vspace*{-6mm}
+\end{figure}
+\nit Pole:
+\begin{eqnarray*}
+P_{1,2TP}=- 0.1050\pm j 0.9581 &\longrightarrow & 
+P_{1,2HP}=- 0.1130\mp j 1.0313 \\
+P_{3,4TP}=- 0.2530\pm j 0.3975 &\longrightarrow &
+P_{3,4HP}=- 1.1396\mp j 1.7905
+\end{eqnarray*}
+\nit Nullstellen: $Z_{1,2,3,4TP}=\infty \longrightarrow Z_{1,2,3,4HP}=0$.
+Damit wird
+\[
+T_{HP}(S)=\frac{0.16345\cdot S^{4}}{(S^{2}+0.226S+1.076)(S^{2}+2.279S+4.505)}
+\]\\
+\nit und stimmt mit dem bekannten Resultat "uberein. {\bf Da die
+  Hochpasspole aus der Inversion der Tiefpasspole\index{Tiefpass!pole}
+  hervorgehen, haben sie die gleiche Polg"ute!\index{Pol!gue@{g\"u}te}}
+\subsection{Die Tiefpass-Bandpasstransformation}
+Die normierte BP-"Ubertragungsfunktion eines in {\bf log.
+  Darstellung symmetrischen Bandpasses} kann durch folgende
+Frequenztransformation aus der normierten TP-"Ubertragungsfunktion
+gewonnen werden:\\~~\\
+\myboxx{
+\begin{eqnarray*}
+        TP\quad\longrightarrow\quad BP\qquad&\text{bzw.}&\qquad S\quad \longrightarrow\quad\frac{S^{2}+1}{B\cdot S}
+\end{eqnarray*}}\\~~\\
+wobei $B$ der {\bf normierten Bandbreite} entspricht:\\~~\\
+\myboxx{
+\begin{equation*}
+B=\frac{\omega_{B2}-\omega_{B1}}{\omega_{r}},
+\end{equation*}}\\~~\\
+wobei $\omega_r$ die Mittenfrequenz ist (siehe Abb.~\ref{FIL_omega_B} und \ref{bsp-bp}). Da die Transformation zu einem {\bf geometrisch-symmetrischen Bandpass}\index{Band!pass!geometrisch-symmetrisch} f"uhrt gilt weiter:\\~~\\
+\myboxx{
+\begin{equation*}
+\Omega_{B1}\Omega_{B2}=\Omega_{S1}\Omega_{S2}=1
+\end{equation*}}\\~~\\
+Die BP-"Ubertragungsfunktion erhalten wir somit zu:\\~~\\
+\myboxx{
+\begin{equation*}
+T_{BP}(S)=T_{TP}\left(\frac{S^{2}+1}{B\cdot S}\right)
+\end{equation*}}\\~~\\ 
+Die Toleranzschemen gehen wie folgt ineinander "uber:\\
+\begin{figure}[!htb]
+\vspace*{-3mm}
+\begin{center}
+  \bild{/filter/FIL47.ps,width=0.7}\caption{Transformation der Toleranzschemen BP $\longrightarrow$ TP}\label{FIL_omega_B} 
+\end{center}
+\vspace*{-6mm}
+\end{figure}\\
+\nit Zwischen den normierten Frequenzen $\Omega_{STP}, \Omega_{S1}, \Omega_{S2},
+\Omega_{B1}$ und $\Omega_{B2}$ gilt die Beziehung:\\~~\\
+\myboxx{\begin{equation}
+\Omega_{S_{TP}}=\frac{\Omega_{S2}-\Omega_{S1}}{B}=\frac{\Omega_{S2}-\Omega_{S1}
+}{\Omega_{B2}-\Omega_{B1}}
+\end{equation}}\\~~\\
+Das Problem reduziert sich wiederum auf eine Tiefpassapproximation.
+\bsp{}
+Gesucht ist ein Bandpass nach Butterworth mit sym. Toleranzschema gem"ass
+Abb.~\ref{bsp-bp}.
+\begin{figure}[!htb]
+\begin{center}
+  \bild{/filter/FIL48.ps,width=0.7}\caption{BP zu TP Transformation des Toleranzschema\label{bsp-bp}}
+\end{center}
+\vspace*{-6mm}
+\end{figure}\\
+\nit Man beachte: $\omega_{r}=\sqrt{2500\cdot 400 s^{-2}}=1000s^{-1}\longrightarrow\Omega_{S1}=0.4;\Omega_{S2}=2.5;\Omega_{B1}=0.664;\Omega_{B2}=1.504.$
+\nit Damit wird $B=0.84$ und $\Omega_{S_{TP}}=2.5$ F"ur die ben"otigte
+Filterordnung erhalten wir z.B. mit dem Nomogramm Abb.~\ref{nomo-BW} den Wert $n=3$.\\
+Mit der Tabelle der Nennerpolynome (Tab.~\ref{fak-BW})
+ergibt sich:
+\[
+T_{TP}(S)=\frac{1}{(S+1)(S^{2}+S+1)}=\frac{1}{S^{3}+2S^{2}+2S+1}.
+\]
+\subsubsection{TP-BP Transformation durch direkte Substitution}
+Durch direkte Substitution von  $S$ durch $(S^2+1)/(B\cdot S)$
+wird aus der TP-Funktion eine BP-Funktion. F"ur Filter h"oherer Ordnung
+ist die direkte Substitution m"uhsamer. Da sich die "Uber\-tragungs\-funktionen immer durch
+Terme 1. und 2.~Ordnung beschreiben lassen, k"onnen wir uns auf die
+Transformation dieser Terme beschr"anken.
+\begin{itemize}
+\item Terme 1. Ordnung
+\begin{equation*}
+T_{TP}(S)=\frac{1}{S+a}
+\end{equation*}\\
+\nit gehen "uber in:
+\begin{equation*}
+        T_{BP}(S)=T_{TP}\left(\frac{S^{2}+1}{B\cdot S}\right)=\frac{B\cdot S}{S^{2}+aB\cdot S+1}
+\end{equation*}
+
+\item Terme 2. Ordnung
+\begin{equation*}
+        T_{TP}(S)=\frac{1}{S^{2}+aS+b}
+\end{equation*}\\
+\nit gehen "uber in:
+\begin{equation*}
+        T_{BP}(S)=T_{TP}\left(\frac{S^{2}+1}{B\cdot S}\right)=\frac{B^{2}S^{2}}{S^{4}+aB
+        S^{3}+(bB^{2}+2)S^{2}+aB\cdot S+1}.
+\end{equation*}
+\end{itemize}
+\nit {\bf Wie wir sehen erh"oht sich durch die Transformation die
+  Filterordnung um den Faktor 2.}  F"ur unser Beispiel erhalten wir:
+\[
+        T_{BP}(S)=\frac{0.84S}{(S^{2}+0.84S+1)} \cdot \frac{0.7056S^{2}}{(S^{4}
+        +0.84S^{3}+2.706S^{2}+0.84S+1)}.
+\]
+Zur Realisierung dieser Funktion mit aktiven Stufen 2.~Ordnung muss das
+Polynom 4.~Ordnung erst wieder in solche 2.~Ordnung zerlegt werden.
+Dies l"asst sich durch direkte Transformation der Singularit"aten elegant
+umgehen.
+\subsubsection{TP-BP Transformation durch Transformation der Singularit"aten}
+Durch den "Ubergang $S\longrightarrow (S^2+1)/(B\cdot S)$ werden auch die Singularit"aten entsprechend
+transformiert. Mit
+\begin{equation*}
+        S_{TP}=\frac{S^{2}_{BP}+1}{S_{BP}B}
+\end{equation*}\\  
+\nit wird die Singularit"at $P_{kTP}=-R_{k} + j
+\tilde{\Omega}_{k}$ in die Singularit"aten $P_{kBP_{1,2}}$:
+\begin{eqnarray}
+        P_{kBP_{1,2}} &=& \frac{P_{kTP}B \pm \sqrt{(P_{kTP}B)^{2}-4}}{2}\\
+        P_{kBP_{1,2}} &=& \frac{B}{2} \left[-R_{k}+j\tilde{\Omega}_{k} \pm 
+        \sqrt{\left(R^{2}_{k}-\tilde{\Omega}^{2}_{k}-\frac{4}{B^{2}}\right)-
+        j(2R_{k}\tilde{\Omega}_{k})}\right]
+\end{eqnarray}
+transformiert, d.h. der Tiefpasspol $P_{kTP}$ geht in zwei nicht konj.-kompl.
+Bandpasspole $P_{kBP_{1,2}}$  "uber, und der zu $P_{kTP}$  konj.-kompl. Pol geht in zwei zu
+$P_{kBP_{1,2}}$ konj.-kompl. Pole "uber (Abb.~\ref{transs-tp-bp}).
+\begin{figure}[!htb]
+\vspace*{-3mm}
+\begin{center}
+  \bild{/filter/FIL49.ps,width=0.7}\caption{Transformation der Singularit"aten \label{transs-tp-bp}}
+\end{center}
+\vspace*{-6mm}
+\end{figure}\\
+\nit Zur Berechnung gen"ugt es, pro konj.-kompl. TP-Polpaar einen Pol
+zu transformieren.  Diese "Uberlegungen gelten nat"urlich analog f"ur
+die Nullstellen\index{Nullstellen} der TP-"Uber\-tragungs\-funktion. Betrachten wir zur
+Veranschaulichung wieder unser Beispiel. F"ur den entsprechenden
+Tiefpass erhielten wir:
+\[
+T_{TP}(S)=\frac{1}{(S+1)(S^{2}+S+1)}=\frac{1}{(S+1)(S+0.5+j0.866)(S+0.5-j0.866)}.
+\]
+Mit der Bandbreite $B=0.84$ transformieren sich die Singularit"aten wie
+folgt:
+
+\begin{itemize}
+\item Die Nullstellen  $Z_{1,2,3TP}=\infty$  gehen mit
+\begin{equation*}
+Z_{kBP_{1,2}}=\frac{Z_{kTP}B \pm \sqrt{(Z_{kTP}B)^{2}-4}}{2}
+\mbox{ in }Z_{1,2,3BP_{1}}=0\mbox{ und }Z_{1,2,3BP_{2}}=\infty\mbox{ "uber.}
+\end{equation*}
+\item Die Pole  $P_{1TP}=- 1$  und  $ P_{2,3TP}=- 0.5 + j 0.866$
+gehen mit
+\[
+P_{kBP_{1,2}}=\frac{B}{2}\left[-R_{k}+j\tilde{\Omega}_{k} \pm
+\sqrt{\left(R_{k}^{2}-\tilde{\Omega}^{2}_{k}-\frac{4}{B^{2}}\right)-j(2R_{k}
+\tilde{\Omega}_{k})}\right]
+\]
+\nit in
+\begin{eqnarray*}
+P_{1BP_{1,2}} &=& -0.42 \pm j0.9075\\
+P_{2BP_{1}} &=& -0.2831 + j1.41\\
+P_{2BP_{2}} &=& -0.1369-j0.682\\
+P_{3BP_{1}} &=& -0.2831-j1.41=P^{*}_{2BP_{1}}\\
+P_{3BP_{2}} &=& -0.1369 + j0.682=P^{*}_{2BP_{2}}
+\end{eqnarray*}
+\nit "uber.
+\end{itemize}
+\nit Die gesuchte BP-"Ubertragungsfunktion resultiert aus diesen Polen und
+Nullstellen zu:
+\[
+T_{BP}(S)=\frac{S^{3}(0.84)^3}{(S^{2}+0.84S+1)(S^{2}+0.566S+2.07)
+(S^{2}+0.274S+0.484)}.
+\]
+Die Ordnung des Bandpasses ist {\bf doppelt so gross} wie die Ordnung des dazugeh"origen, normierten Tiefpasses.\index{Tiefpass}\index{Bandpass}\index{Ordnung}\\
+\nit Mit der Entnormierung\index{Entnormierung} $S\rightarrow \frac{s}{\omega_r }$ ($\omega_r=\sqrt{2500\cdot 400}=1000\text{~}\frac{\text{rad}}{\text{s}}$) erhalten wir die UTF f"ur das Toleranzschema gem"ass Abb.~\ref{bsp-bp} zu:
+\begin{equation}
+H_{BP}(s)=\frac{593e6\cdot s^{3}}{(s^{2}+840s+1e6)(s^{2}+566s+2.07e6)
+(s^{2}+274s+4.84e5)}.\label{FILT_RE_BP}
+\end{equation}
+Mit der folgenden \mb\!\!sfolge erhalten wir auch eine L"osung:
+\begin{verbatim}
+[N, Wn]=buttord([664 1504],[400 2500],3,20,'s');
+[zaehler, nenner]=butter(N,Wn,'s');
+\end{verbatim}\index{buttord@{\tt buttord}}\index{butter@{\tt butter}}
+Stellen wir nun diese UTF dar, erhalten wir:
+\[
+H_{BP}(s)=\frac{926e6\cdot s^{3}}{(s^{2}+974.8s+0.9987e6)(s^{2}+681.2s+2.317e6)
+(s^{2}+293.6s+4.304e5)}.
+\]
+Dieses Resultat entspricht nicht genau dem Resultat von Formel~\ref{FILT_RE_BP}. Die folgende Abbildung zeigt beide Bandpass-UTF.
+\begin{figure}[!htb]
+\vspace*{-3mm}\begin{center}
+  \bild{/filter/FIL_BP_APPROXs.eps,width=0.75}\vspace*{-7mm}\caption{Toleranzschema sowie UTF $H_{BP}(s)$ mit Transformation der Sigularit"aten und mit \matlogo~~direkt. Der Unterschied in den UTFs stammt daher, dass \matlogo~~die UTF genau an die Grenze zum Sperrbereich legt und wir jeweils die UTF genau an die Grenze zum Durchlassbereich legen. Beide L"osungen, sowie alle Zwischenl"osungen, sind korrekte Butterworth-Bandpass-Filter.}
+\end{center}
+\vspace*{-6mm}
+\end{figure}\\
+
+
+
+
+\subsection{Die Tiefpass-Bandsperre Transformation}
+Die normierte BS-"Ubertragungsfunktion einer in {\bf log. Darstellung
+symmetrischen Bandsperre} kann durch folgende Frequenztransformation aus der TP-Funktion gewonnen werden:\\~~\\
+\myboxx{
+\begin{equation}
+        S \longrightarrow \frac{B\cdot S}{S^{2}+1}
+\end{equation}}\\~~\\
+wobei $B$ wiederum der {\bf normierten Bandbreite\index{Band!breite}} entspricht:\\~~\\
+\myboxx{
+\begin{equation}
+        B=\frac{\omega_{B2}-\omega_{B1}}{\omega_{r}}
+\end{equation}}\\~~\\
+(Bandbreite zwischen Durchlass-Grenzfrequenzen!). Da die Transformation zu einer {\bf geometrisch-symmetrischen Bandsperre}\index{Band!sperre!geometrisch-symmetrisch} f"uhrt gilt auch hier:\\~~\\
+\myboxx{
+\begin{equation*}
+        \Omega_{B1}\Omega_{B2}=\Omega_{S1}\Omega_{S2}=1
+\end{equation*}}\\~~\\
+Die BS-"Ubertragungsfunktion erhalten wir somit zu:\\~~\\
+\myboxx{
+\begin{equation*}
+        T_{BS}(S)=T_{TP}\left(\frac{B\cdot S}{S^{2}+1}\right)
+\end{equation*}}\\~~\\
+Die Toleranzschemen gehen wie folgt ineinander "uber:
+\begin{figure}[!htb]
+\vspace*{-3mm}
+\begin{center}
+  \bild{/filter/FIL50.ps,width=0.7}\caption{Transformation der Toleranzschemen}
+\end{center}
+\vspace*{-6mm}
+\end{figure}\\
+\nit Zwischen den normierten Frequenzen
+$\Omega_{S_{TP}},\Omega_{B1},\Omega_{B2},
+\Omega_{S1}$ und $\Omega_{S2}$  gilt die Beziehung:\\~~\\
+\framebox[\textwidth]{ \parbox{0.9\textwidth}{
+\begin{equation}
+        \Omega_{S_{TP}}=\frac{B}{\Omega_{S2}-\Omega_{S1}}=
+                 \frac{\Omega_{B2}-\Omega_{B1}}{\Omega_{S2}-\Omega_{S1}}
+\end{equation}
+}}
+\bsp{}
+Gesucht sei eine sym. BS nach Butterworth mit folgendem Toleranzschema:
+\begin{figure}[!htb]
+\vspace*{-3mm}
+\begin{center}
+  \bild{/filter/FIL51.ps,width=0.7}\caption{Toleranzschema des gesuchten BS-Filters sowie das entsprechende Toleranzschema des TP}\index{Toleranzschema}
+\end{center}
+\vspace*{-6mm}
+\end{figure}\\
+\nit Man beachte: $\omega_{r}=\sqrt{2500\cdot 400 s^{-2}}=1000s^{-1}\longrightarrow\Omega_{B1}=0.4;\Omega_{B2}=2.5;\Omega_{S1}=0.664;\Omega_{S2}=1.504.$\\
+\nit Damit wird $B=2.1$ und $\Omega_{S_{TP}}=2.5$. Die Ordnung $n$ des normierten Tiefpasses ist somit 3. Mit der Tabelle~\ref{fak-BW} der
+Nennerpolynome erhalten wir:
+\[
+T_{TP}(S)=\frac{1}{(S+1)(S^{2}+S+1)}=\frac{1}{S^{3}+2S^{2}+2S+1}.
+\]
+\subsubsection{TP-BS Transformation durch direkte Substitution}
+Durch Substitution von  $S$ durch $(BS)/(S^2+1)$ wird
+aus der TP-Funktion eine BS-Funktion. F"ur Filter h"oherer Ordnung ist
+dies wiederum recht m"uhsam. Wie bei der TP-BP Transformation k"onnen wir
+uns auch hier auf die Transformation von Termen 1. und 2.~Ordnung beschr"anken.
+
+\begin{itemize}
+\item Terme 1. Ordnung
+\begin{equation}
+        T_{TP}(S)=\frac{1}{S+a}
+\end{equation}
+\nit gehen "uber in
+\begin{equation}
+        T_{BS}(S)=T_{TP}\left(\frac{B\cdot S}{S^{2}+1}\right)=
+        \frac{\frac{1}{a}(S^{2}+1)}{S^{2}+\frac{B}{a}S+1}
+\end{equation}
+\item Terme 2. Ordnung
+\begin{equation}
+        T_{TP}(S)=\frac{1}{S^{2}+aS+b}
+\end{equation}
+\nit gehen "uber in
+\begin{equation}
+        T_{BS}(S)=T_{TP}\left(\frac{B\cdot S}{S^{2}+1}\right)=
+                    \frac{\frac{1}{b}(S^{2}+1)^{2}}{S^{4}+
+                    \displaystyle\frac{aB}{b}S^{3}+
+                   \left(\displaystyle\frac{B^{2}}{b}+2\right)S^{2}+
+                    \displaystyle\frac{aB}{b}S+1}
+\end{equation}
+\end{itemize}
+\nit {\bf Wie wir sehen erh"oht sich auch hier, wie im TP-BP Fall, die Filterordnung um
+den Faktor 2.} F"ur unser Beispiel erhalten wir:
+\[
+T_{BS}(S)=\frac{(S^{2}+1)}{(S^{4}+2.1S+1)}\cdot
+\frac{(S^{2}+1)^{2}}{(S^{4}+2.1S^{3}+6.41S^{2}+2.1S+1)}.
+\]
+\nit Soll die "Ubertragungsfunktion mit aktiven Stufen 2.~Ordnung realisiert
+werden, kann die Zerlegung des Polynoms 4.~Ordnung wiederum durch direkte
+Transformation der Singularit"aten umgangen werden.
+\subsubsection{TP-BS Transformation durch Transformation der Singularit"aten}
+Durch den "Ubergang $S \longrightarrow(B\cdot S)/(S^2+1)$
+werden auch die Singularit"aten entsprechend transformiert.\\
+\begin{equation*}
+        \mbox{Mit}\quad S_{TP}=\frac{BS_{BS}}{S_{BS}^{2}+1}
+\end{equation*}
+\nit wird
+\begin{eqnarray}
+P_{kBS_{1,2}} &=& \frac{\frac{1}{P_{kTP}}B \pm \sqrt{\left(\frac{B}
+{P_{kTP}}\right)^{2}-4}}{2} \nonumber \\
+P_{kBS_{1,2}} &=& \frac{B}{2}\left[-R_{k}^{'}+j\tilde{\Omega}_{k}^{'} \pm
+\sqrt{\left(R^{,^{2}}_{k}-\tilde{\Omega}_{k}^{,^{2}}-\frac{4}{B^{2}}\right)
+-j(2R_{k}^{'}\tilde{\Omega}_{k}^{'})}\right]
+\end{eqnarray}
+\begin{equation}
+\mbox{wobei} \quad 
+-R_{k}^{'}+j\tilde{\Omega}_{k}^{'}=\frac{1}{P_{kTP}}=
+\frac{-R_{k}+j\tilde{\Omega}_{k}}{|P_{kTP}|^{2}}
+\end{equation}
+Vergleichen wir obige Formeln mit denjenigen der BP-Transformation, so
+stellen wir fest, dass wir zur TP-BS-\-Transformation die
+TP-BP-\-Transformation auf die Kehrwerte der Singularit"aten anwenden
+m"ussen.  Die BS-Funktion k"onnen wir damit auch durch
+TP-BP-\-Transformation der aus dem TP hervorgegangenen HP-Funktion
+gewinnen.
+\begin{equation}
+T_{TP}(S) 
+\stackrel{S\longrightarrow \frac{1}{S}}
+{\hspace{0.5cm}\Longrightarrow\hspace{0.5cm}}
+T_{HP}(S)=T_{TP}\left(\frac{1}{S}\right) 
+\stackrel{S\longrightarrow \frac{S^{2}+1}{BS}}
+{\hspace{0.5cm}\Longrightarrow\hspace{0.5cm}}
+T_{TP}\left(\frac{BS}{S^{2}+1}\right)=T_{BS}(S)
+\end{equation}
+Der Tiefpasspol $P_{kTP}$  geht auch hier in zwei nicht konj.-kompl. Pole
+$P_{kBS_{1,2}}$ "uber. Der zu $P_{kTP}$ konj.-kompl. Pol geht in zwei zu
+$P_{kBS_{1,2}}$ konj.-kompl. Pole "uber (Abb.~\ref{transs-tp-bs}).
+\begin{figure}[!htb]
+\begin{center}
+  \bild{/filter/FIL52.ps,width=0.7}\caption{Transformation der Singularit"aten \label{transs-tp-bs}}
+\end{center}
+\vspace*{-6mm}
+\end{figure}~\\
+\nit Zur Berechnung gen"ugt es wiederum wie bei der TP-BP Transformation
+pro konj.-kompl. TP-Polpaar nur einen Pol zu transformieren.  Die
+Nullstellen werden gleich wie die Pole transformiert.  Zur
+Erl"auterung betrachten wir unser vorhergehendes Beispiel. F"ur den
+entsprechenden TP erhielten wir
+\[
+T_{TP}(S)={\displaystyle \frac{1}{(S+1)(S^{2}+S+1)}=
+\frac{1}{(S+1)(S+0.5+j0.866)(S+0.5-j0.866)}}.
+\]
+\nit Mit der Bandbreite $B=2.1$ transformieren sich die Singularit"aten wie folgt:
+\begin{itemize}
+\item Die Nullstellen $Z_{1,2,3TP}=\infty$ gehen mit
+\begin{equation*}
+P_{kBS_{1,2}}=\frac{\frac{1}{P_{kTP}}B \pm \sqrt{\left(\frac{B}
+{P_{kTP}}\right)^{2}-4}}{2} \mbox{ in }Z_{1,2,3BS1}=+j\mbox{ und }Z_{1,2,3BS2}=-j\mbox{ "uber.}
+\end{equation*}
+
+\item Die Pole  $P_{1TP}=- 1$ und $P_{2,3TP}=- 0.5 + j 0.866$ gehen mit
+\[
+P_{kBS_{1,2}}=\frac{B}{2}\left[-R_{k}^{'}+j\tilde{\Omega}_{k}^{'} \pm
+\sqrt{\left(R^{,^{2}}_{k}-\tilde{\Omega}_{k}^{,^{2}}-\frac{4}{B^{2}}\right)
+-j(2R_{k}^{'}\tilde{\Omega}_{k}^{'})}\right]
+\]
+\nit wobei
+\begin{equation}
+-R_{k}^{'}+j\tilde{\Omega}_{k}^{'}=\frac{1}{P_{kTP}}=
+\frac{-R_{k}+j\tilde{\Omega}_{k}}{|P_{kTP}|^{2}}
+\end{equation}\\
+\nit in
+\begin{eqnarray*}
+P_{1BS_{1}} &=& -1.37\\
+P_{2BS_{1}} &=& -0.729\\
+P_{1BS_{2}} &=& -0.8926+j2.207\\
+P_{2BS_{2}} &=& -0.1574-j0.3885\\
+P_{1BS_{3}} &=& -0.8926-j2.207=P_{1BS_{2}}^{*}\\
+P_{2BS_{3}} &=& -0.1574+j0.3885=P_{2BS_{2}}^{*}
+\end{eqnarray*}
+\end{itemize}
+\nit "uber.  Die gesuchte BS-"Ubertragungsfunktion resultiert aus diesen
+Polen und Nullstellen zu:
+\[
+T_{BS}(S)=\frac{(S^{2}+1)^{3}}{(S^{2}+2.1S+1)(S^{2}+1.79S+5.67)
+(S^{2}+0.315S+0.176)}.
+\]
+\nit Entnormieren\index{entnormieren} wir nun die Gleichung mit $S=\frac{s}{\omega_r}=\frac{s}{1000}$, so erhalten wir:\\
+\begin{equation}
+T_{BS}(s)=\frac{(s^{2}+1e6)^{3}}{(s^{2}+2100s+1e6)(s^{2}+1790s+5.67e6)
+(s^{2}+315s+176e3)}.~\label{FILT_RE_BS} 
+\end{equation}
+Mit der folgenden \mb\!\!sfolge erhalten wir auch eine L"osung:
+\begin{verbatim}
+[N, Wn]=buttord([400 2500],[664 1504],3,20,'s');
+[zaehler, nenner]=butter(N,Wn,'stop','s')
+\end{verbatim}\index{buttord@{\tt buttord}}\index{butter@{\tt butter}}
+Stellen wir nun diese UTF dar, erhalten wir:
+\[
+T_{BS}(s)=\frac{(s^{2}+1e6)^{3}}{(s^{2}+1807s+9.987e5)(s^{2}+1482s+4.562e6)
+(s^{2}+324s+219e3)}.
+\]
+Dieses Resultat entspricht nicht genau dem Resultat von Formel~\ref{FILT_RE_BS}. Die folgende Abbildung zeigt beide Bandsperre-UTF.
+\begin{figure}[!htb]
+\vspace*{-3mm}\begin{center}
+  \bild{/filter/FIL_BS_APPROX.eps,width=0.75}\vspace*{-7mm}\caption{Toleranzschema sowie UTF $H_{BS}(s)$ mit Transformation der Sigularit"aten und mit \matlogo~~direkt. Der Unterschied in den UTFs stammt daher, dass \matlogo~~die UTF genau an die Grenze zum Sperrbereich legt und wir jeweils die UTF genau an die Grenze zum Durchlassbereich legen. Beide L"osungen, sowie alle Zwischenl"osungen, sind korrekte Butterworth-Bandsperre-Filter.}\index{UTF}
+\end{center}
+\vspace*{-6mm}
+\end{figure}\\
+
+\nit Mit den vorgestellten Transformationen haben wir nun das notwendige
+Instrumentarium, um das HP, BP oder BS-Toleranzschema in ein
+entsprechendes TP-Toleranzschema\index{Toleranzschema}
+"uberzuf"uhren, den Tiefpass zu approximieren und anschliessend in die
+gesuchte Funktion zu transformieren.  Noch offen steht die technische
+Realisierung der so gewonnen "Ubertragungsfunktion. Mit diesem Thema
+wollen wir uns in den weiteren Abschnitten besch"aftigen.
+
+
+\clearpage
+%%%%% Kapitel 5
+\section{Entwurf von {\boldmath$LC$}-Filtern}
+In diesem Abschnitt werden wir eine Theorie zur
+Synthese\index{Synthese} von
+{\bf Reaktanzfiltern}\index{Reaktanzfilter}\index{Filter!Reaktanz-}
+herleiten. Weiter behandeln wir, wie $LC$-Filter mit Hilfe von Tabellen
+einfach entworfen werden k"onnen. Man w"ahlt $LC$-Filter, weil sie die
+{\bf kleinstm"ogliche Empfindlichkeit} gegen"uber {\bf Bauteiltoleranzen}
+aufweisen.
+\subsection{Die Betriebsparametertheorie}
+Um die {\bf Synthese}\index{Synthese} von Reaktanzfiltern\index{Reaktanzfilter}\index{Filter!Reaktanz-} verstehen zu k"onnen, lernen wir
+einige wichtige Beziehungen und Gr"ossen der {\bf Vierpoltheorie}\index{Vierpol!-theorie}
+kennen. Wir beschr"anken uns dabei auf reine $LC$-Vierpole (Reaktanzfilter).
+\subsubsection{Die Einf"ugungsparameter}
+Ein beidseitig abgeschlossener, passiver $LC$-Vierpol\index{Vierpol!LC@{$LC$}-} werde von einer
+Spannungsquelle\index{Spannungsquelle} mit $ U_0(t)=\sqrt{2} | U_0 | e^{j \omega t}$ und
+Innenwiderstand\index{Innenwiderstand} $R_1$ gespiesen (Abb.~\ref{besch-nw}).
+\begin{figure}[!htb]
+\vspace*{-3mm}
+\begin{center}
+  \bild{/filter/FIL53.ps,width=0.7}\caption{Beschaltung des passiven $LC$-Netzwerkes \label{besch-nw}}
+\end{center}
+\vspace*{-6mm}
+\end{figure}~~\\
+Die an die Last "ubertragene Wirkleistung $P_{20}$ ohne Zwischenschaltung
+des $LC$-Vierpols betr"agt:
+\begin{equation}
+P_{20}={| U_0 |}^2 \frac{R_2}{(R_1 + R_2)^2}.
+\end{equation}
+Nach Einf"ugung des $LC$-Vierpols betr"agt die an die Last "ubertragene
+Wirkleistung $P_2$:
+\begin{equation}
+P_2=\frac{|U_2|^2}{R_2}.
+\end{equation}
+\nit Die Einf"ugungsd"ampfung $A_i$ ist definiert als das Verh"altnis 
+der "ubertragenen
+Wirkleistung mit und ohne eingef"ugtem Vierpol. Somit gilt:
+\begin{equation}
+e^{2 A_i}=\frac{P_{20}}{P_2}=\left( \frac{R_2}{R_1 + R_2}
+                                        \cdot \frac{|U_0|}{|U_2|} \right)^2
+\end{equation}
+und somit ist\\~~\\
+\myboxx{
+\begin{equation}
+A_i=\ln{\left(\frac{R_2}{R_1 + R_2} \cdot \frac{|U_0|}{|U_2|}\right)}.
+\hspace*{3cm}
+[A_i]={\rm Np}
+\end{equation}}\\~~\\
+\nit Durch hinzuf"ugen der Einf"ugungsphase $B_i$\\~~\\
+\myboxx{
+\begin{equation*}
+B_i=\angle U_0-\angle U_2=\varphi_0-\varphi_2\hspace*{2.5cm}[B_i]={\rm rad}
+\end{equation*}}\\~~\\
+l"asst sich das Einf"ugungsmass\index{Einfue@{Einf\"u}gungsmass} $\Gamma_i$  definieren:\\~~\\
+\myboxx{\begin{equation}
+\Gamma_i=A_i + j B_i
+\end{equation}}\\~~\\
+\nit und damit:
+\begin{equation}
+e^{2\Gamma_i}=\left[ \frac{R_2}{R_1 + R_2}
+                       \cdot \frac{U_0}{U_2} \right]^2.
+\end{equation}
+Es l"asst sich zeigen, dass f"ur passive
+Netzwerke\index{Netzwerk!passives} $A_i$ sogar negativ werden kann,
+weil $P_{20}$ nicht die maximal verf"ugbare Wirkleistung der Quelle
+ist \cite{MOS:89}. H"aufig wird deshalb mit dem Betriebs"ubertragungsmass
+gearbeitet, welches die max. verf"ugbare Leistung ber"ucksichtigt.
+\subsubsection{Die Betriebsparameter\index{Betriebsparameter}}
+Die max. zur Verf"ugung stehende Leistung\index{Leistung} ergibt sich bei $R_2=R_1$ zu
+\begin{equation*}
+P_{\max}=\left. P_{20} \right|_{R_2=R_1}=\frac{|U_0|^2}{4 R_1}.
+\end{equation*}
+Die nach der Einf"ugung des $LC$-Vierpols an die Last\index{Last}
+"ubertragene Wirkleistung betr"agt weiterhin:
+\begin{equation*}
+P_2=\frac{|U_2|^2}{R_2}.
+\end{equation*}
+Analog zum Einf"ugungs"ubertragungsmass erhalten wir das 
+Be\-triebs\-"uber\-tra\-gungs\-mass $\Gamma_m$:\\~~\\
+\myboxx{
+\begin{equation}
+\Gamma_m=A_m + j B_m
+\end{equation}}\\~~\\
+mit
+\begin{equation}
+e^{2 \Gamma_m}=\left[ \frac{1}{2}
+                        \sqrt{\frac{R_2}{R_1}}
+                        \cdot \frac{U_0}{U_2} \right]^2.
+\end{equation}\\~~\\
+\myboxx{
+\begin{equation*}
+A_m=\ln{\left( \frac{1}{2}
+                 \sqrt{\frac{R_2}{R_1}}
+                 \cdot \frac{|U_0|}{|U_2|} \right)}\hspace*{2.5cm}[A_m]={\rm Np}
+\end{equation*}}\\~~\\
+\myboxx{
+\begin{equation*}
+B_m=\angle U_0-\angle U_2=\varphi_0-\varphi_2\hspace*{2.5cm}[B_m]={\rm rad}
+\end{equation*}}\\~~\\
+Mit dem Betriebs"ubertragungsmass\index{Betriebsue@{Betriebs\"u}bertragungsmass}
+verkn"upft ist die Betriebs"ubertragungsfunktion $H(s)$:
+\begin{equation}
+e^{2 \Gamma_m}=H^2(s)=|H(s)|^2 e^{j 2 \phi}
+\end{equation}\\
+\myboxx{
+\begin{equation*}
+H(s)=e^{\Gamma_m}=\frac{1}{2} \sqrt{\frac{R_2}{R_1}} \cdot \frac{U_0}{U_2}
+\end{equation*}}\\~~\\
+\nit Damit ergeben sich die Betriebsd"ampfung und die Betriebsphase zu
+\begin{equation*}
+A_m=\ln{|H(s)|}\qquad\qquad\text{bzw.}\qquad\qquad B_m=\phi.
+\end{equation*}
+\nit F"ur das Verh"altnis der Wirkleistungen gilt:
+\begin{equation}
+\frac{P_{\max}}{P_2}=e^{2 A_m}=|H(s)|^{2}.
+\end{equation}
+Ebenfalls von Interesse ist die inverse
+Betriebs\-"uber\-tragungs\-funktion $t(s)$\index{Betriebsue@{Betriebs\"u}bertragungsfunktion!inverse}:\\~~\\
+\myboxx{
+\begin{equation}
+t(s)=\frac{1}{H(s)}=2 \sqrt{\frac{R_1}{R_2}} \cdot \frac{U_2}{U_0},
+\end{equation}}\\~~\\
+daraus folgt
+\begin{equation*}
+e^{2 A_m}=\frac{P_{\max}}{P_2}=|H(s)|^2=\frac{1}{|t(s)|^2}.
+\end{equation*}
+Die inverse Betriebs\-"uber\-tragungs\-funktion muss von der
+Spannungs"ubertragungsfunktion $T(s)$ unterschieden werden. Es
+gilt:
+\begin{equation*}
+t(s)=2 \sqrt{\frac{R_1}{R_2}} \cdot \frac{U_2}{U_0}\qquad\qquad\text{und}\qquad\qquad T(s)=\frac{U_2}{U_0}.
+\end{equation*}
+Im Falle eines beidseitig sym. abgeschlossenen $LC$-Vierpols ist $R_1=R_2$;
+dann sind $t(s)$ und $T(s)$ nur um den Faktor 2 verschieden.
+
+\subsubsection{Der Reflexionsfaktor\index{Reflexionsfaktor}}
+Die von der Quelle\index{Quelle} gelieferte maximale verf"ugbare
+Leistung $P_{\max}$ k"onnen wir uns aufgeteilt denken in die
+"ubertragene Leistung $P_2$ und in die reflektierte Leistung $P_r$.
+\begin{figure}[!htb]
+\begin{center}
+  \bild{/filter/FIL54.ps,width=0.6}\caption{Schematische Darstellung des Leistungsflusses}
+\end{center}
+\vspace*{-6mm}
+\end{figure}
+Da der ideale $LC$-Vierpol verlustlos ist (realistisch f"ur $L$ und $C$ mit
+grossen G"uten) gilt:
+\begin{eqnarray}
+P_2 &=& P_1\\
+P_r &=& P_{\max}-P_2
+\end{eqnarray}
+Die Leistung $P_2$ berechnet sich zu:
+\begin{equation}
+P_2=P_1={\rm Re} \left\{ \underline{U}_1 \cdot \underline{I}_1^* \right\}
+\end{equation}
+Mit der Eingangsimpedanz $Z_1$ des mit $R_2$ belasteten Vierpols wird:
+\begin{equation*}
+P_2={\rm Re} \left\{ \underline{I}_1 \cdot \underline{I}_1^* 
+                       \cdot Z_1 \right\} 
+=\left| I_1 \right|^2 \cdot {\rm Re} \left\{ Z_1 \right\} 
+=\frac{\left| U_0 \right|^2 }{\left| Z_1 + R_1 \right| }
+      \cdot {\rm Re} \left\{ Z_1 \right\}.
+\end{equation*}
+\nit F"ur die reflektierte Leistung $P_r$ ergibt sich:
+\begin{eqnarray}
+P_r &=& P_{\max}-P_2=
+        P_{\max} \left[ 1-\frac{4 R_1 {\rm Re} \left\{ Z_1 \right\}}
+                               {\left| Z_1 + R_1 \right|^2} \right]=P_{\max} \left[ \frac{\left| Z_1 + R_1 \right|^2 -
+                         4 R_1 {\rm Re} \left\{ Z_1 \right\}}
+                        {\left| Z_1 + R_1 \right|^2} \right] \nonumber \\
+&=& P_{\max} \left[ \frac{\left( R_1 + {\rm Re} \left\{ Z_1 \right\} \right)^2
+                         + {\rm Im} \left\{ Z_1 \right\}^2
+                        -4 R_1 {\rm Re} \left\{ Z_1 \right\}}
+                        {\left| Z_1 + R_1 \right|^2} \right]=P_{\max} \left| \frac{Z_1-R_1}{Z_1 + R_1} \right|^2\nonumber
+\end{eqnarray}\\~~\\
+\myboxx{
+\begin{equation}
+P_r=P_{\max}-P_2=P_{\max} \cdot\left| \rho \right|^2 \label{eq-pr}
+\end{equation}}\\~~\\
+{\bf{\boldmath $\rho $} wird als Reflexionsfaktor\index{Reflexionsfaktor} bezeichnet und ist definiert als:}\\~~\\
+\myboxx{
+\begin{equation}
+\rho (s)=\pm \frac{Z_1(s)-R_1}{Z_1(s) + R_1}.
+\end{equation}}\\~~\\
+F"ur $Z_1(s)$ ausgedr"uckt durch den Reflexionsfaktor erhalten wir:\\~~\\
+\myboxx{
+\begin{equation}
+Z_1(s)=\left[ \frac{1-\rho(s)}{1 + \rho(s)} \right]^{\pm 1} \cdot R_1.\label{Filter_formel_z}
+\end{equation}}
+
+\subsubsection{Die Betriebsd"ampfung als Funktion des Reflexionsfaktors}
+Aus Formel \ref{eq-pr} folgt:
+\begin{equation}
+P_2=P_{\max}-P_r=P_{\max} \left( 1-\left| \rho \right|^2 \right)
+\end{equation}
+und somit
+\begin{equation}
+\frac{P_{\max}}{P_2}=e^{2 A_m}=\frac{1}{1- \left| \rho \right|^2}.
+\end{equation}
+Aufgel"ost nach $A_m$ erhalten wir:
+\begin{equation}
+A_m=- \ln{\sqrt{1- \left| \rho \right|^2}}=\frac{1}{2}\ln{\left(\frac{P_{\max}}{P_2}\right)} \hspace*{2cm}
+  \left[ A_m \right]={\rm Np}
+\end{equation}
+\nit bzw.
+\[
+A_{m\text{dB}}=- 10 \log{(1- \left| \rho \right|^2)}=10\log{\left(\frac{P_{\max}}{P_2}\right)}    \hspace*{2cm}
+  \left[ A_{m\text{dB}} \right]={\rm dB}
+\]
+\nit Meist ist bei einem Filter die max. Betriebsd"ampfung $A_{\max}$ im
+Durchlassbereich spezifiziert; es soll dann der entsprechende max.
+zul"assige Reflexionsfaktor berechnet werden.
+\begin{equation*}
+\left| \rho \right|=\sqrt{1-e^{-2 A_m}} \hspace*{0.5cm}
+  \left[ A_m \right]={\rm Np;}\text{ bzw.}\qquad\left| \rho \right|=\sqrt{1-10^{-A_{m\text{dB}}/10}}\hspace*{0.5cm}
+  \left[ A_{m\text{dB}}\right]={\rm dB}.
+\end{equation*}
+\nit Der Reflexionsfaktor\index{Reflexionsfaktor} wird h"aufig zur Tabellierung von Filtern verwendet. Beim
+Filterentwurf mit zugeh"origem Toleranzschema ist dagegen die
+Betriebsd"ampfung zweckm"assiger.
+\subsubsection{Die Echod"ampfung}\index{Echodae@{Echod\"a}mpfung}
+In vielen Kommunikationssystemen ist es "ublich, die reflektierte
+Leistung $P_r$ nicht durch den Reflexionsfaktor, sondern durch die
+Echod"ampfung $A_r$ zu charakterisieren.  Analog zur Definition der
+Betriebs- und Einf"ugungsd"ampfung, welche die vorw"arts fliessende
+Leistung $P_2$ charakterisiert, gilt hier der Ansatz:\\~~\\
+\myboxx{
+\begin{equation}
+e^{2 A_r}=\frac{P_{\max}}{P_r}.
+\end{equation}}\\~~\\
+Mit Formel \ref{eq-pr} folgt dann:
+\begin{equation}
+A_r=\frac{1}{2} \ln{\left(\frac{P_{\max}}{P_r}\right)}=- \ln{ | \rho(s) | } \hspace*{2cm}
+  \left[ A_r \right]={\rm Np}
+\end{equation}
+\nit bzw.
+\[
+A_{r\text{dB}}=10 \log{\left(\frac{P_{\max}}{P_r}\right)}=-20 \log{ | \rho(s) | } \hspace*{1.5cm}
+  \left[ A_{r\text{dB}} \right]={\rm dB}
+\]
+\subsubsection{Die Energieerhaltungsgleichung\index{Energieerhaltung} nach Feldtkeller\index{Feldtkeller}}
+Die Beziehung
+\begin{equation*}
+P_{\max}=P_2 + P_r
+\end{equation*}
+folgt aus der Energieerhaltungsbedingung f"ur den allg. verlustlosen Vierpol\index{Vierpol!verlustloser}.
+Dividieren wir durch $P_{\max}$, so erhalten wir:
+\begin{equation}
+\frac{P_2}{P_{\max}} + \frac{P_r}{P_{\max}}=1
+\end{equation}
+Mit den hergeleiteten Beziehungen:
+\begin{equation*}
+\left| t(s) \right|^2=\frac{P_2}{P_{\max}}=e^{-2 A_m}\qquad\qquad\text{und}\qquad\qquad\left|\rho(s)\right|^2=\frac{P_r}{P_{\max}}=e^{-2 A_r}
+\end{equation*}
+folgt die als {\bf Feldtkeller-Gleichung}\index{Feldtkeller!Gleichung@-Gleichung} bezeichnete Beziehung:\\~~\\
+\myboxx{
+\begin{equation}
+\left| t(s) \right|^2 + \left| \rho (s) \right|^2=1\qquad\quad\text{bzw.}\qquad\quad e^{-2 A_m} + e^{-2 A_r}=1.
+\end{equation}}\\~~\\
+$t(s)$ (bzw. $H(s)$) und $\rho (s)$ sind rationale Funktionen\index{Funktion!rational} in $s$ mit
+reellen\index{reell} Koeffizienten. Somit gilt:
+\begin{equation}
+t(s) \cdot t(-s) + \rho(s) \cdot \rho(-s)=1.
+\end{equation}
+Wie wir im Folgenden noch sehen werden, spielt diese Form in der 
+$LC$-Filtersynthese eine wichtige Rolle.
+
+\subsubsection{Die Zusammenh"ange zwischen {\boldmath $A_m$, $A_r$, $\rho(s)$ und $t(s)$}}
+Wir haben als Vorarbeit die vier Gr"ossen $A_m$, $A_r$,
+$\rho(s)$ und $t(s)$ hergeleitet.  Bevor wir uns mit der {\bf Synthese} von $LC$-Filtern befassen, wollen wir uns die Zusammenh"ange zwischen diesen
+Gr"ossen nochmals vor Augen f"uhren.
+\begin{figure}[!htb]
+\begin{center}
+  \bild{/filter/FIL55.ps,width=0.6}\caption{Leistungsfluss beim passiven, verlustlosen Vierpol}
+\end{center}
+\vspace*{-6mm}
+\end{figure}
+Um den Leistungsfluss in Vorw"artsrichtung, bzw. in r"uckfliessender Richtung
+zu charakterisieren, haben wir je eine lineare und eine logarithmische
+Gr"osse eingef"uhrt:\\
+\nit {\bf Lineare Gr"ossen:}\\
+\nit inverse Betriebs"ubertragungsfunktion und Reflexionsfaktor
+\begin{eqnarray*}
+  t(s)=2 \sqrt{\frac{R_1}{R_2}} \cdot \frac{U_2}{U_0} 
+  \hspace{1cm} &\longrightarrow& \hspace{1cm}
+  \left. |t(s)|^2 \right|_{s=j\omega}=\frac{P_2}{P_{\max}} \\
+  \\
+  \rho(s)=\frac{Z_1(s)-R_1}{Z_1(s) + R_1} 
+  \hspace{1cm} &\longrightarrow& \hspace{1cm}
+  \left. |\rho(s)|^2 \right|_{s=j\omega}=\frac{P_r}{P_{\max}}
+\end{eqnarray*}
+f"uhren zum Zusammenhang\\~~\\
+\myboxx{\begin{equation*}
+t(s) t(-s) + \rho(s) \rho(-s)=1.
+\end{equation*}}\\~~\\
+\nit {\bf Logarithmische Gr"ossen:}\\
+\nit Betriebsd"ampfung und Echod"ampfung\index{Echodae@{Echod\"a}mpfung}
+\begin{equation*}
+A_m=\frac{1}{2} \ln{\left(\frac{P_{\max}}{P_2}\right)} 
+=\ln{ \left[ \frac{1}{2} \sqrt{\frac{R_2}{R_1}} \cdot \frac{\left| U_0 
+\right|}{\left| U_2 \right|} \right]}\text{  und  }A_r=\frac{1}{2} \ln{\left(\frac{P_{\max}}{P_r}\right)} 
+=-\ln{ \left| \frac{Z_1(s)-R_1}{Z_1(s) + R_1} \right|}
+\end{equation*}
+\nit f"uhren zum Zusammenhang\\~~\\
+\myboxx{\[
+e^{-2 A_m} + e^{-2 A_r}=1.
+\]}\\~~\\
+\nit Durch die Feldtkeller-Gleichung\index{Feldtkeller!Gleichung@-Gleichung} sind alle vier Gr"ossen miteinander
+verkn"upft und wir brauchen nur eine der vier Gr"ossen zu kennen.
+Alle vier Gr"ossen haben ihre Bedeutung und ihren zweckm"assigen
+Einsatz, n"amlich:\\
+\begin{center}
+\begin{tabular}{|c||cc|c|}\hline
+& Vorw"artsrichtung & \hspace*{1cm} & R"uckw"artsrichtung \\ \hline\hline
+lin. & $t(s)$ && $\rho(s)$\\
+& $\rightarrow $ Filtersynthese && $\rightarrow $ Filtertabellierung \\\hline\hline
+log. & $A_m$ && $A_r$ \\
+& $\rightarrow $ Filterspezifikation && $\rightarrow $ Kommunikationssysteme \\ \hline
+\end{tabular}
+\end{center}
+\subsection{Die Synthese von beidseitig reell abgeschlossenen {\boldmath $LC$}-Filtern}
+\label{synt-lc}
+In diesem Abschnitt wird beschrieben wie zu einer gegebenen
+"Ubertragungsfunktion $T(S)$ der zugeh"orige, normierte
+Reaktanzvierpol gefunden werden kann.  Wir gehen vom allgemeinen,
+beidseitig abgeschlossenen Reaktanz\-vier\-pol\index{Reaktanzvierpol} aus
+(Abb.~\ref{abge-vierp}), wobei wir annehmen, dass die Schaltung eingeschwungen ist.
+\begin{figure}[!htb]
+\begin{center}
+  \bild{/filter/FIL56.ps,width=0.6}\caption{Beidseitig reell abgeschlossener Reaktanzvierpol \label{abge-vierp}}
+\end{center}
+\vspace*{-6mm}
+\end{figure}
+Aus der $Z$-Matrix des "ausseren Vierpols ergibt sich mit $I_2=0$: $U_1
+=z_{11} \cdot I_1=Z_1 \cdot I_1.$ Der Reflexionsfaktor
+$\rho(S)$ ist gem"ass Formel~\ref{Filter_formel_z}:
+\begin{equation*}
+\rho(S)=\pm \frac{R_1-Z_1(S)}{R_1 + Z_1(S)}\qquad\text{bzw.}\qquad Z_1(S)=\left[ \frac{1-\rho(S)}{1 + \rho(S)} \right]^{\pm 1} R_1.
+\end{equation*}
+Damit ist die Eingangsimpedanz des gesuchten Vierpols in Funktion von
+$\rho(S)$ definiert.\\
+\nit{\bf{\boldmath
+Das ${\boldmath LC}$-Filter k"onnen wir nun mit folgenden Schritten bestimmen:
+\begin{list}{}{}
+\item[1.]  Wir berechnen via Feldtkeller-Gleichung\index{Feldtkeller!Gleichung@-Gleichung} $| \rho(S) |^2$ aus $T(S)$.
+\item[2.]  Aus $| \rho(S) |^2$ bestimmen wir $\rho(S)$
+und mit obiger Gleichung $Z_1(S)$.
+\item[3.]  Durch  Kettenbruchzerlegung von $Z_1(S)$ erhalten wir das
+ge\-w"unsch\-te Reaktanzfilter.\index{Kettenbruchzerlegung}
+\end{list}
+}}
+\subsubsection{{\boldmath Berechnung von $|\rho(S)|^2$ aus $T(S)$}}
+Der Reflexionsfaktor\index{Reflexionsfaktor} $\rho(S)$ ist "uber die Feldtkeller-Gleichung\index{etkeller!Gleichung@-Gleichung} mit
+$t(S)$ und damit mit der "Ubertragungsfunktion $T(S)$ verkn"upft:
+\begin{equation}
+| \rho(S) |^2=1-| t(S) |^2=1-4 \frac{R_1}{R_2} \cdot | T(S) |^2.
+\end{equation}
+Die gegebene "Ubertragungsfunktion\index{Ubertragungsfunktion@{\"Ubertragungsfunktion}} $T(S)$
+kann beschrieben werden mit dem Ansatz:
+\begin{eqnarray}
+T(S)=\frac{R_2}{R_1 + R_2} \cdot \frac{N(S)}{D(S)}\qquad&
+{\rm mit}&\qquad \hspace*{1cm} \maxs{S}\klam{\frac{N(S)}{D(S)}}=1, 
+\end{eqnarray}
+da ja $\maxs{S}(T(S))$ h"ochstens $\frac{R_2}{R_1+R_2}$ werden kann. Damit resultiert f"ur $| \rho(S) |^2$:
+\begin{equation*}
+| \rho(S) |^2=1-\frac{4 R_1 R_2}{(R_1 + R_2)^2} \cdot 
+  \frac{N(S) \cdot N(-S)}{D(S) \cdot D(-S)}=1-k \cdot \frac{N(S) \cdot N(-S)}{D(S) \cdot D(-S)}
+\end{equation*}
+und damit:\\~~\\
+\myboxx{
+\begin{equation}
+| \rho(S) |^2=\frac{D(S) \cdot D(-S)-k~N(S) \cdot N(-S)}
+  {D(S) \cdot D(-S)}=\frac{A(S) \cdot A(-S)}{D(S) \cdot D(-S)}
+\end{equation}}\\~~\\
+wobei
+\begin{equation}
+k=\frac{4 R_1 R_2}{(R_1 + R_2)^2}.
+\end{equation}
+\subsubsection{{\boldmath Bestimmung von $\rho(S)$ und $Z_1(S)$}}
+Da im Nenner von $\rho(S)$ ein Hurwitz-Polynom\index{Hurwitz!-Polynom}
+sein muss, ergibt sich ein Ausdruck von der Form:
+\begin{equation}
+\rho(S)=\pm \frac{m_g \pm m_u}{n_g + n_u}
+=\pm \frac{A(\pm S)}{D(S)}
+\end{equation}
+wobei $g$ und $u$ den geraden bzw. den ungeraden Teil bezeichnen
+sollen.  Das Polynom $A(+S)$ umfasst dabei die Wurzeln von $D(S) \cdot
+D(-S)-k~ N(S) \cdot N(-S)$ die in der LHE liegen (siehe auch
+Abb.~\ref{wurzeln}).  Das Polynom $A(-S)$ beinhaltet dabei die Wurzeln
+von $D(S) \cdot D(-S)-k~ N(S) \cdot N(-S)$ die in der RHE liegen
+(siehe auch Abb.~\ref{wurzeln}).
+\begin{figure}[!htb]
+\vspace*{-3mm}
+\begin{center}
+  %old \bild{/filter/FIL57.ps,width=0.4}
+\begin{pspicture}(6,6)
+\psline{->}(0,3)(6,3) 
+\psline{->}(3,0)(3,6) 
+\uput[0](5.5,3.3){$\sigma$}\uput[0](2.2,5.5){$j\omega$}
+\pscircle[linewidth=1pt,linecolor=red](3,3){2}
+\psdots[dotsize=4pt 4,dotstyle=x]%
+(5,3)(1,3)(4,4.7321)(2,4.7321)(4,1.2679)(2,1.2679)
+\psdot[dotsize=12pt 12,dotstyle=square](5.5,5.5)\uput[0](5.2,5.5){$S$}
+\uput[0](0.9,0.1){$A(S)$}\uput[0](3.9,0.1){$A(-S)$}
+{\Huge
+\rput{90}(1.5,0.2){\uput[0](0,0){\{}}
+\rput{90}(4.5,0.2){\uput[0](0,0){\{}}}
+\end{pspicture}
+
+\caption{Die Wurzeln von 
+        $\left[ D(S) \cdot D(-S)-k~ N(S) \cdot N(-S) \right]$
+        und deren Zuordnung
+        zu $A(+S)$ und $A(-S)$. \label{wurzeln}}
+\end{center}
+\vspace*{-6mm}
+\end{figure}~\\
+\nit Es ergeben sich deshalb vier M"oglichkeiten, die alle auf denselben Ausdruck
+f"ur $| \rho(S) |^2$ f"uhren:
+\[
+\frac{A(+S)}{D(S)}~ ;~ \frac{A(-S)}{D(S)}~ ;~ -\frac{A(+S)}{D(S)}~ ;~
+   -\frac{A(-S)}{D(S)}. 
+\]
+{\bf{\boldmath Man kann zeigen, dass sich mit den beiden m"oglichen
+  Z"ahlerpolynomen $A(S)$ und $A(-S)$ die zwei m"oglichen Filtertypen
+  ergeben, die entweder mit einem Quer- oder mit einem L"angsglied
+  beginnen \cite{MOS:89}.}}  Die beiden Vorzeichen vor dem Bruchstrich ergeben zwei
+  duale Filter\index{Filter!duale}, wobei nur eines richtig ist \cite{MOS:89}. Das
+zu w"ahlende Vorzeichen ist davon abh"angig, ob $R_2 > R_1$ oder $R_1
+> R_2$ ist und l"asst sich durch Betrachten von $\rho(S)$ im
+Durch\-lass\-bereich leicht bestimmen.  Die Eingangsimpedanz
+\begin{equation}
+Z_1(S)=\left[ \frac{1-\rho(S)}{1 + \rho(S)} \right]^{\pm 1} \cdot R_1
+\end{equation}
+kann somit bestimmt werden.
+\subsubsection{Kettenbruchzerlegung von $Z_1(S)$}\index{Kettenbruchzerlegung}
+Mit einer in \cite{EPP:79} beschriebenen Methode kann nun
+die zu $Z_1(S)$ geh"orende Schaltung bestimmt werden.  In der Regel
+wird man diejenige Schaltung (mit Quer-\index{Querglied} oder
+L"angsglied\index{Lae@{L\"a}ngsglied} beginnend) w"ahlen, die weniger
+Induktivit"aten\index{Induktivitat@{Induktivit\"at}} aufweist.  Zur Veranschaulichung
+der erl"auterten Methode wollen wir ein Beispiel betrachten.
+\bsp{}\label{FIl_bsp_kettenbruch}\\ \nit Es soll
+ein Butterworth-Tiefpass 3. Ordnung mit der "Ubertragungsfunktion
+\[
+T(S)=\frac{1}{S^3 + 2 S^2 + 2 S + 1}=\frac{N(S)}{D(S)} 
+\]
+mit dem Quellenwiderstand $R_1=560$~$\Omega $ und dem
+Abschlusswiderstand $R_2=720$~$\Omega $ in Form eines $LC$-Filters
+realisiert werden. F"ur $|\rho(S)|^2$ resultiert, mit $k=\frac{4\cdot 720\cdot 560}{1280^2}=\frac{63}{64}$
+\begin{equation*}
+| \rho(S) |^2=\frac{D(S) \cdot D(-S)-k N(S) \cdot N(-S)}
+  {D(S) \cdot D(-S)}=\frac{1-S^6-\frac{63}{64}}{D(S) \cdot D(-S)} 
+=\frac{\frac{1}{64}-S^6}{D(S) \cdot D(-S)}.
+\end{equation*}
+\nit Die Wurzeln von $A(S)A(-S)=(\frac{1}{64}-S^6)$ liegen auf einem Kreis mit Radius=1/2.
+\begin{figure}[!htb]
+\begin{center}
+  % alt\bild{/filter/FIL58.ps,width=0.35}\vspace*{-3mm}
+\begin{pspicture}(6,6)
+\psline{->}(0,3)(6,3) 
+\psline{->}(3,0)(3,6) 
+\uput[0](5.5,3.3){$\sigma$}\uput[0](2.2,5.5){$j\omega$}
+\pscircle[linewidth=1pt,linecolor=red](3,3){2}
+\psdots[dotsize=4pt 4,dotstyle=x]%
+(5,3)(1,3)(4,4.7321)(2,4.7321)(4,1.2679)(2,1.2679)
+\psdot[dotsize=12pt 12,dotstyle=square](5.5,5.5)\uput[0](5.2,5.5){$S$}
+\uput[0](0.9,0.1){$A(S)$}\uput[0](3.9,0.1){$A(-S)$}
+{\Huge
+\rput{90}(1.5,0.2){\uput[0](0,0){\{}}
+\rput{90}(4.5,0.2){\uput[0](0,0){\{}}}
+\uput[0](3.05,2.7){0}\uput[0](5.05,2.7){0.5}
+\end{pspicture}
+
+\caption{Lage der Wurzeln von $ A(S)\cdot A(-S)=(\frac{1}{64}-S^6) $}
+\end{center}
+\vspace*{-6mm}
+\end{figure}\\
+\nit Somit wird
+\begin{eqnarray*}
+A(S)=(S+0.5)(S^2 + 0.5 S + 0.25)&=&   S^3  + S^2  + 0.5 S + 0.125 \\
+A(-S)=(-S+0.5)(S^2-0.5 S + 0.25)&=&-S^3 + S^2 -0.5 S + 0.125
+\end{eqnarray*}
+{\bf a)} wir w"ahlen $A(S)$
+\[
+\rho(S)=\pm \frac{A(S)}{D(S)}=\pm \frac{S^3 + S^2 + 0.5 S + 0.125}
+                                           {S^3 + 2 S^2 + 2 S + 1} 
+\]
+\nit Da $Z_1(0)=R_2=720 \Omega=\frac{9}{7} \cdot R_1$ und 
+$| \rho(0) |=\frac{1}{8}$ hat mit
+\[
+Z_1(0)=\left[ \frac{1-\rho(0)}{1 + \rho(0)} \right]^{\pm 1} \cdot R_1 
+\]
+\nit das neg. Vorzeichen G"ultigkeit. Somit wird:
+\begin{equation*}
+\frac{Z_1(S)}{R_1}=\frac{(S^3 + 2 S^2 + 2 S + 1) + (S^3 + S^2 + 0.5 S + 0.125)}
+  {(S^3 + 2 S^2 + 2 S + 1)-(S^3 + S^2 + 0.5 S + 0.125)}=\frac{16 S^3 + 24 S^2 + 20 S + 9}{8 S^2 + 12 S + 7}.
+\end{equation*}
+\nit Die zerlegung\index{Kettenbruchzerlegung} von $\frac{Z_1(S)}{R_1}$ ergibt:\\
+$
+\setlength{\arraycolsep}{0.3\arraycolsep}
+\begin{array}{rlrclcrclrll}
+8S^2+12S+7&)&16S^3+24S^2+20S&+9&~(& \rightarrow 2S &&&&&&\\
+   &-(&16S^3+24S^2+14S&  &) &&&&&&&\\ \cline{2-5}
+      && 6S&+9&) &8S^2+12S&+7&~(& \rightarrow &\frac{4}{3} S&&\\
+         &&&&-(&8S^2+12S&  &) &&&&\\ \cline{5-8}
+            &&&&&&  7&) &6S&+9&~(&\rightarrow \frac{6}{7} S\\
+               &&&&&&&-(&6S&  &) & \\ \cline{8-11}
+                  &&&&&&&&& 9&) &7 ~( ~\rightarrow \frac{7}{9}
+\end{array}$\\
+\nit d.~h.\[
+Z_{1}=
+[ 2S+\frac{1}{
+\displaystyle\frac{4}{3}S+
+\displaystyle\frac{1}{
+\displaystyle\frac{6}{7}S+
+\displaystyle\frac{1}{
+\displaystyle\frac{7}{9}}}}] R_{1}
+\]
+und f"uhrt zu folgendem Netzwerk:\\
+\begin{figure}[!htb]\vspace*{-7mm}
+\begin{center}
+  \bild{/filter/FIL59.ps,width=0.5}\vspace*{-4mm}\caption{Realisierungsm"oglichkeit a) f"ur den gesuchten TP normiert auf 
+  $R_1=1$}
+\end{center}
+\vspace*{-7mm}
+\end{figure}\\
+\nit {\bf b)} mit $A(-S)$ ist \[
+\rho(S)=\pm \frac{A(-S)}{D(S)}=\pm \frac{- S^3 + S^2-0.5 S + 0.125}
+                                            {S^3 + 2 S^2 + 2 S + 1}. 
+\]
+\nit Somit wird
+\begin{eqnarray*}
+Z_1(S) &=& \frac{(S^3 + 2 S^2 + 2 S + 1) + (- S^3 + S^2-0.5 S + 0.125)}
+  {(S^3 + 2 S^2 + 2 S + 1)-(- S^3 + S^2-0.5 S + 0.125)} \cdot R_1 \\
+&&\\
+Y_1(S) &=& \frac{16 S^3 + 8 S^2 + 20 S + 7}{24 S^2 + 12 S + 9} \cdot 
+  \frac{1}{R_1}
+\end{eqnarray*}\\
+\nit Die Kettenbruchzerlegung von $R_1 \cdot Y_1(S)=\frac{R_1}{Z_1(S)}$ ergibt:\\
+$
+\setlength{\arraycolsep}{0.3\arraycolsep}
+\begin{array}{rlrclcrclrll}
+24S^2+12S+9&)&16S^3+8S^2+20S&+7&~(& \rightarrow \frac{2}{3} S &&&&&&\\
+   &-(&16S^3+8S^2+6S&  &) &&&&&&&\\ \cline{2-5}
+      && 14S&+7&) &24S^2+12S&+9&~(& \rightarrow &\frac{12}{7} S&&\\
+         &&&&-(&24S^2+12S&  &) &&&&\\ \cline{5-8}
+            &&&&&&  9&) &14S&+7&~(&\rightarrow \frac{14}{9} S\\
+               &&&&&&&-(&14S&  &) & \\ \cline{8-11}
+                  &&&&&&&&& 7&) &9 ~( ~\rightarrow \frac{9}{7}
+\end{array}$\\
+\nit d.~h.
+\[
+Y_{1}(S)=
+[\frac{2}{3}S+
+\displaystyle\frac{1}{
+\displaystyle\frac{12}{7}S+
+\displaystyle\frac{1}{
+\displaystyle\frac{14}{9}S+
+\displaystyle\frac{1}{
+\displaystyle\frac{9}{7}}}}]\cdot\frac{1}{R_{1}} 
+\]
+\nit und f"uhrt zum Netzwerk in Abb.~\ref{real-b}.\\
+\begin{figure}[!htb]
+\vspace*{-6mm}
+\begin{center}
+  \bild{/filter/FIL60.ps,width=0.5}\vspace*{-3mm}\caption{Realisierungsm"oglichkeit b) f"ur den gesuchten TP normiert auf 
+  $R_1=1$ \label{real-b}}
+\end{center}
+\vspace*{-6mm}
+\end{figure}\\
+
+\subsubsection{Bemerkungen}
+Die in Kapitel~\ref{Anh-Tab} aufgef"uhrten Tabellen f"ur Butterworth, Tschebyscheff (I), kritisch-ged"ampften und Bessel $LC$-Filter k"onnen mit der Kettenbruchzerlegung bestimmt werden. Im Fall der Butterworth-Filter mit $R_1=R_2$ gibt es eine einfache L"osung f"ur die Reaktanzwerte von  $L$ und $C$, n"amlich:
+\begin{equation*}
+C_k~\text{oder}~L_k=2\cdot\sin\klam{\frac{2\cdot k-1}{2\cdot n}\cdot \pi}\quad k=1,~2,~\ldots~n.
+\end{equation*} % ref. Richard Daniels in wikipedia.org
+\bsp{Butterworth-TP der Ordnung 3 mit $R_1=R_2$}
+Die normierten Werte der minimal-$L$ Schaltung sind somit: $C_1=2\sin\klam{\frac{1}{6}\cdot \pi}=1$, $L_2=2\sin\klam{\frac{3}{6}\cdot \pi}=2$ und $C_3=2\sin\klam{\frac{5}{6}\cdot \pi}=1$, was genau den Werte in der Tabelle~\ref{el-BW1} entspricht. 
+
+\subsection{Frequenztransformation bei {\boldmath $LC$}-Filtern}
+Mit der im vorhergehenden Abschnitt beschriebenen Methode zur {\bf Synthese}
+von beidseitig reell abgeschlossenen $LC$-Filtern k"onnen prinzipiell
+beliebige "Ubertragungs\-funk\-tion\-en $T(S)$ realisiert werden.  Zur
+Synthese von HP, BP und BS-Filtern ist es einfacher, zuerst
+das $LC$-Filter der entsprechenden TP-Funktion zu entwerfen und
+anschliessend die durch die
+Frequenztransformation\index{Frequenz!transformation} entstehende
+``Bauteiltransformation''\index{Bauteiltransformation} durchzuf"uhren.
+%% direkt mit matlab??? kettenbruch (cauer!!), trafos???
+\subsubsection{Die Tiefpass-Hochpass Transformation}
+Die HP-"Ubertragungsfunktion $T_{HP}(S)$ geht durch den "Ubergang:
+\begin{eqnarray*}
+{\rm TP}  \longrightarrow  {\rm HP}&\text{; bzw.    }& S  \longrightarrow \frac{1}{S}
+\end{eqnarray*}
+aus der TP-"Ubertragungsfunktion $T_{TP}(S)$ hervor. Die Bauteile
+des TP-$LC$-Filters transformieren sich dabei wie folgt:
+\begin{figure}[!htb]
+\begin{center}
+  \bild{/filter/FIL61.ps,width=0.5}\caption{Bauteiltransformation beim TP-HP "Ubergang}
+\end{center}
+\vspace*{-6mm}
+\end{figure}
+\bsp{} Das in Abschnitt~\ref{synt-lc} berechnete TP-Filter geht wie
+folgt in einen HP mit der 3~dB-Grenzfrequenz $\Omega_g=1$ "uber:
+\begin{figure}[!htb]
+\begin{center}
+  \bild{/filter/FIL62.ps,width=0.5}\caption{Beispiel TP-HP Transformation}
+\end{center}
+\vspace*{-6mm}
+\end{figure}\\
+Aus den normierten TP-Elementwerten $L_{1TP}=2$, $L_{2TP}=\frac{6}{7}$  und
+$C_{1TP}=\frac{4}{3}$ ergeben sich f"ur den HP die normierten Werte:
+$C_{1HP}=\frac{1}{2}$, $C_{2HP}=\frac{7}{6}$ und $L_{1HP}=\frac{3}{4}$.
+Dabei sind die normierten Widerstandswerte unver"andert $R_1=1$
+und $R_2=\frac{9}{7}$.
+\subsubsection{Die Tiefpass-Bandpass Transformation}
+Die BP-"Ubertragungsfunktion $T_{BP}(S)$ geht durch den "Ubergang
+\begin{eqnarray*}
+{\rm TP}\longrightarrow  {\rm BP}&\text{; bzw.    }& S  \longrightarrow  \frac{S^2 + 1}{B \cdot S}
+\end{eqnarray*}
+aus der TP-"Ubertragungsfunktion $T_{TP}(S)$ hervor. Die Bauteile
+des TP-$LC$-Filters transformieren sich dabei wie folgt:
+\begin{figure}[!htb]
+\begin{center}
+  \bild{/filter/FIL63.ps,width=0.5}\caption{Bauteiltransformation beim TP-BP "Ubergang}\label{filter_TP-BP-trafo}
+\end{center}
+\vspace*{-6mm}
+\end{figure}
+\bsp{} Das in Abschnitt \ref{synt-lc} berechnete TP-Filter geht
+gem"ass Abb.~\ref{tp-bp-trans} wie folgt in einen sym. BP mit den
+3~dB-Bandgrenzen 0.8, 1.25 und der
+Mittenfrequenz\index{Mittenfrequenz} 1 "uber.
+\begin{figure}[!htb]
+\vspace*{-3mm}
+\begin{center}
+  \bild{/filter/FIL64.ps,width=0.5}\caption{Beispiel TP-BP Transformation\label{tp-bp-trans}}
+\end{center}
+\vspace*{-6mm}
+\end{figure}\\
+\nit Aus den normierten TP-Elementwerten $L_{1TP}=2$, $L_{2TP}=\frac{6}{7}$ und $C_{1TP}=\frac{4}{3}$
+ergeben sich f"ur den BP die normierten Werte: $L_{1BP}=4.444$, $L_{2BP}=1.905$, $L_{3BP}=0.338$,  
+$C_{1BP}=0.225$, $C_{2BP}=0.525$ und $C_{3BP}=2.963$.
+Dabei sind die normierten Widerstandswerte unver"andert $R_1=1$
+und $R_2=\frac{9}{7}$.
+\subsubsection{Die Tiefpass-Bandsperre Transformation}
+Die BS-"Ubertragungsfunktion $T_{BS}(S)$ geht durch den "Ubergang
+\begin{eqnarray*}
+{\rm TP}  \longrightarrow  {\rm BS}&\text{; bzw.   }& S  \longrightarrow  \frac{B \cdot S}{S^2 + 1}
+\end{eqnarray*}
+aus der TP-"Ubertragungsfunktion $T_{TP}(S)$ hervor. Die Bauteile
+des TP-$LC$-Filters transformieren sich dabei wie folgt:
+\begin{figure}[!htb]
+\begin{center}
+  \bild{/filter/FIL65.ps,width=0.5}\caption{Bauteiltransformation beim TP-BS "Ubergang}
+\end{center}
+\vspace*{-6mm}
+\end{figure}
+\bsp{}
+Das in Kapitel \ref{synt-lc} berechnete TP-Filter geht wie folgt in eine BS
+mit den 3~dB-Grenzfrequenzen\index{3-dB!Grenzfrequenz} 0.8, 1.25 und der Mittenfrequenz 1 "uber:
+\begin{figure}[!htb]
+\vspace*{-3mm}
+\begin{center}
+  \bild{/filter/FIL66.ps,width=0.5}\caption{Beispiel TP-BS Transformation}
+\end{center}
+\vspace*{-6mm}
+\end{figure}\\
+\nit Aus den normierten TP-Elementwerten $L_{1TP}=2$, $L_{2TP}=\frac{6}{7}$ und 
+$C_{1TP}=\frac{4}{3}$ ergeben sich f"ur die BS die normierten Werte
+$L_{1BS}=0.900$, $L_{2BS}=0.386$, $L_{3BS}=1.667$, $C_{1BS}=1.111$,
+$C_{2BS}=2.593$ und $C_{3BS}=0.600$.  Dabei sind die normierten
+Widerstandswerte unver"andert $R_1=1$ und $R_2=\frac{9}{7}$.  Bei den
+TP-BP und TP-BS Transformationen entstehen im allgemeinen keine
+Minimumreaktanznetzwerke\index{Minimumreaktanznetzwerk}. Die Ordnung
+des Filters verdoppelt sich.
+\subsection{Entwurf von {\boldmath $LC$}-Filtern mit Filtertabellen \label{ent-mit-tab}}
+Wir haben gesehen, wie mit Hilfe der Betriebsparametertheorie die
+Elemente eines $LC$-Filters berechnet werden k"onnen. In der Praxis kann
+man auf schon berechnete und katalogisierte Filter zur"uckgreifen. Wir
+wollen in diesem Kapitel die Verwendung der Tabellen etwas n"aher
+kennenlernen, die im Anhang \ref{Anh-Tab} zu finden sind. Alle dort
+zu findenden Angaben gelten f"ur Tiefp"asse, die sowohl frequenz- wie
+impedanzm"assig normiert sind.  Die HP, BP und BS Filter k"onnen mit
+den hergeleiteten Bauteiltransformationen aus dem Tiefpassfilter
+gewonnen werden.
+\subsubsection{Katalogisierungskriterien\index{Katalogisierungskriterien}}
+Die Katalogisierung erfolgt nicht direkt mit den aus dem Toleranzschema 
+bekannten Gr"ossen $A_{\max}$, $A_{\min}$ und $\Omega_S/\Omega_D$ sondern mit
+daraus abgeleiteten Gr"ossen.
+\begin{itemize}
+\item  Art der Approximation: Butterworth, Tschebyscheff, Cauer (CC), Bessel,  etc.
+\item  der Filterordnung $n$:  Sie kann mit Hilfe spez. Nomogramme\index{Nomogramm} oder mittels der hergeleiteten 
+  Beziehungen aus $A_{\max}$, $A_{\min}$ und $\Omega_S/\Omega_D$ bestimmt werden.
+\item  dem Reflexionsfaktor\index{Reflexionsfaktor} $\rho $, dem Modulwinkel\index{Modulwinkel} $\theta $
+\end{itemize} 
+Bei Cauer-Filtern (CC-Filter, elliptische Filter)  wird weiter noch nach folgenden Gr"ossen tabelliert:
+\begin{itemize}
+\item  Reflexionfaktor $\rho(S)$: $| \rho(S) |=\sqrt{1-10^{-A_{\max}/10}}\hspace*{2cm}\left[ A_{\max} \right]={\rm dB}$
+\item  Modulwinkel $\theta $: $\theta=\underbrace{\arcsin}_{\sin^{-1}} \left(\frac{1}{\Omega_S}\right)$ (nur exakt f"ur topologisch symmetrische Filter!)
+\item  Symmetriefaktor\index{Symmetriefaktor} $K$:
+  F"ur $R_1=R_2$ ist $K^2=1$, f"ur ausgangsseitigen Leerlauf\index{Leerlauf} 
+  bei Minimal-$L$-Schaltungen, bzw. bei Kurzschluss bei 
+  Minimal-$C$-Schaltungen ist $K^2=\infty $ zu
+  w"ahlen.
+\end{itemize}
+\nit Bei den Butterworth-, Tschebyscheff-, kritisch-ged"ampften und Bessel-Filtern tritt der
+Quelleninnenwiderstand $R_1$ als Variable auf.
+\subsubsection{Entnormierung\index{Entnormierung}}
+Die tabellierten Elementwerte sind sowohl bez"uglich Frequenz wie auch bez"uglich
+Impedanzniveau\index{Impedanzniveau} normiert. Wir betrachten die Entnormierung bez"uglich
+Frequenz und Impedanz in zwei Schritten. Beim praktischen
+Filterentwurf k"onnen sie durchaus in einem Schritt vollzogen
+werden.
+\paragraph{Entnormierung bez"uglich der Frequenz}~\\
+Die Frequenznormierung wird durch Substitution von $S$ durch
+$s/\omega_r$ r"uckg"angig gemacht.
+Als Referenzfrequenz $\omega_r$ ist bei den Butterworth-,
+Tschebyschyeff- und Bessel-Filtern die 3~dB-Grenzfrequenz\index{3-dB!Grenzfrequenz} gew"ahlt \cite{ZVE:67}, n"amlich $\omega_r=\omega_{3{\rm dB}}$.\\
+\nit Die 3~dB-Grenzfrequenz kann beim Butterworth-Filter mit der Beziehung
+\begin{equation}
+\omega_{3{\rm dB}}=\sqrt[2n]{\frac{1}{10^{A_{\max}/10}-1}} 
+\cdot \omega_D \quad \text{bzw.} \quad 
+\Omega_{3{\rm dB}}=\sqrt[2n]{\frac{1}{10^{A_{\max}/10}-1}} 
+\end{equation}
+aus den Gr"ossen $\omega_D$ und $A_{\max}$ bestimmt werden.
+Beim Tschebyscheff-Filter lautet die Beziehung:
+\begin{equation*}
+\omega_{3{\rm dB}}=\cosh \left[ \left(\frac{1}{n}\right) {\rm Arcosh}
+   \sqrt{\frac{1}{10^{A_{\max}/10}-1}} \right] 
+   \cdot \omega_D=\cosh \left[ \left(\frac{1}{n}\right) {\rm Arcosh} \left(\frac{1}{e}\right) \right] 
+   \cdot \omega_D,
+\end{equation*}
+wobei $e=\sqrt{10^{A_{\max}/10}-1}$ ist. Somit ist die normierte 3~dB-Grenzfrequenz
+\begin{equation}
+\Omega_{3{\rm dB}}=\cosh \left[ \left(\frac{1}{n}\right) {\rm Arcosh} \left(\frac{1}{e}\right) \right]. 
+\label{eq-o3db}
+\end{equation}
+Bei Bessel-Filtern muss der Zusammenhang zwischen der
+3~dB-Grenzfrequenz\index{3-dB!Grenzfrequenz} und der Grenzfrequenz des
+Durchlassbereichs aus dem Graphen der D"ampfung bestimmt werden (siehe
+Abb.~\ref{gb}). Die Cauer-Filter sind bereits auf die
+Rippelgrenzfrequenz\index{Rippel!grenzfrequenz} des Durchlassbereichs
+normiert. Eine Umnormierung auf die 3~dB-Grenzfrequenz ist wenig
+sinnvoll.
+\begin{figure}[!htb]
+\vspace*{-3mm}
+\begin{center}
+  \bild{/filter/FIL67.ps,width=0.5}\caption{D"ampfungsverlauf beim Cauer-Filter}
+\end{center}
+\vspace*{-6mm}
+\end{figure}
+Die bez"uglich Frequenz und Impedanz normierten Elementwerte der Tabellen,
+die wir hier mit $C_{FI}$ und $L_{FI}$ (Frequenz, Impedanz) bezeichnen wollen,
+gehen wie folgt in die nur noch bez"uglich der Impedanz normierten
+Gr"ossen "uber:\\
+\nit mit $ Z'=S \cdot L_{FI}=\displaystyle\frac{s}{\omega_r} L_{FI}=s ~L_I $
+\begin{equation*}
+L_I=\frac{L_{FI}}{\omega_r}
+\end{equation*}\\
+\nit und mit $ Z'=\displaystyle\frac{1}{S \cdot C_{FI}}
+=\displaystyle\frac{1}{\displaystyle\frac{s}{\omega_r} \cdot C_{FI}}=
+\displaystyle\frac{1}{s ~C_I}$
+\begin{equation*}
+C_I=\frac{C_{FI}}{\omega_r}.
+\end{equation*}
+\paragraph{Entnormierung bez. der Impedanz}~\\
+Die Impedanznormierung wird durch Multiplikation s"amtlicher Impedanzen mit
+einer Referenzimpedanz $R_r$ r"uckg"angig gemacht.
+F"ur die physikalischen Bauteile erhalten wir die folgenden Werte:\\
+\nit mit  $ Z=Z' \cdot R_r=s~ L_I R_r=s~ L $\\~~\\
+\myboxx{
+\begin{equation*}
+L=L_I R_r=\frac{L_{FI}}{\omega_r} \cdot R_r
+\end{equation*}}\\~~\\
+\nit mit $ Z=Z' \cdot R_r=\displaystyle\frac{1}{s~C_I} \cdot R_r  =
+\displaystyle\frac{1}{s \displaystyle\frac{C_{FI}}{\omega_r R_r}}=
+\displaystyle\frac{1}{s~C} $\\~~\\
+\myboxx{
+\begin{equation}
+C=\frac{C_I}{R_r}=\frac{C_{FI}}{\omega_r R_r}
+\end{equation}}\\~~\\ 
+$L_{FI}$ und $C_{FI}$ sind die aus der Tabelle entnommenen,
+normierten Werte.  Der Innenwiderstand\index{Innenwiderstand} der
+Quelle\index{Quelle} und der Lastwiderstand\index{Last!widerstand}
+m"ussen nat"urlich ebenfalls entnormiert werden:
+\begin{equation*}
+R_1=R_{1I} \cdot R_r\qquad\text{und}\qquad R_2=R_{2I} \cdot R_r.
+\end{equation*}
+\bsp{}
+Es soll ein BP nach Tschebyscheff mit folgenden Spezifikationen (Abb.~\ref{FIL_BP_BSP}) realisiert
+werden, wobei $R_2=600$~$\Omega$ und $R_1=420$~$\Omega$ ist:
+\begin{figure}[!htb]
+\vspace*{-3mm}
+\begin{center}
+  \bild{/filter/FIL68a.ps,width=0.7}\caption{Bandpass Toleranzschema}\label{FIL_BP_BSP}
+\end{center}
+\vspace*{-6mm}
+\end{figure}\\
+\nit Wir erhalten $f_r=\sqrt{10.000\mbox{~kHz}\cdot
+  15.000\mbox{~kHz}}=12.247$~kHz. Man beachte, dass der Bandpass
+geometrisch-symmetrisch\index{Band!pass!geometrisch-symmetrisch} ist, d.h. $\sqrt{10.800\mbox{~kHz}\cdot
+  13.889\mbox{~kHz}}=12.247\mbox{~kHz}=f_r$. Mit den Beziehungen
+$B=(13.889\mbox{~kHz}-10.800\mbox{~kHz})/f_r=0.2522$,
+$\Omega_{TP}=(\Omega_{BP}^2-1)/(B\cdot\Omega_{BP})=\frac{ (15/12.247)^2-1}{0.2522\cdot (15/12.247)}=1.6187$ erhalten wir das Toleranzschema des
+entsprechenden Tiefpasses gem"ass Abb.~\ref{tp-toleranz}.\\
+\begin{figure}[!htb]
+\vspace*{-4mm} 
+\begin{center}
+  \bild{/filter/FIL69a.ps,width=0.4}\vspace*{-2mm}\caption{Toleranzschema des normierten Tschebyscheff-Tiefpassfilters\label{tp-toleranz}}
+\end{center}
+\vspace*{-6mm}
+\end{figure}\\
+\nit Mit dem Nomogramm (Abb.~\ref{nomo-Tsche}), der Formel~\ref{ordnung_tschebyscheff} oder dem \matlogo-Befehl \newline {\tt cheb1ord(1,1.6187,0.1,20,'s')}\index{cheb1ord@{\tt cheb1ord}} erhalten wir die minimale Ordnung zu $n=5$, oder direkt mit {\tt cheb1ord([0.8818 1.134],[0.8165 1.3347],0.1,20,'s')}.\\
+Das normierte TP-Tschebyscheff-Filter 5.~Ordnung in Abb.~\ref{norm-c} mit 0.1~dB Rippel hat
+folgende Werte (siehe Tabelle \ref{el-C1}) mit den normierten Widerst"anden $R_1=0.7\cdot R_2$ und $R_2=1$:\\
+\vspace*{-9mm}
+\begin{figure}[!htb]
+\begin{center}
+  \bild{/filter/FIL70.ps,width=0.65}\vspace*{-4mm}\caption{Normierter Tschebyscheff-TP 5.~Ordnung\label{norm-c}}
+\end{center}
+\vspace*{-6mm}
+\end{figure}\\
+$C_1=1.3580$, $L_2=1.1170$, $C_3=2.8679$, $L_4=1.2437$ und $C_5=2.0621$. Die
+Werte sind auf $\Omega=1$ und bez"uglich der 3~dB-Grenzfrequenz
+normiert. Aus der Formel (\ref{eq-o3db}) erhalten wir: $\Omega_{3{\rm dB}}=1.1347$.\\
+Zur Umnormierung m"ussen wir alle $L$- und $C$-Werte durch $\Omega_{3{\rm dB}}=1.1347$
+dividieren und erhalten: $C_1=1.1968$, $L_2=0.9844$, $C_3=2.5274$, $L_4=1.0960$ und $C_5=1.8173$.\\ Nun gilt es in einem
+weiteren Schritt den normierten Tiefpass in den gesuchten Bandpass zu
+transformieren. Dabei transformieren sich die Induktivit"aten und
+Kapazit"aten gem"ass Abb.~\ref{filter_TP-BP-trafo} mit $(S_{TP}\rightarrow (S_{BP}^2-1)/(B\cdot S_{BP}))$.\\
+\nit Unser gesuchter Bandpass hat somit folgende Struktur:\\
+\begin{figure}[!htb]
+\begin{center}\vspace*{-7mm} 
+\bild{/filter/FIL71.ps,width=0.7}\vspace*{-3mm}\caption{Gesuchter, normierter Tschebyscheff-Bandpass}
+\end{center}
+\vspace*{-6mm}
+\end{figure}\\
+\nit F"ur die normierten Elementwerte erhalten wir: $C_1=4.7452$, $L_1=0.21074$, 
+$C_2=0.2562$, $L_2=3.9031$, $C_3=1.0021$, $L_3=0.09979$, $C_4=0.23011$, $L_4=4.3458$, $C_5=7.2055$,
+und $ L_5=0.13878$. Die entnormierten Werte erhalten wir mit $R_r=
+600\Omega $ und $\omega_r=(2\pi)\cdot12.247 {\rm kHz}$ zu:
+\[
+L=L_{FI} \cdot \frac{R_r}{\omega_r}=L_{FI} \cdot 7.7970\mbox{mH}\qquad\text{und}\qquad 
+C=C_{FI} \cdot \frac{1}{\omega_r R_r}=C_{FI} \cdot 21.658\mbox{nF}.
+\]
+Somit erhalten wir: $L_1=1.6431{\rm mH}$, $C_1=102.77\mbox{nF}$,
+$L_2=30.432 {\rm mH}$,
+$C_2=5.5490\mbox{nF}$, $L_3=0.7780 {\rm mH}$, $C_3=217.04\mbox{nF}$, $L_4=33.884 {\rm mH}$, $C_4=4.9837\mbox{nF}$, $L_5=1.082 {\rm mH}$ und $C_5=156.06\mbox{nF}$.\\
+Zur groben Kontrolle der Dimensionierung k"onnen wir die
+Resonanzfrequenz\index{Resonanzfrequenz} $f_r=\omega_r/(2\pi) $ aller
+Schwingkreise berechnen. Wie erwartet liegen alle Resonanzfrequenzen
+bei $f_r=\frac{1}{2\pi\sqrt{L_iC_i}}=12.247~\text{kHz}$.\\
+Abb.~\ref{FIL_Bp_matlab} zeigt die UTF $U_2/U_0$ des Bandpass-Filters, wobei der Faktor $(R_1+R_2)/R_2=1.7$ ebenfalls miteinbezogen ist. Das $LC$-Filter erf"ullt somit die geforderten Spezifikationen bestens.\\
+\begin{figure}[!htb]% matlab test_BP.m
+\begin{center}\vspace*{-3mm}   
+\bild{/filter/FILn026.eps,width=0.7}\caption{UTF des Tschebyscheff-Bandpass 10.~Ordnung}\label{FIL_Bp_matlab}
+\end{center}
+\vspace*{-6mm}
+\end{figure}
+
+
+
+\clearpage
+%%%%% Kapitel 6
+\section{Aktive Filter\index{Filter!aktive}}
+F"ur Filter im Bereich tieferer Frequenzen $(1\mbox{~Hz} \ldots 500\mbox{~kHz})$
+werden Induktivit"aten ansehnlich gross und weichen merklich vom
+erw"unschten, idealen Verhalten ab \cite{MOS:89}. Ausser\-dem lassen sich
+Induktivit"aten nur extrem beschr"ankt in IC-Technologie\index{IC-Technologie} realisieren. Aus diesen
+Gr"unden bem"uhte man sich, aktive Filter zu entwickeln, die das
+Verhalten von $LC$-Filtern aufweisen ohne selbst Induktivit"aten zu
+enthalten. Der Begriff ``aktive Filter'' umfasst eine gr"ossere Zahl
+von Schaltungskonzepten und Entwurfsmethoden. Die wichtigsten k"onnen
+einer der 3 folgenden Gruppen zugeordnet werden:
+\paragraph{a) Die Kaskaden-Filter\index{Kaskaden-Filter}}~\\
+Die Filter basieren auf entkoppelten Baubl"ocken erster, zweiter oder evtl.
+dritter Ordnung, die zur Realisierung von Filtern h"oherer Ordnung kaskadiert
+werden. Je nach Anforderung an die Polg"uten enthalten die einzelnen 
+Sektionen einen oder mehrere Operationsverst"arker\index{Operationsverstae@{Operationsverst\"a}rker} (OP)\index{OP|see{Operationsverstae@{Operationsverst\"a}rker}}.
+\paragraph{b) Die {\boldmath $LC$}-Filter Simulation}~\\
+Bei dieser Entwurfsmethode wird von der $LC$-Filterstruktur ausgegangen,
+da diese die kleinstm"ogliche Empfindlichkeit gegen"uber
+Bauteiltoleranzen aufweisen.  Diese wird entweder durch
+\begin{itemize}
+\item Simulation jeder Induktivit"at mit einer Kombination von Gyrator (Dualinverter\index{Dualinverter|see{Gyrator}})  und Kapazit"at
+  realisiert \cite{LIN:BRA:LEH:85, MOS:89}, oder durch
+\item Transformation der $LC$-Filterstruktur in der Art, dass sie mit allgemeinen
+  Impedanzkonvertern (GIC: General Impedance Converter) realisiert werden
+  kann.
+\end{itemize}
+\nit Sowohl Gyratoren\index{Gyrator} wie auch GIC's lassen sich mit OPs realisieren.
+\paragraph{c) Die SC-Filtertechnik\index{SC-Filtertechnik} (Switched Capacitor Filter)}~\\
+Diese Filtertechnik bedient sich der Tatsache, dass sich periodisch
+entladene Kapazit"aten zwischen den Entladezyklen wie Widerst"ande
+verhalten. Damit lassen sich Filter mit gut integrierbaren Elementen
+(Schalter, Kapazit"at, OP) in IC-Technologie herstellen.\\~\\  
+\nit Eine wichtige Stellung unter den hier genannten Gruppen nehmen die
+Kaskaden-Filter ein, denen wir uns im weiteren zuwenden wollen, um
+einen ersten Eindruck zu erhalten.
+\subsection{Kaskaden-Filter}
+Ein Filter beliebiger Ordnung l"asst sich durch Kaskadierung von
+Sektionen 1.~und 2.~Ordnung realisieren.  Dazu spaltet man die UTF
+$T(s)$ in Terme 1.~und 2.~Ordnung auf:
+\begin{equation}
+T(s)=T_1(s) \prod_{i=1}^{k} T_i(s)
+\end{equation}
+$T_1(s)$:  Term 1.~Ordnung, falls $T(s)$ ungerader Ordnung ist. ($T_1(s)=1$, falls $T(s)$ gerader Ordnung ist.)
+$T_i(s)$:  Terme 2.~Ordnung\\
+\nit F"ur die Zerlegung von $T(s)$ und f"ur die Verteilung der 
+Gesamtverst"arkung $K$
+auf die einzelnen Sektionen ergeben sich etliche M"oglichkeiten. Ohne auf
+diese Probleme, die unter anderem in die Sensitivit"atstheorie f"uhren, weiter
+einzugehen, wollen wir je eine Realisierungsm"oglichkeit einer Tiefpass-Sektion 
+1.~Ordnung und einer 2.~Ordnung analysieren um uns ein Bild "uber die Struktur
+solcher Filter zu machen.
+\subsubsection{Tiefpass-Sektion 1.~Ordnung}
+Ein Tiefpass 1.~Ordnung, dessen "Ubertragungsfunktion nicht von der nachfolgenden
+Stufe abh"angig ist, l"asst sich beispielsweise mit folgender Schaltung 
+realisieren:
+\begin{figure}[!htb]
+\vspace*{-3mm}
+\begin{center}
+  \bild{/filter/FIL72.ps,width=0.5}\caption{Tiefpass (TP) 1.~Ordnung \label{tp-1}}
+\end{center}
+\vspace*{-6mm}
+\end{figure}\\  
+\nit Die UTF $T(s)$ ergibt sich zu:\index{Tiefpass}\index{TP}\index{UTF}
+\begin{equation*}
+T(s)=- \frac{
+\displaystyle\frac{1}{R_1 C}}{s + 
+\displaystyle\frac{1}{R_2 C}}
+\end{equation*}\\
+\nit Durch Koeffizientenvergleich mit der allg. TP-"Ubertragungsfunktion 
+1.~Ordnung:
+\begin{equation}
+T_{TP}(s)=\frac{k \cdot \omega_{p}}{s + \omega_p}
+\end{equation}
+lassen sich die zur Berechnung der Komponenten notwendigen Beziehungen 
+bestimmen:\\~~\\
+\myboxx{\begin{equation*}
+R_1=\frac{1}{k~C~\omega_p};\qquad R_2=\frac{1}{C~\omega_p};\qquad C:\mbox{\rm frei w"ahlbar}.
+\end{equation*}}
+\subsubsection{TP-Sektion 2.~Ordnung}
+Ein TP 2.~Ordnung l"asst sich beispielsweise mit folgender Schaltung 
+realisieren:
+\begin{figure}[!htb]
+\vspace*{-3mm}
+\begin{center}
+  \bild{/filter/FIL73.ps,width=0.5}\caption{Tiefpass  2.~Ordnung}\label{tp-2}
+\end{center}
+\vspace*{-6mm}
+\end{figure}\\
+\nit Das zugeh"orige SFD\index{SFD} hat folgende Form:\\
+\begin{figure}[!htb] % alt   \bild{/filter/FIL74.ps,width=0.5}\caption{SFD zum TP 2.~Ordnung}
+\vspace*{7mm}
+\begin{center}
+  {\psset{unit=0.7}
+\begin{pspicture}(10,-2.8)
+\psset{arrowscale=2}
+\psline(0,0)(4,0)\psline{->}(0,0)(2,0) 
+\psline(4,0)(8,-2)\psline{->}(4,0)(6,-1) 
+\psdots[dotsize=4pt 4,dotstyle=*]%
+(0,0)(4,0)(8,-2)
+\psarc(6,-1){2.236}{-26.566}{153.43}
+\psarc{->}(6,-1){2.236}{-26.566}{63.43}
+\rput[rB](-0.4,0){$U_1(s)$}
+\uput[0](4.3,0.2){$U_2(s)$}\uput[0](7.8,-2.6){$U_3(s)$}
+\uput[0](5.3,-1.5){$\beta$}\uput[0](7.5,1.5){$t_{32}(s)$}
+\uput[0](1.2,0.6){$t_{12}(s)$}
+
+\end{pspicture}}
+\caption{SFD zum Tiefpass 2.~Ordnung von Abb.~\ref{tp-2} mit $\beta=\frac{R_3+R_4}{R_3}$}
+\end{center}\index{SFD}\index{Tiefpass}
+\vspace*{-6mm}
+\end{figure}\\
+
+\nit Die UTF ist somit:
+\begin{equation*}
+T(s)=\frac{U_3(s)}{U_1(s)}=\frac{\beta ~t_{12}(s)}{1-\beta ~t_{32}(s)}.
+\end{equation*}\\
+\begin{figure}[!htb]
+\vspace*{-3mm}
+\begin{center}
+  \bild{/filter/FIL75.ps,width=0.5}\caption{Schaltung zur Berechnung von $t_{12}(s)$, wobei $U'_1=U_{1}\cdot \frac{R_{12}}{R_{11} + R_{12}}$ ist und $G_1=G_{11}+G_{12}$.}
+\end{center}
+\vspace*{-6mm}
+\end{figure}\\
+\nit Mit den Regeln von Mason\index{Mason!Regel} erhalten wir f"ur die Funktionen $t_{12}(s)$ und $t_{32}(s)$:
+\begin{equation*}
+t_{12}(s)=\left. \frac{U_2(s)}{U_1(s)} \right|_{U_3=0}=\frac{R_{12}}{R_{11} + R_{12}} \cdot
+  \frac{
+  \displaystyle\frac{G_1 G_2}{C_3 C_4}}
+       {s^2 + s \displaystyle\frac{G_2 C_3 + G_2 C_4 + G_1 C_4}{C_3 C_4}
+            + \displaystyle\frac{G_1 G_2}{C_3 C_4}},
+\end{equation*}
+\begin{equation*}
+t_{32}(s)=\left. \frac{U_2(s)}{U_3(s)} \right|_{U_1=0}=\frac{s \displaystyle\frac{G_2}{C_4}}
+              {s^2 + s \displaystyle\frac{G_2 C_3 + G_2 C_4 + G_1 C_4}{C_3 C_4}
+                      + \displaystyle\frac{G_1 G_2}{C_3 C_4}}.
+\end{equation*}\\
+\nit F"ur $T(s)$ resultiert somit:
+\begin{equation*}
+T(s)=\frac{\beta ~t_{12}(s)}{1-\beta ~t_{32}(s)}=
+  \frac{\displaystyle\frac{\beta ~R_{12}}{R_{11} + R_{12}} \cdot\displaystyle\frac{G_1 G_2}{C_3 C_4}}
+{s^2 + s \displaystyle\frac{G_2 C_3+G_2 C_4+G_1 C_4-\beta ~G_2 C_3}{C_3 C_4}
+            + \displaystyle\frac{G_1 G_2}{C_3 C_4}}.
+\end{equation*}\\
+\nit Ohne uns wesentlich einzuschr"anken, k"onnen wir $G_1=G_2=G=\frac{1}{R}$ und $C_3=C_4=C$ setzen.\\ 
+\nit $T(s)$ wird somit:
+\begin{equation*}
+T(s)=\frac{\beta ~R_{12}}{R_{11} + R_{12}} \cdot
+  \frac{\displaystyle\frac{1}{R^2 C^2}}
+       {s^2 + s \displaystyle\frac{3-\beta }{R~C}
+            + \displaystyle\frac{1}{R^2 C^2}}.
+\end{equation*}\\
+\nit Durch den Vergleich mit der allg. TP-Funktion 2.~Ordnung
+\begin{equation*}
+T_{TP}(s)=k~ \frac{\omega_p^2}{s^2 + s \displaystyle\frac{\omega_p}{q_p} 
++ \omega_p^2}
+\end{equation*}\\
+\nit erhalten wir die folgenden Gleichungen:
+\begin{equation*}
+\omega_p^2=\frac{1}{R^2 C^2},\quad\frac{\omega_p}{q_p}=\frac{3-\beta}{R~C}\quad\text{und}\quad
+k=\frac{\beta ~R_{12}}{R_{11} + R_{12}}. 
+\end{equation*}\\
+\nit Aus der Bedingung  $G_{11}+G_{12}=G$ folgt: $R=\frac{R_{11} R_{12}}{R_{11} + R_{12}}$. 
+Die 4 Gleichungen enthalten die 5 Unbekannten $R$, $C$, $\beta $,
+$R_{11}$, und $R_{12}$, so dass wir eine Gr"osse frei w"ahlen k"onnen.
+W"ahlen wir $C$, so sind die restlichen Gr"ossen durch die
+nachstehenden Gleichungen gegeben:\\~~\\
+\myboxx{
+\begin{equation*}
+R=\frac{1}{\omega_p C}; \quad\beta=3-\frac{1}{q_p};\quad R_{11}=\beta \cdot \frac{R}{k};\quad 
+R_{12}=\frac{R_{11} \cdot R}{R_{11}-R};\quad
+C:\mbox{\rm frei w"ahlbar}.
+\end{equation*}}\\~~\\
+\nit Die Widerst"ande $R_3$ und $R_4$ k"onnen bis auf ihr Verh"altnis
+frei gew"ahlt werden.  Es zeigt sich jedoch, dass der DC-Offset
+minimal wird, wenn beide OP-Eing"ange mit demselben DC-Widerstand
+abgeschlossen sind. Damit wird:
+\begin{equation*}
+R_3=\frac{2 ~\beta }{\beta-1} ~R\qquad \text{und}\qquad R_4=2~\beta ~R.
+\end{equation*}
+\paragraph{Die m"ogliche Pollage}~\\
+Von Interesse ist nun die mit der Schaltung realisierbare Pollage.
+F"ur die zur Bestimmung der Wurzelortskurve\index{Wurzelortskurve}
+(WOK)\index{WOK|see{Wurzelortskurve}} ben"otigte Teil"ubertragungsfunktion $t_{32}(s)$ erhalten wir:
+\[
+t_{32}(s)=\frac{s ~\displaystyle\frac{1}{R~C}}{s^2 
++ s \displaystyle\frac{3}{R~C} + \displaystyle\frac{1}{R^2C^2}} 
+\]
+\nit Die WOK des Nenners von $T(s)$ hat die Anfangspunkte bei den Polen von 
+$t_{32}(s)$:
+\begin{equation*}
+ s^2 + s \frac{3}{R~C} + \frac{1}{R^2C^2}=0 \qquad\rightarrow\qquad  p_{1,2}=-\frac{3\pm\sqrt{5}}{2RC}.
+\end{equation*}
+Die Endpunkte liegen bei den Nullstellen von $t_{32}(s)$: $t_{32}(s)=
+0$; d.h., $z_1=0$ und $z_2=\infty$.  Die WOK hat somit folgendes
+Aussehen:
+\begin{figure}[!htb]
+\begin{center}
+  \bild{/filter/FIL76.ps,width=0.5}\caption{Wurzelortskurve in Funktion von $\beta $}
+\end{center}
+\vspace*{-6mm}
+\end{figure}\\
+\nit Dank dem aktiven Element kann trotz Verzicht auf Induktivit"aten
+ein konj.-kompl. Polpaar erzeugt werden. 
+\subsubsection{Synthesebeispiel eines Tschebyscheff-I Filters}
+Zur Veranschaulichung wollen
+wir ein Tschebyscheff-I Filter 5.~Ordnung mit 0.5~dB Rippel im Durchlassbereich bis
+$f_D=10\mbox{kHz}$ entwerfen. Mit dem \mb\newline {\tt cheb1ap(5,05)} oder mit
+den Tabellen (\ref{koef-0.5} und \ref{fak-0.5}) erhalten wir die
+normierte UTF:
+\[
+T(S)=\frac{0.1789}{(S+0.3623)(S^2+0.2239S+1.0358)(S^2+0.5862S+0.4768)}. 
+\]
+Wir w"ahlen f"ur jede Sektionen eine DC-Verst"arkung von 1:
+\[
+T(S)=\underbrace{\frac{0.362}{S + 0.362}}_{\displaystyle T_1(S)} \cdot 
+\underbrace{\frac{1.036}{S^2 + 0.224 S + 1.036}}_{\displaystyle T_2(S)} \cdot 
+\underbrace{\frac{0.477}{S^2 + 0.586 S + 0.477}}_{\displaystyle T_3(S)} 
+\]\\
+\nit Entnormieren wir die "Ubertragungsfunktion mit der Substitution
+$S=s/\omega_D$ so erhalten wir f"ur die einzelnen Sektionen die
+Teil-UTF's:
+\begin{eqnarray*}
+T_1(s)=\frac{2.277 \cdot 10^4}{s+2.277 \cdot 10^4},\qquad &T_2(s)&=\frac{4.09 \cdot 10^9}{s^2 + 1.407 \cdot 10^4 ~s+4.09 \cdot 10^9},\\
+\text{und}\qquad &T_3(s)&=\frac{1.882 \cdot 10^9}{s^2 + 3.683 \cdot 10^4 ~s+ 1.882 \cdot 10^9}. 
+\end{eqnarray*}\\
+\nit Anhand dieser Teil-UTF dimensionieren wir nun die einzelnen
+Sektionen:\\
+\paragraph{1.~Sektion}
+\[ T_1(s)=\frac{2.275 \cdot 10^4}{s + 2.275 \cdot 10^4}
+         =k~ \frac{\omega_p}{s + \omega_p} \longrightarrow \hspace*{1cm} k=1; \hspace*{1cm}
+   \omega_p=2.275 \cdot 10^4 s^{-1}. \]
+\nit Mit der Schaltung von Abb.~\ref{tp-1} und der Wahl von $C=2.7\mbox{nF}$
+wird
+\begin{eqnarray*}
+R_1=\frac{1}{2.7 {\rm nF} \cdot 2.275 \cdot 10^4 s^{-1}}
+  =&16.28 {\rm k}\Omega&\qquad\text{und}\qquad 
+R_2=\frac{R_1}{k}=16.28 {\rm k}\Omega. 
+\end{eqnarray*}
+\nit Die Tatsache, dass die Realisierung von $T_1(s)$ durch die
+Schaltung von Abb.~\ref{tp-1} eine Inversion bewirkt, spielt in der
+Praxis meistens keine Rolle.  Wenn n"otig, kann man $T_1(s)$ auch
+nichtinvertierend realisieren.
+\paragraph{2.~Sektion}
+\[ T_2(s)=\frac{4.09\cdot 10^9}{s^2+1.407\cdot 10^4 ~s+4.09\cdot 10^9}
+        =k~ \frac{\omega_p^2}{s^2+s\frac{\omega_p}{q_p}+\omega_p^2}\]
+\[\longrightarrow k=1;\qquad  \omega_p=6.395 \cdot 10^4 s^{-1}; \qquad    q_p=4.545 \]
+\nit Mit der Schaltung von Abb.~\ref{tp-2} und der Wahl von $C=1\mbox{nF}$
+wird
+\begin{eqnarray*}
+R=\frac{1}{6.395 \cdot 10^4 s^{-1} \cdot 1 {\rm nF}} 
+ =15.64 {\rm k}\Omega;&& \beta = 3-\frac{1}{4.545}=2.780 \\
+R_{11}=2.780 \cdot 15.64 {\rm k}\Omega=43.47 {\rm k}\Omega;&&
+R_{12}=\frac{43.47 {\rm k}\Omega \cdot 15.64 {\rm k}\Omega}
+                {43.47 {\rm k}\Omega-15.64 {\rm k}\Omega}
+ =24.42 {\rm k}\Omega \\
+R_3= \frac{2 \cdot 2.78}{1.78} \cdot 15.64 {\rm k}\Omega
+ =48.85 {\rm k}\Omega;&& R_4=2 \cdot 2.78 \cdot 15.64 {\rm k}\Omega=86.96 {\rm k}\Omega.
+\end{eqnarray*}
+\paragraph{3.~Sektion}
+\[ T_3(s)=\frac{1.883 \cdot 10^9}{s^2 + 3.682 \cdot 10^4 ~s
+                                        + 1.883 \cdot 10^9}
+        =k~ \frac{\omega_p^2}{s^2 + s \frac{\omega_p}{q_p} + \omega_p^2} \]
+\[ \longrightarrow k=1;\qquad   \omega_p=4.339 \cdot 10^4 s^{-1};\qquad   q_p=1.179 \]\\
+\nit Mit der Schaltung von Abb.~\ref{tp-2} und der Wahl von $C=1.5\mbox{nF}$
+wird
+\begin{eqnarray*}
+R=\frac{1}{4.339 \cdot 10^4 s^{-1} \cdot 1.5 {\rm nF}} 
+ =15.36 {\rm k}\Omega;&&\beta=3-\frac{1}{1.179}=2.152 \\
+R_{11}=2.152 \cdot 15.36 {\rm k}\Omega=33.05 {\rm k}\Omega;&&R_{12}=\frac{33.05 {\rm k}\Omega \cdot 15.36 {\rm k}\Omega}
+                {33.05 {\rm k}\Omega-15.36 {\rm k}\Omega}
+ =28.70 {\rm k}\Omega \\
+R_3=\frac{2 \cdot 2.152}{1.152} \cdot 15.36 {\rm k}\Omega
+ =57.39 {\rm k}\Omega;&& R_4=2 \cdot 2.152 \cdot 15.36 {\rm k}\Omega=66.11 {\rm k}\Omega.
+\end{eqnarray*}
+\begin{figure}[!htb]
+\begin{center}
+  \bild{/filter/FIL77.ps,width=0.9}\caption{Tschebyscheff-Tiefpass 5.~Ordnung in Kaskadenbauweise
+         \label{CC-TP-5O}}
+\end{center}
+\vspace*{-6mm}
+\end{figure}
+\nit Durch Kaskadierung der einzelnen Sektionen erh"alt man die Schaltung
+gem"ass Abb.~\ref{CC-TP-5O}.  Die Simulation\index{Simulation} des
+Filters ergibt das gew"unschte Resultat (Abb.~\ref{FIL_TP-Tscheb}):
+\begin{figure}[!htb] % mit FIL77.m
+\begin{center}
+  \bild{/filter/FIL77c.eps,width=1}\caption{Amplitudengang des Tschebyscheff-Tiefpassfilters  5.~Ordnung} \label{FIL_TP-Tscheb}
+\end{center}
+\vspace*{-6mm}
+\end{figure}
+
+\begin{figure}[!htb]% mit FIL77.m
+\begin{center}
+  \bild{/filter/FILn008.eps,width=0.71}\caption{Teilamplitudeng"ange $|T_1(j\omega)|$, $|T_2(j\omega)|$, $|T_3(j\omega)|$ und $|T(j\omega)|$ des Kaskadenfilters von Abb.~\ref{CC-TP-5O}}
+\end{center}
+\vspace*{-6mm}
+\end{figure}
+\nit Das gezeigte Vorgehen ist einfach. Die entworfene Schaltung
+entspricht aber weder bez"uglich Sensitivit"at gegen"uber
+Bauteiltoleranzen noch bez"uglich der
+Signal\-dynamik\index{Dynamik!Signal-} der optimalen L"osung.  Auch
+lassen sich mit der analysierten Schaltung 2.~Ordnung nur mittlere
+Polg"uten ($q\leq 20$) praktikabel realisieren.  Detailliertere
+Angaben "uber m"ogliche Schaltungen sind z.B. in \cite{MOS:HOR:80, VAL:82} zu finden.
+\clearpage
+\section{Aufgaben zur Filtertheorie}
+\begin{enumerate}
+\item Ein Tiefpassfilter mit Durchlassbereich bis 3~kHz und maximaler
+  D"ampfung von 1~dB hat einen Sperrbereich ab 9~kHz und eine minimale D"ampfung von 50~dB.
+\begin{enumerate}
+ \item Zeichnen Sie das normierte Toleranzschema des Filters.
+ \item Bestimmen Sie den Filterordnung f"ur das Butterworth-, das Tschebyscheff-Filter und das Cauer-Filter mit Hilfe der entsprechenden Formeln. "Uberpr"ufen Sie Ihr Resultat mit den Nomogrammen. 
+\item Bestimmen Sie den Filterordnung mit Hilfe des entsprechenden \mb\!\!.
+\end{enumerate} 
+
+\item {\bf Bestimmung von $K$}\\ Die "Ubertragungsfunktion eines
+  Tiefpassfilters siebenter Ordnung ist:
+\begin{equation*}
+{\footnotesize T(s)=\frac{K}{(0.256+s)(1.016+0.114s+s^2)(0.677+0.319s+s^2)(0.254+0.462s+s^2)}.}
+\end{equation*}
+  \begin{enumerate}
+  \item Wie gross ist $T(s)$ bei $s=0$?
+  \item Skizzieren Sie alle Pole in die $s$-Ebene ein.
+  \item Um was f"ur eine Filterart handelt es sich?
+  \item Wie gross ist $K$?
+  \end{enumerate} 
+  
+\item {\bf Bestimmung der Filterordnung $n$}
+\begin{enumerate}
+\item Bei einem Butterworth-Tiefpassfilter\index{Butterworth!Tiefpassfilter} ist die maximale D"ampfung
+  im Durchlassbereich 0.1~dB und im Sperrbereich ist die minimale
+  D"ampfung 30~dB. Der Durchlassbereich geht bis $f_D=2\mbox{~kHz}$ und der
+  Sperrbereich beginnt bei $f_S=3\mbox{~kHz}$. Berechnen Sie die minimale
+  Filterordnung und "uberpr"ufen Sie Ihr Resultat mit dem Nomogramm.
+\item Ein Tschebyscheff-Tiefpassfilter hat die gleichen
+  Spezifikationen wie das\newline Butterworth-Tief\-pass\-filter. Berechnen Sie die
+  minimale Filterordnung.
+\end{enumerate}
+
+\item {\bf Bestimmung des Toleranzschemas}\\ Ein Tiefpass 7.~Ordnung
+  wurde entworfen. Der maximale Rippel\index{Rippel} im
+  Durchlassbereich ist 1~dB und die minimale D"ampfung im Sperrbereich
+  ist 40~dB. Der Sperrbereich beginnt bei 10~kHz. Bestimmen Sie $w_D$
+  f"ur ein Tschebyscheff- und ein Butterworth-Filter und zeichnen Sie
+  beide Toleranzschemen auf.
+
+\item {\bf R"atsel\index{Ratsel@R\"atsel} (just for fun)}\\ Gesucht werden drei W"urfel
+  $A,B$ und $C$, deren Seiten mit beliebigen ganzahligen Augenzahlen von 1 bis 6 beschrieben sind, so dass gilt: $P(A>B)>1/2, P(B>C)>1/2$ und $P(C>A)>1/2$.
+
+\item{\bf Analoges Filter} Gegeben sind die Tiefpassfilterspezifikationen: $A_{\text{min}}=30~$dB; $A_{\text{max}}=2~$dB; $\omega_D=1000~\frac{1}{s}$; $\omega_S=3000~\frac{1}{s}$.
+\begin{enumerate}
+\item[a)] Skizzieren Sie das normierte Toleranzschema.
+\item[b)] Bestimmen Sie f\"ur die Vorgaben die Ordnung der Tiefpassapproximation nach Butterworth, Tschebyscheff I und II, sowie nach Cauer. 
+\item[c)] Von nun an beschr"anken wir uns auf die Approximation nach Butterworth. Bestimmen Sie die normierte UTF. 
+\item[d)] Entnormieren Sie die UTF. Die Berechnung ist nicht notwendig, sondern das Vorgehen sowie die Angabe der n"otigen Werte. 
+\item[e)] Skizzieren Sie den D"ampfungsverlauf mit m"oglichst allen Kennwerten in Ihr Toleranzschema ein. 
+\item[f)] Skizzieren Sie die normierte minimal-$C$ $LC-$Schaltung, wobei der Quelleninnenwiderstand ideal ist und der Lastwiderstand 1~k$\Omega$ betr"agt. 
+\item[g)] Bestimmen Sie entnormierten Werte der minimal-$C$ $LC-$Schaltung (Vorgehen und  Formeln sind verlangt, nicht die eigentliche Berechnung). 
+\end{enumerate}
+
+\item {\bf Kakuro\index{Kakuro} (just for fun)}\\ Beim Kakuro m"ussen ganze Zahlen von 1 bis 9 in einer Reihe (senkrecht unf waagrecht) die gelbe Gesamtsumme ergeben. Die gelbe Gesamtsumme ist links oder oberhalb der Reihe im blauen Dreieck vorgegeben. Jede ganze Zahl darf h"ochstens ein Mal in jeder Summe vorkommen.\\
+\vspace*{-9mm}
+\begin{center} % minim abgeaendert aus NZZ Kakuro Nr. 22 / 27.1.2007
+{\psset{unit=0.81}
+\begin{pspicture}(7,7)
+\psset{linewidth=0.3pt, linecolor=blue}
+\psline*(0,0)(1,0)(1,2)(2,2)(2,3)(1,3)(1,6)(7,6)(7,7)(0,7)
+\psline*(3,0)(4,0)(4,1)(3,1)\psline*(6,3)(7,3)(7,4)(6,4)\psline*(3,3)(3,4)(4,4)(4,3)
+\psline*(4,2)(5,2)(5,3)(4,3)\psline*(4,5)(5,5)(5,6)(4,6)
+
+{\scriptsize\color{yellow}
+\rput[rt](0.9,0.9){3}\rput[rt](0.9,1.9){22}\rput[rt](0.9,3.9){8}\rput[rt](0.9,4.9){39}\rput[rt](0.9,5.9){22}\rput[rt](1.9,2.9){12}
+\rput[rt](3.9,3.9){13}\rput[rt](4.9,2.9){17}\rput[rt](3.9,0.9){9}\rput[rt](4.9,5.9){5}
+\rput[lb](1.1,2.1){7}\rput[lb](3.1,3.1){4}\rput[lb](4.1,2.1){13}
+\rput[lb](6.1,3.1){15}\rput[lb](4.1,5.1){10}\rput[lb](6.1,6.1){5}
+\rput[lb](5.1,6.1){32}\rput[lb](3.1,6.1){15}\rput[lb](2.1,6.1){33}\rput[lb](1.1,6.1){16}
+}
+
+\psset{linecolor=yellow}
+\psline(0,1)(1,0)\psline(0,2)(1,1)\psline(0,4)(2,2)\psline(0,5)(1,4)\psline(0,6)(1,5)
+\psline(1,7)(2,6)\psline(2,7)(3,6)\psline(3,7)(5,5)\psline(5,7)(6,6)\psline(6,7)(7,6)
+\psline(1,3)(2,3)\psline(3,4)(5,2)\psline(6,4)(7,3)\psline(3,1)(4,0)
+\psset{linecolor=black}
+\psline(0,0)(7,0)\psline(0,1)(7,1)\psline(0,2)(7,2)\psline(0,3)(7,3)\psline(0,4)(7,4)\psline(0,5)(7,5)\psline(0,6)(7,6)\psline(0,7)(7,7)
+\psline(0,0)(0,7)\psline(1,0)(1,7)\psline(2,0)(2,7)\psline(3,0)(3,7)\psline(4,0)(4,7)\psline(5,0)(5,7)\psline(6,0)(6,7)\psline(7,0)(7,7)
+\end{pspicture}}
+\end{center}
+
+\end{enumerate}
+\clearpage

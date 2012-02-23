@@ -1,0 +1,141 @@
+\section{Matrizenrechnung}
+\subsection{Übersicht}
+	\begin{tabular}{l l}
+    	Transponierte Matrix: & $A^T=[a_{ik}^T]=[a_{ki}]$ vertauschen der Zeilen
+    	mit Spalten\\
+    	Einheitsmatrix:& $I_n= 
+			    	\begin{bmatrix} 
+			        	1&0 & 0\\
+			        	0&1&0\\
+			        	0&0&1                               
+			        \end{bmatrix}
+$		    
+    \end{tabular}
+
+\subsection{Determinante}
+
+	\textbf{2x2 Matrix}    
+	$$ \det \begin{bmatrix} a_{11} & a_{12} \\ a_{21} & a_{22} \end{bmatrix} =
+	a_{11} a_{22} - a_{12} a_{21}.  $$
+	
+	\textbf{3x3 Matrix}
+	$$ \det \begin{bmatrix} a_{11} & a_{12} & a_{13} \\ a_{21} & a_{22}& a_{23} \\
+	a_{31} & a_{32} & a_{33} \end{bmatrix} \\ = a_{11} a_{22} a_{33} + a_{12}
+	a_{23} a_{31} + a_{13} a_{21} a_{32} - a_{13} a_{22} a_{31} - a_{12} a_{21}
+	a_{33} - a_{11} a_{23} a_{32}.  $$
+	
+	\textbf{Dreiecksmatrix} - Alle Elemente entweder ober- oder unterhalt der Hauptdiagonale $= 0$
+	$$\det A =a_{11}\cdot a_{22}\dotsb a_{nn} \quad  \quad \text{Die Det. ist das Produkt
+	der Hauptdiagonal-Einträge. Gilt somit auch für Diagonalmatritzen.} $$
+	
+	\textbf{Null $(|A| = 0)$} - Wenn $A$ eine (n,n)-Matrix ist, so wird $|A| = 0$ unter einer der
+	folgenden Bedingungen:
+	\begin{itemize}
+    	\item Zwei Zeilen/Spalten sind linear abhängig (gleich oder ein Vielfaches der anderen).
+    	\item Alle Elemente einer Zeile/Spalte sind Null. \\
+  	\end{itemize} 
+	
+	\textbf{Allgemein:}
+	$$A\epsilon M_n: \det A =    
+	\begin{vmatrix}
+    	a_{11} & a_{12}& \ldots & a_{1n}\\
+    	a_{21}& &\ldots & \\
+    	\ldots \\
+    	a_{n1} & & \ldots & a_{nn}    			
+    \end{vmatrix}=
+	(-1)^{1+1}a_{11}D_{11} + (-1)^{1+2}a_{12}D_{12}+ \ldots +
+	(-1)^{1+n}a_{1n}D_{1n}$$
+	
+	\subsubsection{Unterdeterminante}
+	$$D_{11}=
+	\begin{vmatrix}
+    	a_{22} & \ldots & a_{2n}\\
+    	\ldots\\
+    	a_{n2}& \ldots & a_{nn}
+    \end{vmatrix} 	\\
+	D_{12}=
+	\begin{vmatrix}
+    	a_{21} & a_{23}& \ldots & a_{2n}\\
+    	\ldots\\
+    	a_{n1}& a_{n3}&\ldots & a_{nn}
+    \end{vmatrix}$$\\
+	$D_{ij}$ die (n-1)$ \times $(n-1)-Untermatrix von D ist, die durch Streichen der
+	i-ten Zeile und j-ten Spalte entsteht.\\
+	Diese Methode ist zu empfehlen, wenn die Matrix in einer Zeile oder Spalte
+	bis auf eine Stelle nur Nullen aufweisst.
+	Dies lässt sich meist mit dem Gausverfahren bewerkstelligen.
+	
+\subsection{Gaussverfahren}
+	Durch Addition und Subtraktion einzelner Zeilen (auch von Vielfachen einer
+	Zeile) werden einzelne Stellen auf Null gebracht. zB:\\
+	$\begin{bmatrix}
+    	a_{11} & a_{12}& \ldots & a_{1n}\\
+    	a_{21}& &\ldots & \\
+    	\ldots \\
+    	a_{n1} & & \ldots & a_{nn}    			
+    \end{bmatrix}=
+	\begin{bmatrix}
+    	a_{11} & a_{12}& \ldots & a_{1n}\\
+    	k a_{21}-n a_{11}& ka_{22}-n a_{12}&\ldots & k a_{2n} - n a_{1n}\\
+    	\ldots \\
+    	a_{n1} & & \ldots & a_{nn}    			
+    \end{bmatrix}$ \\
+	Die n * erste Zeile wurde von der k * zweiten Zeile abgezogen ($a_{2.}= 
+	k a_{2.}- n a_{1.}$)
+	
+\subsection{Inverse Matrix \small{(Existiert nur wenn Matrix regulär: $\det A \neq 0$)}}
+\begin{minipage}{7cm}
+	\textbf{2x2 Matrix:}    
+	$$ A^{-1} = \begin{bmatrix} a & b \\ c & d \\ \end{bmatrix}^{-1} = \frac{1}{ad
+	- bc} \begin{bmatrix} d & -b \\ -c & a \\ \end{bmatrix} $$
+\end{minipage}
+\begin{minipage}{11cm}
+	\textbf{3x3 Matrix:}
+  $$  A^{-1} = \begin{bmatrix} a & b & c\\ d & e & f \\ g & h & i \\ \end{bmatrix}^{-1} =
+  \frac{1}{\det(A)} \begin{bmatrix} ei - fh & ch - bi & bf - ce \\ fg - di & ai
+  - cg & cd - af \\ dh - eg & bg - ah & ae - bd \end{bmatrix} $$
+\end{minipage}\\
+
+\textbf{Diagonalmatrix} (Alle Elemente ausserhalb der Hauptdiagonale $= 0$, Elemente auf
+Hauptdiagonale sind Eigenwerte $\lambda_i$): \\ 
+Alle Elemete elementweise invertieren - Kehrwert. $\quad \Rightarrow \quad $\textit{Gilt nur wenn
+alle Elemente auf der Hauptdiagonale $\neq 0$ sind.}\\
+
+\textbf{Allgemein:}\\
+	$A^{-1}= \begin{bmatrix}
+    	a_{11} & a_{12}& \ldots & a_{1n}\\
+    	a_{21}& &\ldots & \\
+    	\ldots \\
+    	a_{n1} & & \ldots & a_{nn}    			
+    \end{bmatrix}^{-1}$
+	\begin{enumerate}
+		\item $A^T$ bestimmen (Zeilen und Spalten vertauschen) $A^{T}= \begin{bmatrix}
+    	a_{11} & a_{21}& \ldots & a_{n1}\\
+    	a_{12}& &\ldots & \\
+    	\ldots \\
+    	a_{1n} & & \ldots & a_{nn}    			
+    \end{bmatrix}$	
+		\item Bei $A^T$ jedes Element $a_{ij}$ durch Unterdet. $D_{ij}$ mit
+		richtigem Vorzeichen ersetzen $A^*=	\begin{bmatrix}
+			(-1)^{1+1}D_{11} &  \ldots	& (-1)^{1+n} D_{1n}\\
+			\ldots\\
+			(-1)^{n+1} D_{n1}& \ldots  & (-1)^{n+n} D_{nn}
+		\end{bmatrix}$
+		\item $A^{-1} = \frac{A^*}{\det A}$ 
+    \end{enumerate}
+ 
+ \subsection{Diagonalisierung}
+ 	\begin{enumerate}
+       \item Eigenwerte $\lambda$ auschrechnen: $\det (A - I_n \lambda)=0$
+       \item Eigenvektoren $\vec{v}$ bilden: $(A- \lambda I_n)\vec{v}=0$
+       \item Transformationsmatrix: $T= [\vec{v_1} \ldots \vec{v_n}]$
+       \item $T^{-1}$ berechnen (Achtung ist A symmetrisch, dh. $A^T=A$ und
+       oder alle EV senktrecht zueinander, dann $T^{-1}=T^T$)
+       \item $D=\begin{bmatrix}
+                	\lambda_1 &0 &0\\
+                	0& \lambda_2 &0\\
+                	0& 0& \lambda_3
+                \end{bmatrix}$
+		\item $A^n = T D^n T^{-1}$
+
+     \end{enumerate}

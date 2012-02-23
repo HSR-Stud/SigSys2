@@ -1,0 +1,13 @@
+#TeXlipse project settings
+#Thu Feb 23 15:45:28 CET 2012
+builderNum=2
+outputDir=
+makeIndSty=
+bibrefDir=
+outputFormat=pdf
+tempDir=tmp
+mainTexFile=SigSys2.tex
+outputFile=SigSys2.pdf
+langSpell=
+markDer=true
+srcDir=
