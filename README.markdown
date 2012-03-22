@@ -1,3 +1,4 @@
 # SigSys2 - Signale und Systeme 2
 
-Gian Claudio Köppel
+Selina Malacarne
+(war einmal Gian Claudio Köppel)
