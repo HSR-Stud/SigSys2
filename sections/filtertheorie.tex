@@ -127,53 +127,56 @@ BS-TP 2. Ordnung
 \hline
 \parbox{9cm}{
 	\textbf{Butterworth} \formelbuch{266}
-	\begin{liste}
+	\begin{itemize}
 	 \item Amplitudengang: Gute Approximation (``maximal flach'')
 	 \item Allpolfilter, Pole liegen auf Kreis mit Abstand
 	 $\frac{\pi}{n}$
 	 \item Gruppenlaufzeit: Leichte Überhöhung bei
 	 Grenzfrequenz
-	\end{liste}
+	\end{itemize}
 	}
-& \parbox{9cm}{
+& 
+\parbox{9cm}{
 	\textbf{Kritisch gedämpftes (Gauss)-Filter} \formelbuch{273}
-	\begin{liste}
+	\begin{itemize}
 	 \item Keine Überschwinger bei Impuls- \& Sprungantwort
 	 \item Kaskadierung von wirkungsfreien RC-Filtern
 	 \item Allpolfilter: Pole nur auf negativer $\sigma$-Achse
-	\end{liste}
+	\end{itemize}
 	} \\
 \hline
 \parbox{9cm}{
 	\textbf{Tschebyscheff I} \formelbuch{276}
-	\begin{liste}
+	\begin{itemize}
 	 \item Amplitudengang: Definierte Welligkeit im DB, steiler Übergang
 	 \item Allpolfilter, wobei alle Pole auf einer Ellipse liegen
 	 \item Schlechte Gruppenlaufzeit
-	\end{liste}
+	\end{itemize}
 	}
-& \parbox{9cm}{
+&
+ \parbox{9cm}{
 	\textbf{Inverser Tschebyscheff  / Tscheby. II} \formelbuch{276}
-	\begin{liste}
+	\begin{itemize}
 	 \item Definierte Welligkeit im Durchgangsbereich
 	 \item Flachere Gruppenlaufzeit als Tschebyscheff I
-	\end{liste}
+	\end{itemize}
 	} \\
 \hline
 \parbox{6cm}{
 	\textbf{Cauer} \formelbuch{284}
-	\begin{liste}
+	\begin{itemize}
 	 \item Amplitudengang: Definierte Welligkeit im SB und DB
 	 \item Steilster Übergang zwischen SB und DB
-	\end{liste}
+	\end{itemize}
 	}
-& \parbox{6cm}{
+& 
+\parbox{6cm}{
 	\textbf{Bessel} \formelbuch{290}
-	\begin{liste}
+	\begin{itemize}
 	 \item Sehr linearer Phasengang $\Rightarrow$ fast konstante Gruppenlaufzeit
 	 \item Flachster Übergang zw. DB und SB im Amplitudengang
 	 \item Pole weit entfernt der $j \omega$-Achse
-	\end{liste}
+	\end{itemize}
 	} \\
 \hline
 \end{tabular}
@@ -245,12 +248,12 @@ Keine Tabelle, \matlab{ellip, ellipap}
 	Es ist zwischen Minimal-C (meistens) und Minimal-L-Netzwerken auszuwählen. \\
 	\\
 	Erläuterungen zu den Tabellen:
-	\begin{liste}
+	\begin{itemize}
      \item Die Legende oben beschreibt die Stromquellenstruktur, die untere die
 	Spannungsquellenstruktur.     
 	\item Normierung auf $R_2 = 1$, folglich $R_1 =
 	\frac{R_{\text{Quelle}}}{R_{\text{Last}}}$
-    \end{liste}
+    \end{itemize}
 	}
 \end{tabular}
 
@@ -313,25 +316,23 @@ R_{\text{Last}}}{\omega_{\text{3dB}}}$
 \newpage
 \subsection{Vergleich der Approximationsarten}
 \scriptsize
-\abbHeight{filter-butterworth.png}{11.5cm}{Butterworth-Filter mit UTF
-$H(s) =
-	\frac{1.003e022}{s^5 + 8.133e004 s^4 + 3.307e009 s^3 + 8.312e013 s^2 + 1.291e018 s + 1.003e022}$}
+\begin{center}
+\includegraphics[height=11.5cm]{./bilder/filter-butterworth.png}
+\\Butterworth-Filter mit UTF $H(s) = \frac{1.003e022}{s^5 + 8.133e004 s^4 +
+3.307e009 s^3 + 8.312e013 s^2 + 1.291e018 s + 1.003e022}$ 
+\includegraphics[height=11.5cm]{./bilder/filter-gauss.png} \\Kritisch gedämpftes
+Filter mit UTF $H(s) = \frac{1}{2.724e-013 s^3 + 1.261e-008 s^2 + 0.0001945 s +
+1}$ 
+\includegraphics[height=12cm]{./bilder/filter-tschebyscheff1.png} \\Tschebyscheff-I-Filter mit UTF $H(s)
+= \frac{1.609e023}{s^6 + 8812 s^5 + 2.757e008 s^4 + 1.721e012 s^3 + 1.924e016
+s^2 + 6.589e019 s + 2.026e023}$ 
+\includegraphics[height=12cm]{./bilder/filter-tschebyscheff2.png} \\Tschebyscheff-II-Filter mit UTF
+$H(s) = \frac{628.3 s^4 + 1.081e-009 s^3 + 3.969e011 s^2 + 1.975 s +
+5.014e019}{s^5 + 2.701e004 s^4 + 3.645e008 s^3 + 3.076e012 s^2 + 1.639e016 s + 5.014e019}$
+\includegraphics[height=12cm]{./bilder/filter-cauer.png} \\Cauer-Filter mit UTF
+$H(s) = \frac{108.8 s^4 - 6.596e-010 s^3 + 2.538e010 s^2 - 0.08009 s + 1.29e018}{s^5 + 4398 s^4 + 6.408e007 s^3 + 1.939e011 s^2 + 9.227e014 s + 1.29e018}$
+\includegraphics[height=12cm]{./bilder/filter-bessel.png} \\Bessel-Filter mit UTF $H(s) =
+ \frac{2.481e011}{s^3 + 1.529e004 s^2 + 9.736e007 s + 2.481e011}$
+\end{center}
 
-\abbHeight{filter-gauss.png}{11.5cm}{Kritisch gedämpftes Filter mit UTF
-$H(s) =
-	\frac{1}{2.724e-013 s^3 + 1.261e-008 s^2 + 0.0001945 s + 1}$}
-
-\abbHeight{filter-tschebyscheff1.png}{12cm}{Tschebyscheff-I-Filter mit UTF $H(s)
-=
-	\frac{1.609e023}{s^6 + 8812 s^5 + 2.757e008 s^4 + 1.721e012 s^3 + 1.924e016 s^2 + 6.589e019 s + 2.026e023}$}
-
-\abbHeight{filter-tschebyscheff2.png}{12cm}{Tschebyscheff-II-Filter mit UTF
-$H(s) =
-	\frac{628.3 s^4 + 1.081e-009 s^3 + 3.969e011 s^2 + 1.975 s + 5.014e019}{s^5 + 2.701e004 s^4 + 3.645e008 s^3 + 3.076e012 s^2 + 1.639e016 s + 5.014e019}$}
-
-\abbHeight{filter-cauer.png}{12cm}{Cauer-Filter mit UTF $H(s) =
-	\frac{108.8 s^4 - 6.596e-010 s^3 + 2.538e010 s^2 - 0.08009 s + 1.29e018}{s^5 + 4398 s^4 + 6.408e007 s^3 + 1.939e011 s^2 + 9.227e014 s + 1.29e018}$}
-
-\abbHeight{filter-bessel.png}{12cm}{Bessel-Filter mit UTF $H(s) =
-	\frac{2.481e011}{s^3 + 1.529e004 s^2 + 9.736e007 s + 2.481e011}$}
 
