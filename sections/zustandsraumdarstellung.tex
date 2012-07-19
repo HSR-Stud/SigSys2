@@ -21,8 +21,9 @@ Differentialgleichungssystem von $n$ Gleichungen 1. Ordnung.
 		${\boldsymbol D}$: Übergangs- oder Durchgangsmatrix ($k$ x
 		$m$)\\
 		
-		wobei $m$ der Anzahl Eingangssignale, $k$ der Anzahl Ausgangssignale \& $n$ der
-		Anzahl Zustandsgrössen (Integratoren, Ordnung) entsprechen.\\
+		\textbf{m}: Anzahl Eingänge \\
+		\textbf{n}: Anzahl Integratoren (Ordnung) \\
+		\textbf{k}: Anzahl Ausgänge
 	}
  \end{tabular}
 
@@ -37,42 +38,47 @@ Durchgangsmatrix $\boldsymbol D$. $\boldsymbol{I_n}$ sei die Einheitsmatrix mit
 Grösse $n$ x $n$.
 
 \subsection{Übertragungsmatrizen \formelbuch{149}}
-$$H(s)=\frac{Y(s)}{U(s)}=\frac{b_{m} s^{m} + b_{m-1} s^{m-1} +\cdots+b_{1} s 
-+ b_{0}}{s^{n} + a_{n-1} s^{n-1} + \cdots + a_{1} s + a_{0}}$$\\
-Allgemeine Formel für $m=1$ Eingang, $k=1$ Ausgang, $n=2$ Integratoren:\\
-$$H(s) = \left [ 
-\begin{array}{c c}
-C_{11}  & C_{12}\\
-\end{array}
-\right ]\cdot
-\left (
-\left [ 
-\begin{array}{cc}
- s & 0\\
-0 & s\\
-\end{array}
-\right ] -
-\left [ 
-\begin{array}{cc}
- A_{11} & A_{12}\\
- A_{21} & A_{22}\\
-\end{array}
-\right ]
-\right )^{-1}\cdot
-\left [ 
-\begin{array}{c}
- B_{11}\\
- B_{21}\\
-\end{array}
-\right ]+ D$$
-$$=  \frac{B_{11}C_{11}(s-A_{22}) + B_{11}C_{12}A_{21} +
-B_{21}C_{11}A_{12} + B_{21}C_{12}(s-A_{11})}{(s-A_{22})(s-A_{11}) - A_{12}A_{21}} + D$$
+\[
+H(s)=\frac{Y(s)}{U(s)}=\frac{b_{m} s^{m} + b_{m-1} s^{m-1} +\cdots+b_{1} s 
++ b_{0}}{s^{n} + a_{n-1} s^{n-1} + \cdots + a_{1} s + a_{0}}
+\]\\
+Allgemeine Formel für $m=1$ Eingang, $k=1$ Ausgang, $n=2$ Integratoren:
+\begin{align*}
+H(s) &= \left[
+	\begin{array}{c c}
+		C_{11}  & C_{12}\\
+	\end{array}
+	\right] \cdot \left( \left[
+	\begin{array}{cc}
+		s & 0\\
+		0 & s\\
+	\end{array}
+	\right] - \left[
+	\begin{array}{cc}
+		A_{11} & A_{12}\\
+		A_{21} & A_{22}\\
+	\end{array}
+	\right] \right)^{-1} \cdot \left[
+	\begin{array}{c}
+		B_{11}\\
+		B_{21}\\
+	\end{array}
+	\right ]+ D \\
+	&=  \frac{B_{11}C_{11}(s-A_{22}) + B_{11}C_{12}A_{21} + B_{21}C_{11}A_{12} + B_{21}C_{12}(s-A_{11})}
+		{(s-A_{22})(s-A_{11}) - A_{12}A_{21}} + D
+\end{align*}
+		
+Ist die Übertragungsfunktion $H_{ba}(s)$ vom \textbf{Eingang b} zum \textbf{Ausgang a} gesucht, so gilt:
+\[
+  H_{ba}(s) = \frac{Y_a(s)}{U_b(s)} = C(a,:) \cdot (s \cdot I -A)^{-1} \cdot B(:,b) + D(a,b)
+\]
 
 
 \subsection{Stabilität \formelbuch{153}}
 Wenn alle Realteile der Eigenwerte $\lambda$ der Systemmatrix ${\boldsymbol A}$
 negativ sind, ist ein LTI-System asymptotisch stabil, jedoch nicht umgekehrt:
-$\left | \lambda\boldsymbol{I} - \boldsymbol{A} \right |   =0 \rightarrow \forall~\lambda \quad\Re \{\lambda\}<0$
+$\left | \lambda\boldsymbol{I} - \boldsymbol{A} \right |   =0 \rightarrow \forall~\lambda \quad\Re \{\lambda\}<0$ \\
+Sind die Realteile aller $\lambda$ kleiner oder gleich Null, so ist das System grenzstabil.
 
 \newpage
 \subsection{Beobachtbar- \& Steuerbarkeit \formelbuch{154}}
