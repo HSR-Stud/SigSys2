@@ -138,10 +138,13 @@ UTF: $T_A(s) = K
 \frac{Q(-s)}{Q(s)}$
 
 
+
 \subsubsection{Minimalphasennetzwerk}
-Ein Minimalphasennetzwerk hat \textbf{keine Nullstellen in der rechten
-Halbebene} (RHE), \textbf{darf jedoch Nullstellen auf der imaginären Achse
-haben}.
+\begin{itemize}
+  \item Keine Nullstellen in der rechten Halbebene
+  \item Nullstellen auf der imaginären Achse erlaubt
+\end{itemize}
+
 
 \subsubsection{Nicht-Minimalphasennetzwerk}
 Ein Nicht-Minimalphasennetzwerk kann durch Kaskadierung eines Allpasses und
@@ -150,10 +153,10 @@ eine Minimalphasennetzwerk realisiert werden:\\
 Nicht-Minimalphasennetzwerk (links) = Minimalphasennetzwerk (Mitte) · Allpass (rechts)
 
 \subsection{Stabilitätsbestimmung am Pol-/Nullstellendiagramm}
-asymptotisch stabil = alle Polstellen in der
-linken Halbebene (LHE)\\
-grenzstabil=Polstellen in der LHE und/oder auf der
-imaginären Achse
+\begin{tabular}{lcl}
+	asymptotisch stabil & = & alle Polstellen in der linken Halbebene (LHE) \\
+	grenzstabil			& = & Polstellen in der LHE und/oder auf der imaginären Achse
+\end{tabular}
 
 \subsection{Bode-Diagramm \matlab{bode}}
 \begin{tabular}{ll}
