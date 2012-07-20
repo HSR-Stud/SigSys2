@@ -91,10 +91,10 @@ Wenn $|Q_{Steuerbarkeit}|= \left| \left [ \boldsymbol{B~~AB~~ A^2B~\ldots~
 A^{n-1}B} \right ] \right|  \neq 0$, dann ist das System vollständig steuerbar.
 
 \subsubsection{Ausgangssteuerbarkeit}
-Gibt es Ausgänge die nicht von den Eingängen $\underline{u} (t)$ beeinflusst werden?
-Wenn ja, ist das System nicht steuerbar!
-Wenn $|Q_{Steuerbarkeit}| = \left| \left [ \boldsymbol{CB~~ CAB~~ CA^2B~\ldots~
-CA^{n-1}B}\right ] \right| \neq 0$, dann ist das System vollständig ausgangssteuerbar.
+Ein System ist vollständig ausgangssteuerbar, wenn es eine Steuerfunktion $\underline{u} (t)$ gibt,
+welche die Ausgänge $\underline{y}(t)$ innerhalb einer endlichen Zeitspanne in einen Endwert bringt.
+Wenn $rang(Q_{AusgStrbrkeit}) = rang \left( \left [ \boldsymbol{CB~~ CAB~~ CA^2B~\ldots~
+CA^{n-1}B ~~ D}\right ] \right) = k$, dann ist das System vollständig ausgangssteuerbar.
 
 \subsubsection{Beobachtbarkeit \matlab{obsv}}
 Gibt es Zustände $\underline{x}(t)$ die keinen Einfluss auf die Ausgänge
@@ -181,6 +181,7 @@ u(t).
 \normalsize
 
 
+\begin{samepage}
 \subsubsection{Beobachtungsnormalform \formelbuch{151}}
 \includegraphics[width=10cm]{./bilder/zrd-beobachtungsnormalform.png} \\
 \scriptsize
@@ -246,3 +247,4 @@ b_n \\
 u(t).
 \end{eqnarray*}
 \normalsize
+\end{samepage}
