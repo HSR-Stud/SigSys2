@@ -10,7 +10,7 @@
 	D"ampfung $A_{\min}$.
 	}
 & \parbox{6cm}{
-	\includegraphics[width=6cm]{./bilder/filter-toleranzschema.png}}
+	\includegraphics[width=6cm]{./images/filter-toleranzschema.png}}
 \end{tabular}
 
 \subsection{Realisation analoger Filter}
@@ -32,7 +32,7 @@
 \subsubsection{Frequenznormierung \formelbuch{264}}
 \begin{tabular}{ll}
 \parbox{6cm}{
-	\includegraphics[width=5cm]{./bilder/filter-freqnormierung.png}}
+	\includegraphics[width=5cm]{./images/filter-freqnormierung.png}}
 & \parbox{12cm}{
 	\textbf{Normierung} \\
 	$S=\frac{s}{\omega_{r}} \hspace{2cm} \Omega=\frac{\omega}{\omega_{r}} 
@@ -54,13 +54,13 @@
 	& \textbf{Tiefpass-Bandpass \formelbuch{304}}
 	& \textbf{Tiefpass-Bandsperre \formelbuch{308}} \\ 
 \multicolumn{2}{|l|}{\parbox{6cm}{
-	\includegraphics[width=6cm]{./bilder/filter-transf-tp-hp.png}
+	\includegraphics[width=6cm]{./images/filter-transf-tp-hp.png}
 	}}
 & \parbox{6cm}{
-	\includegraphics[width=6cm]{./bilder/filter-transf-tp-bp.png}
+	\includegraphics[width=6cm]{./images/filter-transf-tp-bp.png}
 	}
 & \parbox{6cm}{
-	\includegraphics[width=6cm]{./bilder/filter-transf-tp-bs.png}
+	\includegraphics[width=6cm]{./images/filter-transf-tp-bs.png}
 	} \\
 Ordnung: 
 	& $n$
@@ -185,7 +185,7 @@ BS-TP 2. Ordnung
 \begin{tabular}{p{7cm} p{11cm}}
 \parbox{6cm}{
 	\textbf{Mittels Nomogramm} \\
-	\includegraphics[width=6cm]{./bilder/filter-nomogramme.png}
+	\includegraphics[width=6cm]{./images/filter-nomogramme.png}
 	}
 & \parbox{12cm}{
 	\textbf{Oder mittels Formeln}\\
@@ -241,7 +241,7 @@ Keine Tabelle, \matlab{ellip, ellipap}
 356}}
 \begin{tabular}{ll}
 \parbox{10cm}{
-	\includegraphics[width=10cm]{./bilder/filter-lc-realisation.png}
+	\includegraphics[width=10cm]{./images/filter-lc-realisation.png}
 	}
 & \parbox{8cm}{
 	Die Struktur unterscheidet sich nicht zwischen den Filtertypen.\\
@@ -287,17 +287,17 @@ R_{\text{Last}}}{\omega_{\text{3dB}}}$
 	\hline
 	Tiefpass-Hochpass
 		& \parbox{7cm}{
-		\includegraphics[width=7cm]{./bilder/filter-bauteile-tp-hp.png}}
+		\includegraphics[width=7cm]{./images/filter-bauteile-tp-hp.png}}
 		\\
 	\hline
 	Tiefpass-Bandpass 
 		& \parbox{7cm}{
-		\includegraphics[width=7cm]{./bilder/filter-bauteile-tp-bp.png}}
+		\includegraphics[width=7cm]{./images/filter-bauteile-tp-bp.png}}
 		\\
 	\hline
 	Tiefpass-Bandsperre
 		& \parbox{7cm}{
-		\includegraphics[width=7cm]{./bilder/filter-bauteile-tp-bs.png}}
+		\includegraphics[width=7cm]{./images/filter-bauteile-tp-bs.png}}
 		\\
 	\hline
 	\end{tabular}
@@ -307,7 +307,7 @@ R_{\text{Last}}}{\omega_{\text{3dB}}}$
 	\subsection{Kaskadierung von Filtern}
 	Wenn mehrere Filter kaskadiert werden, ändern sich die Spezifikationen wie in
 	folgendem Beispiel:\\
-	\includegraphics[width=4cm]{./bilder/filter-kaskadierung.png}
+	\includegraphics[width=4cm]{./images/filter-kaskadierung.png}
 	}
 \end{tabular}
 
@@ -317,21 +317,21 @@ R_{\text{Last}}}{\omega_{\text{3dB}}}$
 \subsection{Vergleich der Approximationsarten}
 \scriptsize
 \begin{center}
-\includegraphics[height=11.5cm]{./bilder/filter-butterworth.png}
+\includegraphics[height=11.5cm]{./images/filter-butterworth.png}
 \\Butterworth-Filter mit UTF $H(s) = \frac{1.003e022}{s^5 + 8.133e004 s^4 +
 3.307e009 s^3 + 8.312e013 s^2 + 1.291e018 s + 1.003e022}$ 
-\includegraphics[height=11.5cm]{./bilder/filter-gauss.png} \\Kritisch gedämpftes
+\includegraphics[height=11.5cm]{./images/filter-gauss.png} \\Kritisch gedämpftes
 Filter mit UTF $H(s) = \frac{1}{2.724e-013 s^3 + 1.261e-008 s^2 + 0.0001945 s +
 1}$ 
-\includegraphics[height=12cm]{./bilder/filter-tschebyscheff1.png} \\Tschebyscheff-I-Filter mit UTF $H(s)
+\includegraphics[height=12cm]{./images/filter-tschebyscheff1.png} \\Tschebyscheff-I-Filter mit UTF $H(s)
 = \frac{1.609e023}{s^6 + 8812 s^5 + 2.757e008 s^4 + 1.721e012 s^3 + 1.924e016
 s^2 + 6.589e019 s + 2.026e023}$ 
-\includegraphics[height=12cm]{./bilder/filter-tschebyscheff2.png} \\Tschebyscheff-II-Filter mit UTF
+\includegraphics[height=12cm]{./images/filter-tschebyscheff2.png} \\Tschebyscheff-II-Filter mit UTF
 $H(s) = \frac{628.3 s^4 + 1.081e-009 s^3 + 3.969e011 s^2 + 1.975 s +
 5.014e019}{s^5 + 2.701e004 s^4 + 3.645e008 s^3 + 3.076e012 s^2 + 1.639e016 s + 5.014e019}$
-\includegraphics[height=12cm]{./bilder/filter-cauer.png} \\Cauer-Filter mit UTF
+\includegraphics[height=12cm]{./images/filter-cauer.png} \\Cauer-Filter mit UTF
 $H(s) = \frac{108.8 s^4 - 6.596e-010 s^3 + 2.538e010 s^2 - 0.08009 s + 1.29e018}{s^5 + 4398 s^4 + 6.408e007 s^3 + 1.939e011 s^2 + 9.227e014 s + 1.29e018}$
-\includegraphics[height=12cm]{./bilder/filter-bessel.png} \\Bessel-Filter mit UTF $H(s) =
+\includegraphics[height=12cm]{./images/filter-bessel.png} \\Bessel-Filter mit UTF $H(s) =
  \frac{2.481e011}{s^3 + 1.529e004 s^2 + 9.736e007 s + 2.481e011}$
 \end{center}
 

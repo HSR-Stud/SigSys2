@@ -1,6 +1,3 @@
-*.aux
-*.pdf
-*.log
-*.out
-
-*.synctex
+tmp/*
+SigSys2.pdf
+*.synctex.gz
