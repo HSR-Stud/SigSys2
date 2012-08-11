@@ -1,6 +1,6 @@
 tmp/*
 SigSys2.pdf
-*.synctex.gz
+*.synctex*
 *.aux
 *.log
 *.out
