@@ -3,31 +3,24 @@ Darstellung einer Differentialgleichung $n$. Ordnung durch ein
 Differentialgleichungssystem von $n$ Gleichungen 1. Ordnung.
 
 \subsection{Definition \formelbuch{267}}
-\begin{tabular}{ll}
-\parbox{10cm}{
-	\input{./tikz/Zustandsraumdarstellung/Definition.tex}
-	%\includegraphics[width=10cm]{./images/zrd-schema.png}
-	}
-	& \parbox{8cm}{
-		$\dot{\underline{x}}(t) = {\boldsymbol A} \underline{x}(t) + {\boldsymbol B}
-		\underline{u}(t)$ \\
-		$\underline{y}(t) = {\boldsymbol C} \underline{x}(t) + {\boldsymbol D}
-		\underline{u}(t)$\\ 
-		
-		${\boldsymbol A}$: Systemmatrix ($n$ x $n$): Spalten entsprechen Ausgängen
-		der Integratoren, Zeilen Eingänge ; \\ 
-		${\boldsymbol B}$: Steuer- oder
-		Eingangsmatrix ($n$ x $m$) ``senkrecht''; \\ ${\boldsymbol C}$: Beobachtungs- oder Ausgangsmatrix ($k$ x $n$)
-		``waagrecht''; \\
-		${\boldsymbol D}$: Übergangs- oder Durchgangsmatrix ($k$ x
-		$m$)\\
-		
-		\textbf{m}: Anzahl Eingänge \\
-		\textbf{n}: Anzahl Integratoren (Ordnung) \\
-		\textbf{k}: Anzahl Ausgänge\\
+\begin{multicols}{2}
+	\adjustbox{width=\linewidth}{\input{./tikz/Zustandsraumdarstellung/Definition.tex}}
+	
 	Bestimmung der Matrizen A,B,C,D siehe auch \formelbuch{298}
-	}
- \end{tabular}
+	
+	$\dot{\underline{x}}(t) = {\boldsymbol A} \underline{x}(t) + {\boldsymbol B} \underline{u}(t)$ \\
+	$\underline{y}(t) = {\boldsymbol C} \underline{x}(t) + {\boldsymbol D} \underline{u}(t)$
+		
+	\begin{description}[noitemsep, style=multiline, leftmargin=15pt]
+  		\item[A] Systemmatrix ($n$ x $n$): Spalten entsprechen Ausgängen der Integratoren, Zeilen Eingänge
+  		\item[B] Steuer- oder Eingangsmatrix ($n$ x $m$) ``senkrecht''
+  		\item[C] Beobachtungs- oder Ausgangsmatrix ($k$ x $n$) ``waagrecht''
+  		\item[D] Übergangs- oder Durchgangsmatrix ($k$ x $m$) \\
+  		\item[m] Anzahl Eingänge
+  		\item[n] Anzahl Integratoren (Ordnung)
+  		\item[k] Anzahl Ausgänge
+	\end{description}	
+\end{multicols}
 
 \subsection{ZRD im Zeitbereich \formelbuch{270}}
 
