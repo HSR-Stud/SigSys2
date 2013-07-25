@@ -70,11 +70,11 @@
 	-$80.000$ & -$9.210$ & $10^{-8}$ & $10^{-4}$ \\ \hline
 	-$90.000$ & -$10.362$ & $10^{-9}$ & $3.162 \cdot 10^{-5}$ \\ \hline
 	-$100.000$ & -$11.513$ & $10^{-10}$ & $10^{-5}$ \\ \hline
-	\end{tabular}
+	\end{tabular} \\
 	\normalsize
 Verstärkungsmass L in \textbf{Dezibel} (dB):\\
-$L_P = 10 \cdot \log \left(\frac {P_2} {P_1}\right)$ \\
-$L_A = 20 \cdot \log \left(\frac {A_2} {A_1}\right)$ \\ 
+$L_P = 10 \cdot \log \left(\frac {P_2} {P_1}\right) \qquad$ Index P: Leistung \\
+$L_A = 20 \cdot \log \left(\frac {A_2} {A_1}\right) \qquad$ Index A: Amplitude \\ 
 
 Dezibel L zu linear: \\
 $P_2 = P_1 \cdot 10^{\frac{L_P}{10}} $ \\
@@ -93,73 +93,113 @@ $1\mbox{~dB} = \frac {\ln(10)} {20} \mbox{~Np} = 0.1151\mbox{~Np}$ \\
 $1\mbox{~Np} = 20 \cdot \log(\mbox{e}) \mbox{~dB} = 8.686\mbox{~dB}$ \\ 
 \\
 Anstatt $\frac{X_2}{X_1}$ für Verstärkungsmasse ($L$) können auch
-$\frac{X_1}{X_2}$ für Dämpfungsmasse ($a$) verwendet werden!
+$\frac{X_1}{X_2}$ für \textbf{Dämpfungsmasse ($\bf{a}$)} verwendet werden!
 
 \small{($P$ für Leistungen, $A$ für Amplituden)}
-\\ \\ \\
+\\ 
 
 \textbf{Hilfen zur Berechnung}\\
 \begin{tabular}{|l|ll|}
 \hline
-$x Db$	& $L_P=P_2/P_1$ &$L_A=A_2/A_1$ \\
+$x dB$	& $T_P=P_2/P_1$ &$T_A=A_2/A_1$ \\
 \hline
-$-x dB$	& $1/L_P$	& $1/L_A$\\
-$x+3dB$	& $L_P \cdot 2$	& $L_A \cdot \sqrt{2} \approx L_A \cdot 1.414$ \\
-$x+10dB$	& $L_P \cdot 10$ & $L_A \cdot \sqrt{10} \approx L_A \cdot 3.162$\\
+$-x dB$	& $1/T_P = D_P$	& $1/T_A = D_A$\\
+$x+3dB$	& $T_P \cdot 2$	& $T_A \cdot \sqrt{2} \approx T_A \cdot 1.414$ \\
+$x+6dB$ & $T_P \cdot 4$ & $T_A \cdot 2$ \\
+$x+10dB$	& $T_P \cdot 10$ & $T_A \cdot \sqrt{10} \approx T_A \cdot 3.162$\\
 \hline
 \end{tabular}
-\\ \\ \\
+\begin{tabular}{lllll}
+  $T$: & Verstärkungsfaktor & &
+  $D$: & Dämpfungsfaktor
+\end{tabular}
+\\ \\
 
 \textbf{Relative \& absolute Pegel}\\
-Relativer Pegel: Pegel relativ zu definiertem Wert\\
-Absoluter Pegel: Pegel an Normgenerator ($R_i = 600 \Omega$, $1mW$ Leistung am
-Widerstand)\\ 
-\begin{tabular}{|l|l|l|}\hline
-  & dBu & Spannungspegel bezogen auf 774.6~mV an 600~$\Omega$\\ \cline{2-3}
- \multicolumn{1}{|l|}{\raisebox{1.5ex}[-1.5ex]{$\mbox{dB}_{abs.}$}} & dBm & Leistungspegel bezogen auf 1~mW an 600~$\Omega$\\ \hline\hline
-  & dBV & Spannungspegel bezogen auf 1~V\\ \cline{2-3}
-  & dB$\mu$V & Spannungspegel bezogen auf 1~$\mu$V\\ \cline{2-3}
-  & dBf & Leistungspegel bezogen auf $10^{-15}$~W\\ \cline{2-3} 
-\multicolumn{1}{|l|}{$\mbox{dB}_{rel.}$}  & dBW & Leistungspegel bezogen auf 1~W\\ \cline{2-3}
-  & dBk & Leistungspegel bezogen auf 1~kW\\ \cline{2-3}
-  & dBr & relativer Pegel\\ \cline{2-3}
-  & dB0 & Pegel auf 0~dB bezogen\\ \hline
-\end{tabular}\\
+\begin{tabular}{|l|l|}
+  \hline
+    dBu & Spannungspegel bezogen auf 774.6~mV an 600~$\Omega$\\
+  \hline
+    dBm & Leistungspegel bezogen auf 1~mW an 600~$\Omega$\\
+  \hline
+  \hline
+    dBV & Spannungspegel bezogen auf 1~V\\
+  \hline
+    dB$\mu$V & Spannungspegel bezogen auf 1~$\mu$V\\
+  \hline
+    dBW & Leistungspegel bezogen auf 1~W\\
+  \hline
+    dB0 & Pegel auf 0~dB bezogen\\
+  \hline
+\end{tabular}
 
 }
 \end{tabular}
 \newpage
 
-\subsection{Minimal- und nicht-minimalphasige Systeme}
-\subsubsection{Allpass-Systeme}
+\subsection{Frequenzgang\formelbuch{164}}
+  \begin{minipage}[l]{12cm}
+    \[ H(s) = \frac{Y(s)}{X(s)}=\frac{b_ms^m+b_{m-1}s^{m-1}+\ldots+b_1s+b_0}
+    {a_ns^n+a_{n-1}s^{n-1}+\ldots+a_1s+a_0} = \frac{N(s)}{D(s)}\]
+    \[ H(s) = K \cdot \frac{\overbrace{\prod\limits_{i=1}^r(s^2+2\sigma_{zi}s+\omega_{zi}^2)}^{komplex}
+    \overbrace{\prod\limits_{i=2r+1}^m (s-z_i)}^{reell}}{\prod\limits_{j=1}^t(s^2+2\sigma_{pj}s+\omega_{pj}^2)
+    \prod\limits_{j=2t+1}^n(s-p_j)} \] 
+    
+    \begin{tabular}{|l|ll|}
+      \hline
+        Polfrequenz: 
+          & $ \omega_p = \sqrt{\sigma_p^2+\tilde{\omega}_p^2}$ & (konj. komplexe Pole)\\
+          & $\omega_p = \sqrt{\sigma_{p1} \cdot \sigma_{p2}}$ & (reelle Pole) \\
+      \hline
+        Polgüte: 
+          & $ q_p = \dfrac{\omega_p}{2\cdot\sigma_p} = \dfrac{1}{2\cdot\cos\alpha} $ & (konj. komplexe Pole)\\
+          & $q_p = \dfrac{\sqrt{\sigma_{p1} \cdot \sigma_{p2}}}{\sigma_{p1} + \sigma_{p2}} \leq \frac{1}{2}$ &
+          (reelle Pole) \\
+      \hline
+    \end{tabular}
+  \end{minipage}
+  \begin{minipage}[c]{6cm}
+    \includegraphics[width=6cm]{./images/FG_Pollage.png} \\
+    \includegraphics[width=6cm]{./images/FG_geoDeutung.png}
+  \end{minipage}
+  
+  Für die \textbf{Nullstellen} gelten die gleichen geometrischen Beziehungen.
+  Für einen \textbf{Einzelpol} ist die Güte nicht definiert! Die Polfrequenz entspricht dann dem Abstand zum Ursprung.
+  
+  
+
+\subsection{Minimal- und nicht-minimalphasige Systeme \formelbuch{173}}
+\subsubsection{Allpass-Systeme\formelbuch{173}}
 Allpässe werden vor allem als Laufzeitkorrekturglieder und als
 Verzögerungselemente verwendet. Der Amplitudengang ist konstant ($|H(jw)| =
 const \neq 0$) und die Pol- bzw. Nullstellen haben in Paaren auftretende Null-
 und Polstellen, die symmetrisch zu $j \omega$-Achse liegen. Dabei liegen die
 Nullstellen auf der RHE.
-UTF: $T_A(s) = K
-\frac{Q(-s)}{Q(s)}$
+UTF: $H_A(s) = K \frac{Q(-s)}{Q(s)}$ \\
+Wobei $Q(s)$ ein striktes Hurwitz-Polynom ist.
 
 
 
-\subsubsection{Minimalphasennetzwerk}
+\subsubsection{Minimalphasennetzwerk \formelbuch{174}}
 \begin{itemize}
   \item Keine Nullstellen in der rechten Halbebene
   \item Nullstellen auf der imaginären Achse erlaubt
 \end{itemize}
 
 
-\subsubsection{Nicht-Minimalphasennetzwerk}\formelbuch{173}
+\subsubsection{Nicht-Minimalphasennetzwerk\formelbuch{174}}
 Ein Nicht-Minimalphasennetzwerk kann durch Kaskadierung eines Allpasses und
 eine Minimalphasennetzwerk realisiert werden:\\
 \includegraphics[width=12cm]{./images/nicht-minimalphasennetzwerk.png}\\
-Nicht-Minimalphasennetzwerk (links) = Minimalphasennetzwerk (Mitte) · Allpass (rechts)
+Nicht-Minimalphasennetzwerk (links) = Minimalphasennetzwerk (Mitte) · Allpass (rechts) \\
+$H(s) = H_M(s) \cdot H_A(s)$
 
 \subsection{Stabilitätsbestimmung am Pol-/Nullstellendiagramm}
-\begin{tabular}{lcl}
+\begin{tabular}{lcp{13cm}}
 	asymptotisch stabil & = & alle Polstellen in der linken Halbebene (LHE) \\
-	grenzstabil			& = & Polstellen in der LHE und/oder auf der imaginären
-	                          Achse, Aber keine mehrfachen Pole auf der imaginären Achse
+	grenzstabil & = & Polstellen in der LHE und/oder auf der imaginären 
+  Achse, Aber keine mehrfachen Pole auf der imaginären Achse \\
+  instabil & = & Pol in RHE oder mehrfach Pole auf der imaginären Achse
 \end{tabular}
 
 \subsection{Bode-Diagramm und Pol-Nullstellenverteilung von verschiedenen UTF
