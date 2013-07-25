@@ -5,3 +5,5 @@ SigSys2.pdf
 *.log
 *.out
 *.toc
+/*.tcp
+/*.tps
