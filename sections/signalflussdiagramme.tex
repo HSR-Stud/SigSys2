@@ -72,29 +72,29 @@
 \newpage 
 
 \subsection{Mason's Regel \formelbuch{227}}
-$\boxed{T_{ij} = \frac{\sum\limits_k P_k\cdot\Delta_k}{\Delta}}\quad
-\Rightarrow$ UTF von $x_i$ nach $x_j$, wobei \textbf{$x_i$} eine
-\textbf{Quelle}, \textbf{$x_j$} jedoch nicht zwingend eine \textbf{Senke} sein
-muss. \vspace{0.3cm}\\
-$P_k \Rightarrow$ Vorwärtspfad $k$ \qquad $\Delta_k \Rightarrow$ Kofaktor de
-$k$-ten Pfades \qquad $\Delta \Rightarrow$ Netzwerkdeterminante/Graphdeterminante\vspace{0.3cm}\\
-$\Delta$ = 1- (Summe aller Schleifen) + (Summe aller Produkte zweier
-Schleifen, die sich nicht berühren) - (Summe
-aller Produkte dreier Schleifen, die sich nicht berühren) + $\ldots$
-\vspace{0.3cm}\\
-$\Delta_k$ = 1- (Summe aller Schleifen die $P_k$ nicht berühren) + (Summe
-aller Produkte zweier Schleifen, die $P_k$ und sich selbst nicht
-berühren)-(Summe aller Produkte dreier Schleifen, die $P_k$ und sich selbst
-nicht berühren) + $\ldots$ \\
+  $\boxed{H_{ij} = \frac{\sum\limits_k P_k\cdot\Delta_k}{\Delta}}\quad
+  \Rightarrow$ UTF von $x_i$ nach $x_j$, wobei \textbf{$x_i$} eine
+  \textbf{Quelle}, \textbf{$x_j$} jedoch nicht zwingend eine \textbf{Senke} sein
+  muss. \vspace{0.3cm}\\
+  $P_k \Rightarrow$ Vorwärtspfad $k$ (bezogen auf 1 Eingang) \qquad $\Delta_k \Rightarrow$ Kofaktor de
+  $k$-ten Pfades \qquad $\Delta \Rightarrow$ Netzwerkdet/Graphdet\vspace{0.3cm}\\
+  $\Delta$ = 1- (Summe aller Schleifen) + (Summe aller Produkte zweier
+  Schleifen, die sich nicht berühren) - (Summe
+  aller Produkte dreier Schleifen, die sich nicht berühren) + $\ldots$
+  \vspace{0.3cm}\\
+  $\Delta_k$ = 1- (Summe aller Schleifen die $P_k$ nicht berühren) + (Summe
+  aller Produkte zweier Schleifen, die $P_k$ und sich selbst nicht
+  berühren)-(Summe aller Produkte dreier Schleifen, die $P_k$ und sich selbst
+  nicht berühren) + $\ldots$ \\
 
-Falls die \textbf{UTF eines SFD von einem beliebigen Knoten} (keiner Quelle)
-gesucht wird, kann Mason's Regel nicht direkt angewandt werden. Abhilfe: \\
-$T_{ij} = \frac{x_j}{x_i} = \frac{x_j}{x_q} \frac{x_q}{x_i} =
-\frac{T_{qj}}{T_{qi}}$ Wobei $x_q$ eine Quelle sei. 
-Schlussendlich kürzt sich die Netzwerkdeterminante heraus.
+  Falls die \textbf{UTF eines SFD von einem beliebigen Knoten} (keiner Quelle)
+  gesucht wird, kann Mason's Regel nicht direkt angewandt werden. Abhilfe: \\
+  $\boxed{H_{ij} = \frac{x_j}{x_i} = \frac{x_j}{x_q} \frac{x_q}{x_i} =
+  \frac{H_{qj}}{H_{qi}}}$ Wobei $x_q$ eine Quelle sei. 
+  Schlussendlich kürzt sich die Netzwerkdeterminante heraus.
 
 
-\subsection{Beispiel eines SFD \formelbuch{229}}
+\subsection{Beispiel eines SFD \formelbuch{231}}
 \begin{tabular}{ll}
 	\parbox{7cm}{
     	\includegraphics[width=7cm]{./images/sfd-bsp.png}
@@ -134,6 +134,7 @@ Schlussendlich kürzt sich die Netzwerkdeterminante heraus.
 		entfernt werden müssen, um \textit{alle} Schleifen aufzubrechen. \\ \\
 	}
 \end{tabular}
+
 \subsubsection{Fundamentales SFD erster Ordnung \formelbuch{233}}
 \begin{tabular}{ll}
 	\parbox{7cm}{
@@ -142,10 +143,19 @@ Schlussendlich kürzt sich die Netzwerkdeterminante heraus.
     & \parbox{12cm}{
 		Durch Reduzieren auf das fundamentale SFD 1. Ordnung, kann die UTF direkt
 		ermittelt werden: \\
-		$$\frac{E_o}{E_i}=
+		\[ H_{io} = \frac{E_o}{E_i}=
 		t_{io}+\frac{t_{ix}t_{xo}}{1-t_{xx}}=
-		\frac{t_{io}-t_{io}t_{xx}+t_{ix}t_{xo}}{1-t_{xx}}$$\\
-		$E_x = Fundamentaler Knoten$\\
+		\frac{t_{io}-t_{io}t_{xx}+t_{ix}t_{xo}}{1-t_{xx}} \] \\
+    \begin{tabular}{l l p{8cm}}
+      $E_x$ & = & Fundamentaler Knoten\\
+      $E_i$ & = & Quelle (Eingang) \\
+      $E_o$ & = & Senke (Ausgang) \\
+      $t_{xx}$ & = & alle Eigenschleifen des Knoten $E_x$ \\
+      $t_{ix}$ & = & alle Pfade von der Quelle zum Knoten $E_x$ \\
+      $t_{xo}$ & = &alle Pfade vom Knoten $E_x$ zur Senke \\
+      $t_{io}$ & = & Leckpfad, alle Pfade von der Quelle zur Senke, welche \underline{nicht}
+      durch den Knoten $E_x$ führen.
+    \end{tabular}\\
     Wenn es mehrere Wege gibt, dann zusammen zählen: Bsp.: $tix = tix_1 +
     tix_2$
 	}
@@ -161,13 +171,35 @@ Schlussendlich kürzt sich die Netzwerkdeterminante heraus.
 	diese Knoten skalieren.\\
 	Vorgehen: 
 	\begin{enumerate}
-                \item Skalierungszone festlegen (Trennbündel)
+                \item Skalierungszone festlegen (Trennbündel) $N_b$
                 \item Alle eingehende Zweige mit $\lambda$ multiplizieren
                 \item Alle ausgehende Zweige mit $\frac{1}{\lambda}$
                 multiplizieren
     \end{enumerate}
     Wenn alle maximalen Signalniveaus gleich $\rightarrow$ maximal möglichen
     Dynamikbereich\\
-    \includegraphics[width=7cm]{./images/sfd-scalierung.png}
+    \begin{minipage}{9cm}
+      \includegraphics[width=7cm]{./images/sfd-scalierung.png}
+    \end{minipage}
+    \begin{minipage}{9cm}
+      Die Skalierung kann verwendet werden um den Dynamikbereich zu maximieren, Inverter zu entfernen
+      und die Verstärkung und Signalniveaus innerhalb eines Systems zu ändern.
+    \end{minipage}
+    
+\subsection{Transposition\formelbuch{242}}
+  \begin{multicols}{2}
+    \textbf{Ablauf:}
+    \begin{enumerate}
+      \item Richtungsumdrehung aller Zweigtransmittanzen bei gleichbleibenden Transmittanzen
+      \item Spiegelung des resultierenden SFD
+      \item Bezeichnungswechsel von Eingangs- und Ausgangsknoten
+    \end{enumerate}
+    
+    Die UTF des transponierten SFD ist \textbf{identisch} mit der UTF des ursprünglichen SFD, aber ihre
+    Topologie ist verschieden.
+    
+  \columnbreak
+    \includegraphics[width=9cm]{./images/transposition.png}
+  \end{multicols}
     
 
