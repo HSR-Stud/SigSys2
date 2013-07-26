@@ -1,7 +1,7 @@
 \begin{landscape}
 \subsection{Approximation des Bode-Diagramms\formelbuch{183}}
 \renewcommand{\arraystretch}{1.5}
-\begin{longtable}{|l|l|ll|ll|}
+\begin{longtable}{|p{5cm}|l|ll|ll|}
 	\hline
 		\textbf{Pole} & 
 		\textbf{UTF} $H(s)$ &
@@ -53,7 +53,7 @@
 		\parbox[c][1cm]{1cm}{\includegraphics[width=1cm]{./images/bode-approx-ampl-4.png}} &
 		\begin{tabular}{ll}
 			$\omega < \alpha$: & Konstant $0dB$ \\
-			$\omega > \alpha$: & $-20dB/Dek.$
+			$\omega > \alpha$: & $-20dB/Dek. \qquad (\omega_r = \alpha)$
 		\end{tabular} &
 		\parbox[c][1cm]{1cm}{\includegraphics[width=1cm]{./images/bode-approx-phase-4.png}}	& 
 		\begin{tabular}{ll}
@@ -87,7 +87,8 @@
 			$\omega > 10 \alpha$: & Konstant $+\frac{\pi}{2}$
 		\end{tabular}
 	\\ \hline
-		Konjugiert-komplexe Pole &
+		Konjugiert-komplexe Pole \newline
+    für $|q_p| > 1/2$ &
 		$\frac{1}{s^2+s\frac{\omega_p}{q_p}+\omega_p^2}$ &
 		\parbox[c][1cm]{1cm}{\includegraphics[width=1cm]{./images/bode-approx-ampl-6.png}} &
 		\begin{tabular}{ll}
@@ -103,14 +104,15 @@
 			$\omega = \omega_p$:								& $-\frac{\pi}{2}$
 		\end{tabular}
 	\\ \hline
-		Konjugiert-komplexe Pole &
+		Konjugiert-komplexe Pole \newline
+    für $|q_p| > 1/2$&
 		$\frac{\omega_p^2}{s^2+s\frac{\omega_p}{q_p}+\omega_p^2}$ & 
 		\parbox[c][1cm]{1cm}{\includegraphics[width=1cm]{./images/bode-approx-ampl-6.png}} &
 		\begin{tabular}{ll}
 			$\omega < \omega_p$:	& Konstant $0dB$ \\
 			$\omega > \omega_p$:	& $-40dB/Dek.$ \\
 			Überhöhung:				& $\frac{\omega_p}{2}$ bis $2 \omega_p$ \\
-			Maximum:				& $20 \log q_p$ bei $\omega = \omega_p$
+			Maximum:				& $-40\log\omega_p + 20 \log q_p$ bei $\omega = \omega_p$
 		\end{tabular} &
 		\parbox[c][1cm]{1cm}{\includegraphics[width=1cm]{./images/bode-approx-phase-6.png}}	& 
 		\begin{tabular}{ll}
@@ -131,7 +133,8 @@
 	\\ \hline
 		\multicolumn{6}{|p{21cm}|}{
 			Serieschaltung von Systemen erfolgt durch \textbf{Superposition} der einzelnen Bode-Diagramme 
-			(Multiplikation von UTFs entspricht Addition im	dB-Bereich).
+			(Multiplikation von UTFs entspricht Addition im	dB-Bereich). $\alpha \in \mathbf{R}$. 
+      Für $\omega_p$ und $q_p$ siehe Kapitel\ref{Polfrequenz Polguete}
 		}
 	\\ \hline
 \end{longtable}
