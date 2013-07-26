@@ -1,8 +1,8 @@
-\section{Filtertheorie \formelbuch{301} \tiny{$Revision: 996 $}}
+\section{Filtertheorie \formelbuch{301}}
 \begin{tabular}{ll}
 \parbox{12cm}{
 	Man unterscheidet die Filtertypen grundsätzlich zwischen
-	Tief-, Hoch- und Bandpässen sowie Bandsperren.
+	Tief-(TP), Hoch-(HP),All-(AP) und Bandpässen(BP) sowie Bandsperren(BS).
 	
 	\subsection{Toleranzschema \formelbuch{307}}
 	Im Durchlassbereich (DB) bestimmt der Stempel die maximal zul"assige D"ampfung
@@ -16,174 +16,225 @@
 \subsection{Realisation analoger Filter}
 \subsubsection{Allgemeines Vorgehen}
 \begin{itemize}
-  \item[1.] Frequenznormierung durchführen
-  \item[2.] Normierten Tiefpass bestimmen (Filter nach Tiefpass transformieren)
+  \item[1.] Frequenznormierung durchführen (Kapitel \ref{frequenznormierung})
+  \item[2.] Normierten Tiefpass bestimmen (Filter nach Tiefpass transformieren) (Kapitel \ref{filtertransformation})
   \item[3.] Art der Approximation wählen: Butterworth, Tschebyscheff (I, II),
-  Cauer, Bessel, Gauss, \ldots
-  \item[4.] Bestimmung der Ordnung mit Nomogrammen \formelbuch{404}, Matlab
-	\matlab{buttord, cheb1ord, cheb2ord, ellipord} oder Formeln
-  \item[5.] Normierte TP-UTF aus Tabellen entnehmen \& entnormieren
-  \item[6.] Aus Tabelle \formelbuch{420} L und C-Werte für Tiefpass herauslesen
-  \item[7.] Filter von Tiefpass zum gesuchten Filter rücktransformieren
-  \item[8.] Werte entnormieren
+  Cauer, Bessel, Gauss, \ldots (Kapitel \ref{tiefpassapprox}
+  \item[4.] Bestimmung der Ordnung mit Nomogrammen \formelbuch{404}, Formeln (Kapitel \ref{ordnung}),
+	\matlab{buttord, cheb1ord, cheb2ord, ellipord}
 \end{itemize}
+\begin{tabular}{m{9cm}|m{9cm}}
+    UTF & LC-Filer \\
+  \hline
+    \begin{itemize}
+      \item[5.] normierter TP bestimmen
+      \item[6.] Werte aus Tabellen lesen\formelbuch{408ff}
+      \item[7.] entnormieren
+    \end{itemize} &
+    \begin{itemize}
+      \item[5.] L und C Werte aus Tabellen lesen\formelbuch{423ff}
+      \item[6.] Werte entnormieren
+    \end{itemize}
+\end{tabular}
 
 
 \subsubsection{Frequenznormierung \formelbuch{308}}
+\label{frequenznormierung}
 \begin{tabular}{ll}
 \parbox{6cm}{
 	\includegraphics[width=5cm]{./images/filter-freqnormierung.png}}
 & \parbox{12cm}{
 	\textbf{Normierung} \\
-	$S=\frac{s}{\omega_{r}} \hspace{2cm} \Omega=\frac{\omega}{\omega_{r}} 
-\hspace{2cm} \sigma'=\frac{\sigma}{\omega_{r}}$\\ 
+	$\boxed{S=\frac{s}{\omega_{r}} \hspace{2cm} \Omega=\frac{\omega}{\omega_{r}} 
+  \hspace{2cm} \sigma'=\frac{\sigma}{\omega_{r}}}$\\ 
 
-	Bei Bandpässen \& -sperren: $\omega_r = \sqrt{\omega_{D1} \omega_{D2}}
-	\underbrace{=}_{\text{\tiny{wenn symmetrisch}}} \sqrt{\omega_{S1} \omega_{S2}}$
-	\\
+	Bei BP \& BS: $\omega_r = \omega_m =\sqrt{\omega_{B1} \omega_{B2}}
+	\underbrace{=}_{\text{\tiny{wenn symmetrisch}}} \sqrt{\omega_{S1} \omega_{S2}}$ \\
+	
+  Bei TP \& HP: $\omega_r = \omega_D$ \\
 
-	Zur Entnormierung wird $\omega_{3db}$ gebraucht, daher sind diese Formeln
+  \begin{tabular}{ll}
+    $\omega_r$: & Referenzfrequenz \\
+    $\omega_m$: & Mittenfrequenz
+  \end{tabular} \\
+  Zur Entnormierung wird $\omega_{3db}$ gebraucht, daher sind diese Formeln
 	dafür nicht geeignet! \\
 	}
 \end{tabular}
 
 \subsubsection{Filtertransformationen \formelbuch{355}}
-\begin{tabular}{|ll|l|l|}
-\hline
-\multicolumn{2}{|l|}{\textbf{Tiefpass-Hochpass \formelbuch{302}}}
-	& \textbf{Tiefpass-Bandpass \formelbuch{304}}
-	& \textbf{Tiefpass-Bandsperre \formelbuch{308}} \\ 
-\multicolumn{2}{|l|}{\parbox{6cm}{
-	\includegraphics[width=6cm]{./images/filter-transf-tp-hp.png}
-	}}
-& \parbox{6cm}{
-	\includegraphics[width=6cm]{./images/filter-transf-tp-bp.png}
-	}
-& \parbox{6cm}{
-	\includegraphics[width=6cm]{./images/filter-transf-tp-bs.png}
-	} \\
-Ordnung: 
-	& $n$
-	& $2n$
-	& $2n$ \\
-Ansatz: 
-	& $S \longrightarrow \frac{1}{S}$
-	& $S \longrightarrow \frac{S^{2}+1}{B\cdot S}$
-	& $S \longrightarrow \frac{B\cdot S}{S^{2}+1}$ \\
-UTF: 
-	&$H_{HP}(S)=H_{TP}\left(\frac{1}{S}\right)$
-	& $T_{BP}(S)=T_{TP}\left(\frac{S^{2}+1}{B\cdot S}\right)$
-	& $T_{BS}(S)=T_{TP}\left(\frac{B\cdot S}{S^{2}+1}\right)$ \\
-Norm. Frequenz: 
-	& $\Omega_{S_{TP}}=\frac{1}{\Omega_{S_{HP}}}$
-	& $\Omega_{S_{TP}}=\frac{\Omega_{S2}-\Omega_{S1}}{B}=
-		\frac{\Omega_{S2}-\Omega_{S1}}{\Omega_{D2}-\Omega_{D1}}$
-	& $\Omega_{S_{TP}}=\frac{B}{\Omega_{S2}-\Omega_{S1}}=
-         \frac{\Omega_{D2}-\Omega_{D1}}{\Omega_{S2}-\Omega_{S1}}$ \\
-\multicolumn{2}{|l|}{Bandbreite}
-	& \multicolumn{2}{|c|}{$B = \dfrac{\omega_{D2} - \omega_{D1}}{\omega_r}$
-	 } \\
-\hline
-\end{tabular}
-\\ \\
-\textbf{Direkte Substitution}\\
+\label{filtertransformation}
 \renewcommand{\arraystretch}{1.5}
-\begin{tabular}{|lll|}
-\hline
-HP-TP
-	& $T_{TP}(S)=\frac{K}{b_{n}S^{n}+b_{n-1}S^{n-1}+...+b_{1}S+b_{0}}$
-	& $\longrightarrow
-	T_{HP}(S)=\frac{KS^{n}}{b_{0}S^{n}+b_{1}S^{n-1}+...+b_{n-1}S+b_{n}}$\\
-\hline
-BP-TP 1. Ordnung
-	& $T_{TP}(S)=\frac{1}{S+a}$
-	& $\longrightarrow 
-	T_{BP}(S)=T_{TP}\left(\frac{S^{2}+1}{B\cdot S}\right)=\frac{B\cdot
-	S}{S^{2}+aB\cdot S+1}$\\
-BP-TP 2. Ordnung
-	& $T_{TP}(S)=\frac{1}{S^{2}+aS+b}$
-	& $\longrightarrow
-	T_{BP}(S)=T_{TP}\left(\frac{S^{2}+1}{B\cdot S}\right)=\frac{B^{2}S^{2}}{S^{4}+aB
-	S^{3}+(bB^{2}+2)S^{2}+aB\cdot S+1}$  \\
-\hline 
-BS-TP 1. Ordnung
-	& $T_{TP}(S)=\frac{1}{S+a}$
-	& $\longrightarrow
-	T_{BS}(S)=T_{TP}\left(\frac{B\cdot S}{S^{2}+1}\right)=
-	\frac{\frac{1}{a}(S^{2}+1)}{S^{2}+\frac{B}{a}S+1}$ \\
-BS-TP 2. Ordnung
-	& $T_{TP}(S)=\frac{1}{S^{2}+aS+b}$ 
-	& $\longrightarrow
-	T_{BS}(S) = T_{TP}\left(\frac{B\cdot S}{S^{2}+1}\right)=
-	\frac{\frac{1}{b}(S^{2}+1)^{2}}{S^{4}+\frac{aB}{b}S^{3}+
-	\left(\frac{B^{2}}{b}+2\right)S^{2}+\frac{aB}{b}S+1}$ \\
-\hline
+\begin{tabular}{|l|l|l|l|}
+  \hline
+  \multicolumn{2}{|l|}{\textbf{Tiefpass-Hochpass}}
+    & \textbf{Tiefpass-Bandpass}
+    & \textbf{Tiefpass-Bandsperre} \\ 
+  \multicolumn{2}{|l|}{\parbox{6cm}{
+    \includegraphics[width=6cm]{./images/filter-transf-tp-hp.png}
+    }}
+  & \parbox{6cm}{
+    \includegraphics[width=6cm]{./images/filter-transf-tp-bp.png}
+    }
+  & \parbox{6cm}{
+    \includegraphics[width=6cm]{./images/filter-transf-tp-bs.png}
+    } \\
+  \hline \hline
+    & \textbf{TP $\Leftrightarrow$ HP} \formelbuch{355} 
+    & \textbf{TP $\Leftrightarrow$ BP} \formelbuch{360}
+    & \textbf{TP $\Leftrightarrow$ BS} \formelbuch{368} \\
+  \hline
+  Ordnung: 
+    & $n$
+    & $2n$
+    & $2n$ \\
+  \hline
+  Ansatz: 
+    & $S \longrightarrow \frac{1}{S}$
+    & $S \longrightarrow \frac{S^{2}+1}{B\cdot S}$
+    & $S \longrightarrow \frac{B\cdot S}{S^{2}+1}$ \\
+  \hline
+  UTF: 
+    &$H_{HP}(S)=H_{TP}\left(\frac{1}{S}\right)$
+    & $H_{BP}(S)=H_{TP}\left(\frac{S^{2}+1}{B\cdot S}\right)$
+    & $H_{BS}(S)=H_{TP}\left(\frac{B\cdot S}{S^{2}+1}\right)$ \\
+  \hline
+  Norm. Frequenz: 
+    & $\Omega_{S_{TP}}=\frac{1}{\Omega_{S_{HP}}}$
+    & $\Omega_{S_{TP}}=\frac{\Omega_{S2}-\Omega_{S1}}{B}=
+      \frac{\Omega_{S2}-\Omega_{S1}}{\Omega_{B2}-\Omega_{B1}} =
+      \frac{f_{S2}-f_{S1}}{f_{B2}-f_{B1}}$
+    & $\Omega_{S_{TP}}=\frac{B}{\Omega_{S2}-\Omega_{S1}}=
+      \frac{\Omega_{B2}-\Omega_{B1}}{\Omega_{S2}-\Omega_{S1}} =
+      \frac{f_{B2}-f_{B1}}{f_{S2}-f_{S1}}$ \\
+  \hline
+  \multicolumn{2}{|l|}{normierte Bandbreite:}
+    & \multicolumn{2}{|c|}{$B = \dfrac{\omega_{B2} - \omega_{B1}}{\omega_r} =
+      \Omega_{B2}-\Omega_{B1}$} \\
+  \hline
+  \multicolumn{2}{|l|}{geometrisch-symmetrische BP/BS:}
+    & \multicolumn{2}{|c|}{$\Omega_{B1}\Omega_{B2}=\Omega_{S1}\Omega_{S2}=1$}\\
+  \hline
+  \end{tabular}
+  \renewcommand{\arraystretch}{1}
+  \\
+  
+  \textbf{Direkte Substitution}\\
+  \renewcommand{\arraystretch}{1.5}
+  \begin{tabular}{|lll|}
+  \hline
+  HP-TP
+    & $H_{TP}(S)=\frac{K}{b_{n}S^{n}+b_{n-1}S^{n-1}+...+b_{1}S+b_{0}}$
+    & $\longrightarrow
+    H_{HP}(S)=\frac{KS^{n}}{b_{0}S^{n}+b_{1}S^{n-1}+...+b_{n-1}S+b_{n}}$\\
+  \hline
+  BP-TP 1. Ordnung
+    & $H_{TP}(S)=\frac{1}{S+a}$
+    & $\longrightarrow 
+    H_{BP}(S)=H_{TP}\left(\frac{S^{2}+1}{B\cdot S}\right)=\frac{B\cdot
+    S}{S^{2}+aB\cdot S+1}$\\
+  BP-TP 2. Ordnung
+    & $H_{TP}(S)=\frac{1}{S^{2}+aS+b}$
+    & $\longrightarrow
+    H_{BP}(S)=H_{TP}\left(\frac{S^{2}+1}{B\cdot S}\right)=\frac{B^{2}S^{2}}{S^{4}+aB
+    S^{3}+(bB^{2}+2)S^{2}+aB\cdot S+1}$  \\
+  \hline 
+  BS-TP 1. Ordnung
+    & $H_{TP}(S)=\frac{1}{S+a}$
+    & $\longrightarrow
+    H_{BS}(S)=H_{TP}\left(\frac{B\cdot S}{S^{2}+1}\right)=
+    \frac{\frac{1}{a}(S^{2}+1)}{S^{2}+\frac{B}{a}S+1}$ \\
+  BS-TP 2. Ordnung
+    & $H_{TP}(S)=\frac{1}{S^{2}+aS+b}$ 
+    & $\longrightarrow
+    H_{BS}(S) = H_{TP}\left(\frac{B\cdot S}{S^{2}+1}\right)=
+    \frac{\frac{1}{b}(S^{2}+1)^{2}}{S^{4}+\frac{aB}{b}S^{3}+
+    \left(\frac{B^{2}}{b}+2\right)S^{2}+\frac{aB}{b}S+1}$ \\
+  \hline
 \end{tabular}
 \renewcommand{\arraystretch}{1}
 
+\vfill %Füllt den Rest der Seite leer auf
 
-\subsubsection{Approximationsarten \formelbuch{309}}
+
+\subsubsection{Tiefpassapproximationen \formelbuch{309}}
+\label{tiefpassapprox}
 \begin{tabular}{|p{9cm}|p{9cm}|}
 \hline
-\parbox{9cm}{
+\parbox[t]{9cm}{
 	\textbf{Butterworth} \formelbuch{310}
 	\begin{itemize}
-	 \item Amplitudengang: Gute Approximation (``maximal flach'')
-	 \item Allpolfilter, Pole liegen auf Kreis mit Abstand
-	 $\frac{\pi}{n}$
-	 \item Gruppenlaufzeit: Leichte Überhöhung bei
-	 Grenzfrequenz
+    \item Amplitudengang: Gute Approximation (``maximal flach'', keine Welligkeit)
+    \item Allpolfilter: Pole liegen auf dem Einheitskreis mit Abstand $\frac{\pi}{n}$
+    \item Gruppenlaufzeit: Leichte Überhöhung bei Grenzfrequenz
+    \item Bei $\Omega =1$ hat $|H(j\omega)|$ einen Abfall von 3.01dB
+    \item Steilheit im SB: \qquad $-n\cdot 20dB/Dek$
 	\end{itemize}
+  \[ H(S) = \frac{1}{S^n +b_{n-1}S^{n-1}+\ldots+b_2S^2+b_1S+b_0}\]
 	}
 & 
-\parbox{9cm}{
+\parbox[t]{9cm}{
 	\textbf{Kritisch gedämpftes (Gauss)-Filter} \formelbuch{317}
 	\begin{itemize}
-	 \item Keine Überschwinger bei Impuls- \& Sprungantwort
-	 \item Kaskadierung von wirkungsfreien RC-Filtern
-	 \item Allpolfilter: Pole nur auf negativer $\sigma$-Achse
+    \item Keine Überschwinger bei Impuls- \& Sprungantwort
+    \item Kaskadierung von wirkungsfreien identischer Filter 1.Ordnung
+    \item Allpolfilter: Pole nur auf negativer $\sigma$-Achse
+    \item Gruppen- und Phasenlaufzeit im DB relativ konstant
+    \item Bei $\Omega = 1$ hat es eine Dämpfung 3.01dB \\
+    \item Steilheit im SB: \qquad $-n\cdot 20dB/Dek$
 	\end{itemize}
+  \[ H(S) = \frac{K}{S^n +b_{n-1}S^{n-1}+\ldots+b_2S^2+b_1S+b_0}\]
 	} \\
 \hline
-\parbox{9cm}{
+\parbox[t]{9cm}{
 	\textbf{Tschebyscheff I} \formelbuch{321}
 	\begin{itemize}
-	 \item Amplitudengang: Definierte Welligkeit im DB, steiler Übergang
-	 \item Allpolfilter, wobei alle Pole auf einer Ellipse liegen
-	 \item Schlechte Gruppenlaufzeit
+    \item Amplitudengang: Definierte Welligkeit im DB, steiler Übergang
+    \item Allpolfilter, wobei alle Pole auf einer Ellipse liegen
+    \item Gruppen- und Phasenlaufzeit im DB relativ konstant.
+    \item Steilheit im SB: \qquad $-n\cdot 20dB/Dek$
 	\end{itemize}
+  \[ H(S) = \frac{K}{S^n +b_{n-1}S^{n-1}+\ldots+b_2S^2+b_1S+b_0}\]
 	}
 &
- \parbox{9cm}{
+ \parbox[t]{9cm}{
 	\textbf{Inverser Tschebyscheff  / Tscheby. II} \formelbuch{330}
 	\begin{itemize}
-	 \item Definierte Welligkeit im Sperrbereich
-	 \item Flachere Gruppenlaufzeit als Tschebyscheff I
+    \item Definierte Welligkeit im Sperrbereich
+    \item kein Allpolfilter
+    \item Gruppen- und Phasenlaufzeit im DB relativ konstant
 	\end{itemize}
 	} \\
 \hline
-\parbox{6cm}{
-	\textbf{Cauer} \formelbuch{333}
+\parbox[t]{6cm}{
+	\textbf{Cauer (elliptischer Filter)} \formelbuch{333}
 	\begin{itemize}
-	 \item Amplitudengang: Definierte Welligkeit im SB und DB
-	 \item Steilster Übergang zwischen SB und DB
-	 \item bei geradem N je N konjugiert komplexe Pol- und Nullstellen
-	 \item bei ungeradem N 1 reeler Pol und N-1 konjugiert komplexe Pol- Nullstellen
+    \item Amplitudengang: Definierte Welligkeit im SB und DB
+    \item Steilster Übergang zwischen SB und DB
+    \item bei geradem N je N konjugiert komplexe Pol- und Nullstellen
+    \item bei ungeradem N 1 reeler Pol und N-1 konjugiert komplexe Pol- Nullstellen
+    \item kein Allpolfilter
+    \item Gruppen- und Phasenlaufzeit im DB relativ schlecht
+    \item kleinste Ordnung
 	\end{itemize}
 	}
 & 
-\parbox{6cm}{
+\parbox[t]{6cm}{
 	\textbf{Bessel} \formelbuch{339}
 	\begin{itemize}
-	 \item Sehr linearer Phasengang $\Rightarrow$ fast konstante Gruppenlaufzeit
-	 \item Flachster Übergang zw. DB und SB im Amplitudengang
-	 \item Pole weit entfernt der $j \omega$-Achse
+    \item Sehr linearer Phasengang
+    \item Flachster Übergang zw. DB und SB im Amplitudengang
+    \item ergibt ein Allpolfilter
+    \item immer asymptotisch stabil
+    \item Gruppen- und Phasenlaufzeit im DB sehr konstant
 	\end{itemize}
 	} \\
 \hline
 \end{tabular}
+\vfill
 
-\subsubsection{Bestimmung der minimal nötigen Ordnung \formelbuch{???}}
+\subsubsection{Bestimmung der minimal nötigen Ordnung}
+\label{ordnung}
 \begin{tabular}{p{7cm} p{11cm}}
 \parbox{6cm}{
 	\textbf{Mittels Nomogramm} \\
