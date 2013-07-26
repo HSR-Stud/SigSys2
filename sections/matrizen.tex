@@ -126,7 +126,7 @@ alle Elemente auf der Hauptdiagonale $\neq 0$ sind.}\\
  
  \subsection{Diagonalisierung}
  	\begin{enumerate}
-       \item Eigenwerte $\lambda$ auschrechnen: $\det (A - I_n \lambda)=0$
+       \item Eigenwerte $\lambda$ ausrechnen: $\det (A - I_n \lambda)=0$
        \item Eigenvektoren $\vec{v}$ bilden: $(A- \lambda I_n)\vec{v}=0$
        \item Transformationsmatrix: $T= [\vec{v_1} \ldots \vec{v_n}]$
        \item $T^{-1}$ berechnen (Achtung ist A symmetrisch, dh. $A^T=A$ und
@@ -135,15 +135,13 @@ alle Elemente auf der Hauptdiagonale $\neq 0$ sind.}\\
                 	\lambda_1 &0 &0\\
                 	0& \lambda_2 &0\\
                 	0& 0& \lambda_3
-                \end{bmatrix}$
-		\item $A^n = T D^n T^{-1}$
-
+                \end{bmatrix} = A_{diag} = T^{-1}AT$
      \end{enumerate}
      
      
 \subsection{Eigenwerte}
 Die Eigenwerte $\lambda$ erhält man folgendermassen ($I$ ist die Einheitsmatrix):
 \[
-	|\lambda I - A| = 0
+	|\lambda I - A| = 0 \qquad \text{nach } \lambda \text{ auflösen}
 \]
 
