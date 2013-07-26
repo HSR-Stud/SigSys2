@@ -1,35 +1,75 @@
-\section{Signalflussdiagramm \formelbuch{213} \tiny{$Revision: 998 $}}
+\section{Signalflussdiagramm \formelbuch{213}}
 \begin{list}{$\bullet$}{\setlength{\itemsep}{0cm} \setlength{\parsep}{0cm} \setlength{\topsep}{0cm}} 
   \item Graphische Lösung linearer Gleichungen
   \item Graphische Darstellung von LTI-Systemen
   \item Änderung der Topologie ohne UTF zu ändern
 \end{list}
 
-% \subsection{Definition}
-% \begin{list}{$\bullet$}{\setlength{\itemsep}{0cm} \setlength{\parsep}{0cm} \setlength{\topsep}{0cm}}
-%   \item \textbf{Knoten}: Darstellung einer Grösse, eines Signals oder einer
-%   Variable
-%   \item \textbf{Zweig}: Funktionelle Abhängigkeit einer Grösse
-%   \item \textbf{Quelle}: Unabhängiger Knoten, es münden keine Zweige ein
-%   \item \textbf{Senke}: Knoten, ohne weggehende Zweige
-%   \item \textbf{Pfad}: Kontinuierliche Folge von Zweigen, die in die gleiche
-%   Richtung zeigen
-%   \item \textbf{Offener Pfade}: Ein Pfad, bei dem jeder beteiligte Knoten nur einmal durchquert
-% wird
-%   \item \textbf{Vorwärtspfad}: Ein offener Pfad zwischen einer Quelle und einer
-%   Senke
-%   \item \textbf{Schleife}: Ein geschlossener Pfad, welcher zum Ausgangsknoten
-%   zurückkehrt, wobei jeder beteiligte Knoten nur einmal durchlaufen wird, ausgenommen der
-% Ausgangsknoten
-%   \item \textbf{Eigenschleife}: Eine (Rückkopplungs)schleife, die aus einem
-%   Zweig und einem Knoten besteht
-%   \item \textbf{Zweigtransmittanz}: Die lineare Grösse, unabhängig von ihrer
-%   Dimension, die einen Knoten eines Zweiges zum anderen Knoten in Beziehung setzt.
-%   \item \textbf{Schleifentransmittanz}: Das Produkt der Zweigtransmittanzen in
-%   einer Schleife.
-% \end{list}
+\subsection{Glossar \formelbuch{213}}
+  \begin{tabular}{|m{4cm} | m{14cm}|}
+    \hline
+      \textbf{Knoten}: &
+      Darstellung einer Grösse, eines Signals oder einer Variable \\
+    \hline
+      \textbf{Zweig}: &
+      Funktionelle Abhängigkeit einer Grösse \\
+    \hline
+      \textbf{Quelle}: &
+      Unabhängiger Knoten, es münden keine Zweige ein \\
+    \hline
+      \textbf{Senke}: &
+      Knoten, ohne weggehende Zweige \\
+    \hline
+      \textbf{Pfad}: &
+      Kontinuierliche Folge von Zweigen, die in die gleiche Richtung zeigen \\
+    \hline
+      \textbf{Offener Pfade}: &
+      Ein Pfad, bei dem jeder beteiligte Knoten nur einmal durchquert wird \\
+      \textbf{Vorwärtspfad}: &
+      Ein offener Pfad zwischen einer Quelle und einer Senke \\
+    \hline
+      \textbf{Schleife}: &
+      Ein geschlossener Pfad, welcher zum Ausgangsknoten zurückkehrt, 
+      wobei jeder beteiligte Knoten nur einmal durchlaufen wird, ausgenommen der
+      Ausgangsknoten \\
+    \hline
+      \textbf{Eigenschleife}: &
+      Eine (Rückkopplungs)schleife, die aus einem Zweig und einem Knoten besteht \\
+    \hline
+      \textbf{Zweigtransmittanz}: &
+      Die lineare Grösse, unabhängig von ihrer Dimension, 
+      die einen Knoten eines Zweiges zum anderen Knoten in Beziehung setzt. \\
+    \hline
+      \textbf{Schleifentransmittanz}: &
+      Das Produkt der Zweigtransmittanzen in einer Schleife. \\
+    \hline
+  \end{tabular}
 
 \subsection{Transformationsregeln \formelbuch{219ff.}}
+  \begin{multicols}{2}
+    \subsubsection{Transmittanzverschiebung\formelbuch{220}}
+      \includegraphics[width=7cm]{./images/transmittanzverschiebung.png} \\
+      Wichtig ist, dass eine neue Variable eingeführt wird, wenn wenn der Endpunkt eines
+      inneren Zweiges verschoben wird. (siehe c)
+      \vfill
+  \columnbreak
+  
+    \subsubsection{Pfadinversion\formelbuch{221}}
+      \includegraphics[width=8cm]{./images/pfadinversion.png} \\
+      Es gilt zu beachten, das die Inversion eines Pfaden (dessen Anfangspunkt nach Definition
+      eine Quelle sein muss) den Effekt hat, dass die Quelle vom einen Ende des Pfades zum anderen
+      Ende verschoben wird. Der Pfad von $x_i$ nach $x_j$ hat eine Transmittanz von $L$. 
+      Den zu invertierenden Pfad setzten wir $\frac{1}{L}$ und alle Pfade welche ursprünglich in
+      $x_i$ endeten, werden verschoben, dass sie neu in $x_j$ enden und ihre Transmittanzen werden
+      mit $-\frac{1}{L}$ multipliziert.
+      
+    \subsubsection{Entfernen einer Eigenschleife\formelbuch{222}}
+      \includegraphics[width=8cm]{./images/eigenschleife.png} \\
+      Die Eigenschleife hat die Transmittanz $L$. Sie wird entfernt indem man bei allen anderen
+      Zweigen welche \textbf{in den Knoten münden}, durch $(1-L)$ \textbf{dividiert}.
+ \end{multicols}
+ 
+\newpage 
 
 \subsection{Mason's Regel \formelbuch{227}}
 $\boxed{T_{ij} = \frac{\sum\limits_k P_k\cdot\Delta_k}{\Delta}}\quad
