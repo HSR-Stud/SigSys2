@@ -13,16 +13,21 @@ $
     \end{tabular}
 
 \subsection{Determinante}
-
-	\textbf{2x2 Matrix}    
-	$$ \det \begin{bmatrix} a_{11} & a_{12} \\ a_{21} & a_{22} \end{bmatrix} =
-	a_{11} a_{22} - a_{12} a_{21}.  $$
-	
-	\textbf{3x3 Matrix}
-	$$ \det \begin{bmatrix} a_{11} & a_{12} & a_{13} \\ a_{21} & a_{22}& a_{23} \\
-	a_{31} & a_{32} & a_{33} \end{bmatrix} \\ = a_{11} a_{22} a_{33} + a_{12}
-	a_{23} a_{31} + a_{13} a_{21} a_{32} - a_{13} a_{22} a_{31} - a_{12} a_{21}
-	a_{33} - a_{11} a_{23} a_{32}.  $$
+\begin{minipage}[t]{6cm}
+  \textbf{2x2 Matrix}    
+	\[ \det \begin{bmatrix}
+      a & b \\
+      c & d
+    \end{bmatrix} = ad - bc \]
+\end{minipage}
+\begin{minipage}[t]{12cm}
+  \textbf{3x3 Matrix}
+    \[\begin{bmatrix}
+      a & b & c \\
+      d & e & f \\
+      g & h & i 
+    \end{bmatrix} = aei + bfg + cdh - ceg - afh - bdi \]
+\end{minipage}
 	
 	\textbf{Dreiecksmatrix} - Alle Elemente entweder ober- oder unterhalt der Hauptdiagonale $= 0$
 	$$\det A =a_{11}\cdot a_{22}\dotsb a_{nn} \quad  \quad \text{Die Det. ist das Produkt
@@ -124,6 +129,7 @@ alle Elemente auf der Hauptdiagonale $\neq 0$ sind.}\\
 		\item $A^{-1} = \frac{A^*}{\det A}$ 
     \end{enumerate}
  
+\begin{multicols}{2}
  \subsection{Diagonalisierung}
  	\begin{enumerate}
        \item Eigenwerte $\lambda$ ausrechnen: $\det (A - I_n \lambda)=0$
@@ -137,11 +143,11 @@ alle Elemente auf der Hauptdiagonale $\neq 0$ sind.}\\
                 	0& 0& \lambda_3
                 \end{bmatrix} = A_{diag} = T^{-1}AT$
      \end{enumerate}
-     
+
+\columnbreak   
      
 \subsection{Eigenwerte}
-Die Eigenwerte $\lambda$ erhält man folgendermassen ($I$ ist die Einheitsmatrix):
-\[
-	|\lambda I - A| = 0 \qquad \text{nach } \lambda \text{ auflösen}
-\]
+  Die Eigenwerte $\lambda$ erhält man folgendermassen ($I$ ist die Einheitsmatrix):
+  \[ |\lambda I - A| = 0 \qquad \text{nach } \lambda \text{ auflösen} \]
+\end{multicols}
 
