@@ -37,7 +37,7 @@ Differentialgleichungssystem von $n$ Gleichungen 1. Ordnung.
     die aber alle ein identisches Systemverhalten aufweisen.
   \end{tabular}
   
-\subsection{Stabilität \formelbuch{285}}
+\subsection{Stabilität der inneren Systemzustände \formelbuch{285}}
   Wenn alle Realteile der Eigenwerte $\lambda$ der Systemmatrix ${\boldsymbol A}$
   negativ sind, ist ein LTI-System asymptotisch stabil, \newline
   $\left | \lambda\boldsymbol{I} - \boldsymbol{A} \right |   =0 \rightarrow \forall~\lambda \quad\Re \{\lambda\}<0$
@@ -52,8 +52,9 @@ Differentialgleichungssystem von $n$ Gleichungen 1. Ordnung.
   \\
   Die Grösse der Matrix $\boldsymbol {H(s)}$ entspricht der Grösse der
   Durchgangsmatrix $\boldsymbol D$. $\boldsymbol{I}$ sei die Einheitsmatrix mit
-  Grösse $n$ x $n$.
+  Grösse $n$ x $n$. \\
   
+  Allgemeine Formel für $m=1$ Eingang, $k=1$ Ausgang, $n=2$ Integratoren:  
   \begin{align*}
     H(s) &= \left[
     \begin{array}{c c}
@@ -84,14 +85,12 @@ Differentialgleichungssystem von $n$ Gleichungen 1. Ordnung.
     H_{ba}(s) = \frac{Y_a(s)}{U_b(s)} = C(a,:) \cdot (s \cdot I -A)^{-1} \cdot B(:,b) + D(a,b)
   \]
 
-\newpage
 
 \subsection{Bestimmung der ZRD aus der UTF\formelbuch{277}}
   \[ \boxed{
   H(s)=\frac{Y(s)}{U(s)}=\frac{b_{m} s^{m} + b_{m-1} s^{m-1} +\cdots+b_{1} s 
   + b_{0}}{s^{n} + a_{n-1} s^{n-1} + \cdots + a_{1} s + a_{0}}}
   \]\\
-  Allgemeine Formel für $m=1$ Eingang, $k=1$ Ausgang, $n=2$ Integratoren:
 
 
 \subsubsection{Regelungsnormalform \formelbuch{277}}
@@ -228,13 +227,12 @@ Differentialgleichungssystem von $n$ Gleichungen 1. Ordnung.
   \normalsize
 \end{samepage}
 
-\newpage
+%\newpage
 
+\subsubsection{Digaonalform \formelbuch{281}}
 \begin{multicols}{2}
-\subsubsection{Digaonalform\formelbuch{281}}
   Für einfache, reelle Pole mit $m=n$ \\
-  \scriptsize
-    
+  \scriptsize 
     \begin{eqnarray*}
       \begin{bmatrix}
         \dot{x}_1(t) \\
@@ -275,11 +273,14 @@ Differentialgleichungssystem von $n$ Gleichungen 1. Ordnung.
 
 \columnbreak
 
+  \includegraphics[width=6.5cm]{./images/zrd-diagonalform}
+\end{multicols}
+
 \subsubsection{Jordan-Normalform\formelbuch{283}}
   Ist für mehrfache, reelle Pole. Die Jordan-Normalform ist gleich aufgebaut wie die Diagonalform, 
-  es kann jedoch auf der oberen Nebendiagonalen z.T 1 haben. \\
+  es kann jedoch auf der oberen Nebendiagonalen z.T 1 haben. 
   Mehr Details im Skript S.283
-\end{multicols}
+
 
 
 \subsection{Beobachtbar- \& Steuerbarkeit \formelbuch{287}}
