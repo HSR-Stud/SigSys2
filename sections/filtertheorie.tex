@@ -16,36 +16,60 @@
 
 \subsection{Realisation analoger Filter}
 \subsubsection{Allgemeines Vorgehen}
-\begin{tabular}{m{9cm}|m{9cm}}
+\begin{tabular}{p{9cm}|p{9cm}}
     \textbf{UTF} &
     \textbf{LC-Filter} \\
   \hline
     \begin{enumerate}
-      \item Toleranzschemen zeichnen (Kapitel \ref{toleranzschema})
-      \item Art der Approximation wählen (Kapitel \ref{tiefpassapprox})
-      \item Ordnung bestimmen mittels Nomogramm\formelbuch{404} oder Formeln (Kapitel \ref{ordnung})
-      \item $\Omega_{3dB}$ bestimmen (Kapitel \ref{frequenznormierung})
-      \item normierte TP UTF bestimmen (Kapitel \ref{UTF bestimmen})
-      \item normierte UTF der Filtertransformation bestimmen (Kapitel \ref{filtertransformation})
-      \item normierte UTF entnormieren (Kapitel \ref{UTF entnormieren})
+      \item Toleranzschema (Kap. \ref{toleranzschema}) und Frequenznormierung (Kap. \ref{frequenznormierung})
+      \item Äquivalenten normierten TP bestimmen (Kap. \ref{filtertransformation}) (TP)
+      \item Ordnung für TP bestimmen (Kap. \ref{ordnung}) (TP)
+      \item normierte TP UTF bestimmen (Kap. \ref{UTF bestimmen}) (TP)
+      \item $\Omega_{3dB}$ bestimmen (Kap. \ref{omega3dB}) (TP)
+      \item Rücktransformation und Entnormierung (Kap. \ref{UTF entnormieren} und Kap. \ref{filtertransformation})
     \end{enumerate} &
     \begin{enumerate}
-      \item Toleranzschemen zeichnen (Kapitel \ref{toleranzschema})
-      \item Art der Approximation wählen (Kapitel \ref{tiefpassapprox})
-      \item Ordnung bestimmen mittels Nomogramm\formelbuch{404} oder Formeln (Kapitel \ref{ordnung})
-      \item $\Omega_{3dB}$ bestimmen (Kapitel \ref{frequenznormierung})
-      \item Referenzwiderstand ($R_r$) bestimmen (Kapitel \ref{Rref bestimmen})
-      \item $L_{FI3dB}$ und $C_{FI3dB}$ Werte aus Tabellen bestimmen (Kapitel \ref{LC_tabellen})
-      \item Umnormieren (Kapitel \ref{LC umnormieren})
-      \item Filtertransformation (Kapitel \ref{LC_transformation})
-      \item L und C entnormieren (Kapitel \ref{LC entnormieren})
+      \item Toleranzschema (Kap. \ref{toleranzschema}) und Frequenznormierung (Kap. \ref{frequenznormierung})
+      \item Äquivalenten normierten TP bestimmen (Kap. \ref{filtertransformation}) (TP)
+      \item Ordnung für TP bestimmen (Kap. \ref{ordnung}) (TP)
+      \item Referenzwiderstand bestimmen (Kap. \ref{Rref bestimmen}) (TP)
+      \item $L_{FI}$ und $C_{FI}$ bestimmen (Kap. \ref{LC_tabellen}) (TP)
+      \item $\Omega_{3dB}$ bestimmen (Kap. \ref{omega3dB}) (TP)
+      \item LC Umnormieren (Kap. \ref{LC umnormieren}) (TP)
+      \item Filtertransformation (Kap. \ref{LC_transformation})
+      \item LC in Impedanz \& Frequenz entnormieren (Kap. \ref{LC entnormieren})
     \end{enumerate}
-
 \end{tabular}
 
-\vfill
 
-\subsubsection{Tiefpassapproximationen \formelbuch{309}}
+\subsubsection{Frequenznormierung \formelbuch{308}}
+\label{frequenznormierung}
+\begin{tabular}{ll}
+\parbox{6cm}{
+	\includegraphics[width=5cm]{./images/filter-freqnormierung.png}}
+& \parbox{12cm}{
+	\textbf{Normierung} \\
+	$\boxed{S=\frac{s}{\omega_{r}} \hspace{2cm} \Omega=\frac{\omega}{\omega_{r}} 
+  \hspace{2cm} \sigma'=\frac{\sigma}{\omega_{r}}}$\\ 
+
+	Bei BP \& BS: $\omega_r = \omega_m =\sqrt{\omega_{B1} \omega_{B2}}
+	\underbrace{=}_{\text{\tiny{wenn symmetrisch}}} \sqrt{\omega_{S1} \omega_{S2}}$ \\
+	
+  Bei TP \& HP: $\omega_r = \omega_D$ \\
+
+  \begin{tabular}{ll}
+    $\omega_r$: & Referenzfrequenz \\
+    $\omega_m$: & Mittenfrequenz \\
+    $\omega_D$: & Durchlassfrequenz
+  \end{tabular} \\
+  Zur Entnormierung wird $\omega_{3db}$ gebraucht, daher sind diese Formeln
+	dafür nicht geeignet! \\
+	}
+\end{tabular}
+
+
+
+\subsubsection{Tiefpassapproximationen (TP) \formelbuch{309}}
 \label{tiefpassapprox}
 \begin{tabular}{|p{9cm}|p{9cm}|}
 \hline
@@ -58,7 +82,6 @@
     \item Bei $\Omega =1$ hat $|H(j\omega)|$ einen Abfall von 3.01dB
     \item Steilheit im SB: \qquad $-n\cdot 20dB/Dek$
 	\end{itemize}
-  \[ H(S) = \frac{1}{S^n +b_{n-1}S^{n-1}+\ldots+b_2S^2+b_1S+b_0}\]
 	}
 & 
 \parbox[t]{9cm}{
@@ -71,7 +94,6 @@
     \item Bei $\Omega = 1$ hat es eine Dämpfung 3.01dB \\
     \item Steilheit im SB: \qquad $-n\cdot 20dB/Dek$
 	\end{itemize}
-  \[ H(S) = \frac{K}{S^n +b_{n-1}S^{n-1}+\ldots+b_2S^2+b_1S+b_0}\]
 	} \\
 \hline
 \parbox[t]{9cm}{
@@ -79,10 +101,9 @@
 	\begin{itemize}
     \item Amplitudengang: Definierte Welligkeit im DB, steiler Übergang
     \item Allpolfilter, wobei alle Pole auf einer Ellipse liegen
-    \item Gruppen- und Phasenlaufzeit im DB relativ konstant.
+    \item Gruppen- und Phasenlaufzeit im DB relativ wellig.
     \item Steilheit im SB: \qquad $-n\cdot 20dB/Dek$
 	\end{itemize}
-  \[ H(S) = \frac{K}{S^n +b_{n-1}S^{n-1}+\ldots+b_2S^2+b_1S+b_0}\]
 	}
 &
  \parbox[t]{9cm}{
@@ -90,7 +111,8 @@
 	\begin{itemize}
     \item Definierte Welligkeit im Sperrbereich
     \item kein Allpolfilter
-    \item Gruppen- und Phasenlaufzeit im DB relativ konstant
+    \item Gruppen- und Phasenlaufzeit im DB relativ konstant \newline
+          (besser als Teschbyscheff I)
 	\end{itemize}
 	} \\
 \hline
@@ -121,7 +143,7 @@
 \end{tabular}
 \vfill
 
-\subsubsection{Bestimmung der minimal nötigen Ordnung}
+\subsubsection{Bestimmung der minimal nötigen Ordnung (TP)}
 \label{ordnung}
 \begin{tabular}{p{7cm} p{11cm}}
 \parbox{6cm}{
@@ -154,39 +176,60 @@
 \textbf{Grundsätzlich gilt (für gleiche Spezifikationen)} \quad
 $n_{\text{Butterworth}}\geq n_{\text{Tschebyscheff}_{(\text{I,II})}}\geq n_{\text{Cauer}}$
 
-
-\subsubsection{Frequenznormierung \formelbuch{308}}
-\label{frequenznormierung}
-\begin{tabular}{ll}
-\parbox{6cm}{
-	\includegraphics[width=5cm]{./images/filter-freqnormierung.png}}
-& \parbox{12cm}{
-	\textbf{Normierung} \\
-	$\boxed{S=\frac{s}{\omega_{r}} \hspace{2cm} \Omega=\frac{\omega}{\omega_{r}} 
-  \hspace{2cm} \sigma'=\frac{\sigma}{\omega_{r}}}$\\ 
-
-	Bei BP \& BS: $\omega_r = \omega_m =\sqrt{\omega_{B1} \omega_{B2}}
-	\underbrace{=}_{\text{\tiny{wenn symmetrisch}}} \sqrt{\omega_{S1} \omega_{S2}}$ \\
-	
-  Bei TP \& HP: $\omega_r = \omega_D$ \\
-  
-  $\boxed{\Omega_{3dB} \cdot \omega_D = \omega_{3dB}}$
-
-  \begin{tabular}{ll}
-    $\omega_r$: & Referenzfrequenz \\
-    $\omega_m$: & Mittenfrequenz
-  \end{tabular} \\
-  Zur Entnormierung wird $\omega_{3db}$ gebraucht, daher sind diese Formeln
-	dafür nicht geeignet! \\
-	}
-\end{tabular}
-
-\subsubsection{normierte UTF bestimmen}
+\subsubsection{normierte TP UTF bestimmen (TP)}
 \label{UTF bestimmen}
 Die UTF kann meist aus Tabellen herausgelesen werden und variiert je nach
 Filtertyp. Die Entnormierung erfolgt durch Substitution von $S \longrightarrow
 \displaystyle\frac{s}{\omega_{\text{3dB}}}$, wobei auch hier
 $\omega_{\text{3dB}}$ je nach Filtertyp unterschiedlich berechnet wird.
+
+\label{LC_tabellen}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|m{4cm}|m{1.5cm}|m{2.5cm}|m{9.5cm}|}
+  \hline
+    \textbf{Filtertyp} &
+    \textbf{Tabellen auf Seite} &
+    \textbf{normiert auf} &
+    \textbf{$H(S)$ von TP approximation} \\
+  \hline
+    Butterworth &
+    408 - 409 &
+    $\omega_{3dB}$ &
+    $ H(S) = \frac{1}{S^n +b_{n-1}S^{n-1}+\ldots+b_2S^2+b_1S+b_0}$ \\
+  \hline
+    Kritisch-gedämpfte Filter &
+    409 - 410 &
+    $\omega_{3dB}$ &
+    $ H(S) = \frac{K}{S^n +b_{n-1}S^{n-1}+\ldots+b_2S^2+b_1S+b_0} $ \\
+  \hline
+    Tschebyscheff I &
+    412 - 416 &
+    $\omega_D$ &
+    $ H(S) = \frac{K}{S^n +b_{n-1}S^{n-1}+\ldots+b_2S^2+b_1S+b_0}$ \\
+  \hline
+    Bessel &
+    416 - 418 &
+    $\omega_{3dB}$ &
+    $ H(S) = \frac{K}{S^n +b_{n-1}S^{n-1}+\ldots+b_2S^2+b_1S+b_0}$ \\
+  \hline
+    Cauer &
+    419 &
+    &
+    mittels Software \\
+  \hline  
+\end{tabular}
+\renewcommand{\arraystretch}{1}
+\begin{tabular}{ll}
+  Rippelfehler: & \[e = \sqrt{10^{\frac{A_{max}}{10}}-1}\]
+\end{tabular}
+
+
+
+
+\subsubsection{$\Omega_{3dB}$ bestimmen (TP)}
+\label{omega3dB}
+
+$\boxed{\Omega_{3dB} \cdot \omega_r = \omega_{3dB}}$
 
 \renewcommand{\arraystretch}{1.5}
 \begin{tabular}{|p{6cm}|p{6cm}|p{6cm}|}
@@ -203,16 +246,16 @@ $\omega_{\text{3dB}}=\underbrace{\sqrt[2n]{\frac{1}{10^{A_{\max}/10}-1}}}_{\Omeg
 \hline
 Cauer\formelbuch{419}
 	& Bessel \formelbuch{416}
-	& Rippelfehler $e$\\
+	& \\
 Keine Tabelle, \matlab{ellip, ellipap}
 	& $\omega_{3\text{dB}}$ aus Abb. 7.112 \formelbuch{417}
-	& $e = \sqrt{10^{\frac{A_{max}}{10}}-1}$\\
+	& \\
 \hline
 \end{tabular}
 \renewcommand{\arraystretch}{1}
 
 
-\subsubsection{Filtertransformationen \formelbuch{355}}
+\subsubsection{Filtertransformationen (TP) \formelbuch{355}}
 \label{filtertransformation}
 \renewcommand{\arraystretch}{1.5}
 \begin{tabular}{|l|l|l|l|}
@@ -253,10 +296,10 @@ Keine Tabelle, \matlab{ellip, ellipap}
     & $\Omega_{S_{TP}}=\frac{1}{\Omega_{S_{HP}}}$
     & $\Omega_{S_{TP}}=\frac{\Omega_{S2}-\Omega_{S1}}{B}=
       \frac{\Omega_{S2}-\Omega_{S1}}{\Omega_{B2}-\Omega_{B1}} =
-      \frac{f_{S2}-f_{S1}}{f_{B2}-f_{B1}}$
+      \frac{\omega_{S2}-\omega_{S1}}{\omega_{B2}-\omega_{B1}}$
     & $\Omega_{S_{TP}}=\frac{B}{\Omega_{S2}-\Omega_{S1}}=
       \frac{\Omega_{B2}-\Omega_{B1}}{\Omega_{S2}-\Omega_{S1}} =
-      \frac{f_{B2}-f_{B1}}{f_{S2}-f_{S1}}$ \\
+      \frac{\omega_{B2}-\omega_{B1}}{\omega_{S2}-\omega_{S1}}$ \\
   \hline
   \multicolumn{2}{|l|}{normierte Bandbreite:}
     & \multicolumn{2}{|c|}{$B = \dfrac{\omega_{B2} - \omega_{B1}}{\omega_r} =
@@ -307,24 +350,30 @@ Keine Tabelle, \matlab{ellip, ellipap}
 
 \subsubsection{UTF Entnormierung}
 \label{UTF entnormieren}
-\begin{tabular}{l|l|l|l}
-    \textbf{TP}\formelbuch{309} &
-    \textbf{HP}\formelbuch{359} &
-    \textbf{BP}\formelbuch{365} &
-    \textbf{BS}\formelbuch{373} \\
-  \hline
-    $S=\dfrac{s}{\Omega_{3dB}\cdot \omega_D}$ &
-    $S \rightarrow \dfrac{1}{S}$ &
-    $S \rightarrow \dfrac{S^2+1}{S\cdot B \cdot \Omega_{3dB}}$ &
-    $S \rightarrow \dfrac{S\cdot B \cdot \Omega_{3dB}}{S^2+1}$ \\
-    
-    &
-    $S = \dfrac{s\cdot \Omega_{3dB}}{\omega_D}$ &
-    $S = \dfrac{s}{\omega_m}$ &
-    $S = \dfrac{s}{\omega_m}$
-\end{tabular}
+\begin{minipage}[c]{12cm}
+  \begin{tabular}{l|l|l|l}
+      \textbf{TP}\formelbuch{309} &
+      \textbf{HP}\formelbuch{359} &
+      \textbf{BP}\formelbuch{365} &
+      \textbf{BS}\formelbuch{373} \\
+    \hline
+      $S=\dfrac{s}{\Omega_{3dB}\cdot \omega_D}$ &
+      $S \rightarrow \dfrac{1}{S}$ &
+      $S \rightarrow \dfrac{S^2+1}{S\cdot B \cdot \Omega_{3dB}}$ &
+      $S \rightarrow \dfrac{S\cdot B \cdot \Omega_{3dB}}{S^2+1}$ \\
+      
+      &
+      $S = \dfrac{s\cdot \Omega_{3dB}}{\omega_D}$ &
+      $S = \dfrac{s}{\omega_m}$ &
+      $S = \dfrac{s}{\omega_m}$
+  \end{tabular}
+\end{minipage}
+\begin{minipage}[c]{6cm}
+  Falls es schon auf $\Omega_D$ (Tschebyscheff I) normiert ist, so gilt $\Omega_{3dB} = 1$
+\end{minipage}
 
-\subsubsection{LC-Tiefpass bestimmen \formelbuch{389/420}}
+
+\subsubsection{LC-Tiefpass bestimmen (TP) \formelbuch{389/420} }
 \label{Rref bestimmen}
 \begin{tabular}{ll}
 \parbox{10cm}{
@@ -339,7 +388,7 @@ Keine Tabelle, \matlab{ellip, ellipap}
 
 \newpage
 
-\subsubsection{LC Tabellenindex}
+\subsubsection{LC Tabellenindex (TP)}
 \label{LC_tabellen}
 \renewcommand{\arraystretch}{1.5}
 \begin{tabular}{|p{5.5cm}|p{5.5cm}|p{6cm}|}
@@ -361,10 +410,10 @@ Erläuterungen zu den Tabellen:
     \item Normierung auf $R_2 = 1$, folglich $R_1 = \frac{R_{\text{Quelle}}}{R_r} = \frac{R_{1_\text{unnormiert}}}{R_r}$
   \end{itemize}
 
-\subsubsection{LC umnormieren}
+\subsubsection{LC umnormieren (TP)}
 \label{LC umnormieren}
 $\boxed{L_{FI} = \dfrac{L_{FI3dB}}{\Omega_{3dB}} \qquad
-C_{FI} = \dfrac{C_{FI3dB}}{\Omega_{3dB}}}$
+C_{FI} = \dfrac{C_{FI3dB}}{\Omega_{3dB}}}$ \qquad (nicht bei Cauer-Filter)
 
 
 \begin{tabular}{ll}
@@ -392,7 +441,7 @@ C_{FI} = \dfrac{C_{FI3dB}}{\Omega_{3dB}}}$
 	\end{tabular}
 	\renewcommand{\arraystretch}{1}
   
-  \subsubsection{LC entnormieren\formelbuch{391}}
+  \subsubsection{LC in Impedanz und Frequenz entnormieren\formelbuch{391}}
   \label{LC entnormieren}
   $\boxed{L = L_{FI} \cdot \dfrac{R_r}{\omega_r} \qquad
   C = C_{FI} \cdot \dfrac{R_r}{\omega_r}}$
