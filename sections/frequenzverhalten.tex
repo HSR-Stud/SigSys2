@@ -241,22 +241,35 @@ Siehe \formelbuch{178} für Beispiele\\
 \begin{minipage}[b]{7cm}
   \includegraphics[width=7cm]{./images/PN_Diagramm.png}
 \end{minipage}
+
+\begin{minipage}{9cm}
+\textbf{Grenzwerte:} \\
+
+\begin{tabular}{|l|l|l|} \hline
+\multirow{3}{*}{$\omega \rightarrow 0$} 
+	& $\rightarrow \infty$ & Polstelle bei $\omega = 0$ \\
+	& endlich & keine Pol- oder Nullstelle bei $\omega = 0$ \\ 
+	& $\rightarrow 0$ & Nullstelle bei $\omega = 0$ \\ \hline
+\multirow{3}{*}{$\omega \rightarrow \infty$} 
+	& $\rightarrow \infty$ & mehr Null- als Polstellen \\
+	& endlich & gleich viele Pol- und Nullstellen \\
+	& $\rightarrow 0$ & mehr Pol- als Nullstellen \\ \hline
+\end{tabular}
+\end{minipage}
+\begin{minipage}{8cm}
 \begin{itemize}
-  \item Mehr Nullstellen als Polstellen und $j \omega \rightarrow\infty$
-        $\Longrightarrow$ Amplitude $\rightarrow\infty$
-  \item Mehr Polstellen als Nullstellen und $j \omega \rightarrow\infty$
-        $\Longrightarrow$ Amplitude $\rightarrow 0$
   \item Pol auf Höhe $j\omega_x \Longrightarrow$ Überhöhung bei $\omega_x$
   \item Nullstelle auf Höhe $j\omega_x \Longrightarrow$ Dämpfung bei $\omega_x$
-  \item $\frac{\prod{\text{Abstände NS zu spezifischem
-        $\omega$}}}{\prod{\text{Abstände PS zu spezifischem
+  \item $\frac{\prod{\text{Abstände NS zu 
+        $\omega$}}}{\prod{\text{Abstände PS zu 
         $\omega$}}} > 1 \Longrightarrow$ Verstärkung
-  \item $\frac{\prod{\text{Abstände NS zu spezifischem
-        $\omega$}}}{\prod{\text{Abstände PS zu spezifischem
+  \item $\frac{\prod{\text{Abstände NS zu 
+        $\omega$}}}{\prod{\text{Abstände PS zu 
         $\omega$}}} < 1 \Longrightarrow$ Dämpfung
   \item Beim Durchlaufen eines Pols oder Nullstelle auf der $j\omega$-Achse, macht der Phasengang
         einen Sprung von $180^{\circ}$
 \end{itemize}
+\end{minipage}
 
 \newpage 
 \input{sections/BodeApproximation}
