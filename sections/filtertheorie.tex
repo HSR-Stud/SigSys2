@@ -183,9 +183,7 @@ $n_{\text{Butterworth}}\geq n_{\text{Tschebyscheff}_{(\text{I,II})}}\geq n_{\tex
 \subsubsection{normierte TP UTF bestimmen (TP)}
 \label{UTF bestimmen}
 Die UTF kann meist aus Tabellen herausgelesen werden und variiert je nach
-Filtertyp. Die Entnormierung erfolgt durch Substitution von $S \longrightarrow
-\displaystyle\frac{s}{\omega_{\text{3dB}}}$, wobei auch hier
-$\omega_{\text{3dB}}$ je nach Filtertyp unterschiedlich berechnet wird.
+Filtertyp.
 
 \label{LC_tabellen}
 \renewcommand{\arraystretch}{1.5}
@@ -223,17 +221,11 @@ $\omega_{\text{3dB}}$ je nach Filtertyp unterschiedlich berechnet wird.
   \hline  
 \end{tabular}
 \renewcommand{\arraystretch}{1}
-\begin{tabular}{ll}
-  Rippelfehler: & \[e = \sqrt{10^{\frac{A_{max}}{10}}-1}\]
-\end{tabular}
-
-
-
 
 \subsubsection{$\Omega_{3dB}$ bestimmen (TP)}
 \label{omega3dB}
 
-$\boxed{\Omega_{3dB} \cdot \omega_r = \omega_{3dB}}$
+$\boxed{\Omega_{3dB} = \frac{\omega_{3dB}}{\omega_r}}$
 
 \renewcommand{\arraystretch}{1.5}
 \begin{tabular}{|p{6cm}|p{6cm}|p{6cm}|}
@@ -245,15 +237,15 @@ $\omega_{\text{3dB}}=\underbrace{\sqrt[2n]{\frac{1}{10^{A_{\max}/10}-1}}}_{\Omeg
 	&
 	$\omega_{\text{3dB}}=\underbrace{\cosh{\left[\left(\frac{1}{n}\right) {\rm
 	Arcosh}\left(\frac{1}{e}\right)\right]}}_{\Omega_{3dB}} \cdot \omega_{D}$
-	& $\omega_{3\text{dB}}=\frac{\omega_D \cdot{\sqrt{2^{1/n}-1}}
-	}{\sqrt{10^{\frac{A_{\text{max}}}{10\cdot n}}-1}}$ \\
+	& $\omega_{3\text{dB}}=\underbrace{\frac{\sqrt{2^{1/n}-1}
+	}{\sqrt{10^{\frac{A_{\text{max}}}{10\cdot n}}-1}}}_{\Omega_{3dB}} \cdot \omega_D$ \\
 \hline
 Cauer\formelbuch{419}
 	& Bessel \formelbuch{416}
-	& \\
+	& Rippelfehler:\\
 Keine Tabelle, \matlab{ellip, ellipap}
 	& $\omega_{3\text{dB}}$ aus Abb. 7.112 \formelbuch{417}
-	& \\
+	& $e = \sqrt{10^{\frac{A_{max}}{10}}-1}$ \\
 \hline
 \end{tabular}
 \renewcommand{\arraystretch}{1}
@@ -316,7 +308,7 @@ Keine Tabelle, \matlab{ellip, ellipap}
   \renewcommand{\arraystretch}{1}
   \\
   
-  \textbf{Direkte Substitution}\\
+  \textbf{Direkte Substitution der UTF}\\
   \renewcommand{\arraystretch}{1.5}
   \begin{tabular}{|lll|}
   \hline
