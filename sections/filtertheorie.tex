@@ -1,10 +1,10 @@
-\section{Filtertheorie \formelbuch{301}}
+\section{Filtertheorie \formelbuch{289-415}}
 \begin{tabular}{ll}
 \parbox{12cm}{
 	Man unterscheidet die Filtertypen grundsätzlich zwischen
 	Tief-(TP), Hoch-(HP),All-(AP) und Bandpässen(BP) sowie Bandsperren(BS).
 	
-	\subsection{Toleranzschema \formelbuch{307}}
+	\subsection{Toleranzschema \formelbuch{293}}
   \label{toleranzschema}
 	Im Durchlassbereich (DB) bestimmt der Stempel die maximal zul"assige D"ampfung
 	$A_{\max}$; im Sperrbereich (SB) bestimmt die Matrize die minimal n"otige
@@ -44,7 +44,7 @@
 \end{tabular}
 
 
-\subsubsection{Frequenznormierung \formelbuch{308}}
+\subsubsection{Frequenznormierung \formelbuch{295}}
 \label{frequenznormierung}
 \begin{tabular}{ll}
 \parbox{6cm}{
@@ -73,12 +73,12 @@
 
 
 
-\subsubsection{Tiefpassapproximationen (TP) \formelbuch{309}}
+\subsubsection{Tiefpassapproximationen (TP) \formelbuch{295-330}}
 \label{tiefpassapprox}
 \begin{tabular}{|p{9cm}|p{9cm}|}
 \hline
 \parbox[t]{9cm}{
-	\textbf{Butterworth} \formelbuch{310}
+	\textbf{Butterworth} \formelbuch{301}
 	\begin{itemize}
     \item Amplitudengang: Gute Approximation (``maximal flach'', keine Welligkeit)
     \item Allpolfilter: Pole liegen auf dem Einheitskreis mit Abstand $\frac{\pi}{n}$
@@ -89,7 +89,7 @@
 	}
 & 
 \parbox[t]{9cm}{
-	\textbf{Kritisch gedämpftes (Gauss)-Filter} \formelbuch{317}
+	\textbf{Kritisch gedämpftes (Gauss)-Filter} \formelbuch{297}
 	\begin{itemize}
     \item Keine Überschwinger bei Impuls- \& Sprungantwort
     \item Kaskadierung von wirkungsfreien identischer Filter 1.Ordnung
@@ -101,7 +101,7 @@
 	} \\
 \hline
 \parbox[t]{9cm}{
-	\textbf{Tschebyscheff I} \formelbuch{321}
+	\textbf{Tschebyscheff I} \formelbuch{308}
 	\begin{itemize}
     \item Amplitudengang: Definierte Welligkeit im DB, steiler Übergang
     \item Allpolfilter, wobei alle Pole auf einer Ellipse liegen
@@ -111,7 +111,7 @@
 	}
 &
  \parbox[t]{9cm}{
-	\textbf{Inverser Tschebyscheff  / Tscheby. II} \formelbuch{330}
+	\textbf{Inverser Tschebyscheff  / Tscheby. II} \formelbuch{317}
 	\begin{itemize}
     \item Definierte Welligkeit im Sperrbereich
     \item kein Allpolfilter
@@ -121,7 +121,7 @@
 	} \\
 \hline
 \parbox[t]{6cm}{
-	\textbf{Cauer (elliptischer Filter)} \formelbuch{333}
+	\textbf{Cauer (elliptisches Filter)} \formelbuch{320}
 	\begin{itemize}
     \item Amplitudengang: Definierte Welligkeit im SB und DB
     \item Steilster Übergang zwischen SB und DB
@@ -134,7 +134,7 @@
 	}
 & 
 \parbox[t]{6cm}{
-	\textbf{Bessel} \formelbuch{339}
+	\textbf{Bessel} \formelbuch{326}
 	\begin{itemize}
     \item Sehr linearer Phasengang
     \item Flachster Übergang zw. DB und SB im Amplitudengang
@@ -159,19 +159,19 @@
     
   $n_{\text{Butterworth}} = \left\lceil\frac{\log{\left[\displaystyle\frac{10^{A_{\min}/10}-1}
   {10^{A_{\max}/10}-1}\right]}} {2 \cdot \log{\left(\frac{\Omega_{S}}{\Omega_{D}}\right)}}\right\rceil$
-  \formelbuch{316} \\ \\
+  \formelbuch{307} \\ \\
     
   $n_{\text{Tschebyscheff}_{(\text{I,II})}} = \left\lceil\frac{{\rm Arcosh}
   \sqrt{\displaystyle\frac{10^{A_{\min}/10}-1}{10^{A_{\max}/10}-1}}}
   {{\rm Arcosh}\left({\Omega_{S}/\Omega_{D}}\right)} \right\rceil$
-  \formelbuch{327} \\ \\
+  \formelbuch{314} \\ \\
     
   $n_{\text{Cauer}} = \left\lceil\frac{K\left(\left( \frac{\Omega_D}{\Omega_S}\right)^2\right)
   K\left(1-\frac{10^{A_{\max}/10}-1}{10^{A_{\min}/10}-1}\right) } {K\left(1-\left(\frac{\Omega_D}
   {\Omega_S}\right)^2\right )K\left(\frac{10^{A_{\max}/10}-1}{10^{A_{\min}/10}-1} \right)}\right\rceil,
   \text{mit}\quad
   K(k)=\int_0^{\frac{\pi}{2}}\frac{d\theta}{\sqrt{1-k\sin^2\theta}}$
-  \formelbuch{337}\\ \\
+  \formelbuch{324}\\ \\
 
 	\textbf{Oder mit Matlab}\\
 	\texttt{buttord, cheb1ord, cheb2ord, ellipord}	
@@ -195,27 +195,27 @@ Filtertyp.
     \textbf{$H(S)$ von TP approximation} \\
   \hline
     Butterworth &
-    408 - 409 &
+    397 - 398 &
     $\omega_{3dB}$ &
     $ H(S) = \frac{1}{S^n +b_{n-1}S^{n-1}+\ldots+b_2S^2+b_1S+b_0}$ \\
   \hline
     Kritisch-gedämpfte Filter &
-    409 - 410 &
+    395 - 397 &
     $\omega_{3dB}$ &
     $ H(S) = \frac{K}{S^n +b_{n-1}S^{n-1}+\ldots+b_2S^2+b_1S+b_0} $ \\
   \hline
     Tschebyscheff I &
-    412 - 416 &
+    399 - 403 &
     $\omega_D$ &
     $ H(S) = \frac{K}{S^n +b_{n-1}S^{n-1}+\ldots+b_2S^2+b_1S+b_0}$ \\
   \hline
     Bessel &
-    416 - 418 &
+    403 - 405 &
     $\omega_{3dB}$ &
     $ H(S) = \frac{K}{S^n +b_{n-1}S^{n-1}+\ldots+b_2S^2+b_1S+b_0}$ \\
   \hline
     Cauer &
-    419 &
+    406 &
     &
     mittels Software \\
   \hline  
@@ -230,9 +230,9 @@ $\boxed{\Omega_{3dB} = \frac{\omega_{3dB}}{\omega_r}}$
 \renewcommand{\arraystretch}{1.5}
 \begin{tabular}{|p{6cm}|p{6cm}|p{6cm}|}
 \hline
-Butterworth \formelbuch{408}
-	& Tschebyscheff I \formelbuch{412}
-	& Kritisch gedämpfte Filter \formelbuch{409}\\
+Butterworth \formelbuch{397}
+	& Tschebyscheff I \formelbuch{399}
+	& Kritisch gedämpfte Filter \formelbuch{395}\\
 $\omega_{\text{3dB}}=\underbrace{\sqrt[2n]{\frac{1}{10^{A_{\max}/10}-1}}}_{\Omega_{3dB}}\cdot \omega_{D}$
 	&
 	$\omega_{\text{3dB}}=\underbrace{\cosh{\left[\left(\frac{1}{n}\right) {\rm
@@ -240,18 +240,18 @@ $\omega_{\text{3dB}}=\underbrace{\sqrt[2n]{\frac{1}{10^{A_{\max}/10}-1}}}_{\Omeg
 	& $\omega_{3\text{dB}}=\underbrace{\frac{\sqrt{2^{1/n}-1}
 	}{\sqrt{10^{\frac{A_{\text{max}}}{10\cdot n}}-1}}}_{\Omega_{3dB}} \cdot \omega_D$ \\
 \hline
-Cauer\formelbuch{419}
-	& Bessel \formelbuch{416}
+Cauer \formelbuch{406}
+	& Bessel \formelbuch{403}
 	& Rippelfehler:\\
 Keine Tabelle, \matlab{ellip, ellipap}
-	& $\omega_{3\text{dB}}$ aus Abb. 7.112 \formelbuch{417}
+	& $\omega_{3\text{dB}}$ aus Abb. 7.111 \formelbuch{404}
 	& $e = \sqrt{10^{\frac{A_{max}}{10}}-1}$ \\
 \hline
 \end{tabular}
 \renewcommand{\arraystretch}{1}
 
 
-\subsubsection{Filtertransformationen (TP) \formelbuch{355}}
+\subsubsection{Filtertransformationen (TP) \formelbuch{342-361}}
 \label{filtertransformation}
 \renewcommand{\arraystretch}{1.5}
 \begin{tabular}{|l|l|l|l|}
@@ -269,9 +269,9 @@ Keine Tabelle, \matlab{ellip, ellipap}
     \includegraphics[width=6cm]{./images/filter-transf-tp-bs.png}
     } \\
   \hline \hline
-    & \textbf{TP $\Leftrightarrow$ HP} \formelbuch{355} 
-    & \textbf{TP $\Leftrightarrow$ BP} \formelbuch{360}
-    & \textbf{TP $\Leftrightarrow$ BS} \formelbuch{368} \\
+    & \textbf{TP $\Leftrightarrow$ HP} \formelbuch{342} 
+    & \textbf{TP $\Leftrightarrow$ BP} \formelbuch{346}
+    & \textbf{TP $\Leftrightarrow$ BS} \formelbuch{355} \\
   \hline
   Ordnung: 
     & $n$
@@ -348,10 +348,10 @@ Keine Tabelle, \matlab{ellip, ellipap}
 \label{UTF entnormieren}
 \begin{minipage}[c]{12cm}
   \begin{tabular}{l|l|l|l}
-      \textbf{TP}\formelbuch{309} &
-      \textbf{HP}\formelbuch{359} &
-      \textbf{BP}\formelbuch{365} &
-      \textbf{BS}\formelbuch{373} \\
+      \textbf{TP}\formelbuch{295} &
+      \textbf{HP}\formelbuch{346} &
+      \textbf{BP}\formelbuch{352} &
+      \textbf{BS}\formelbuch{360} \\
     \hline
       $S=\dfrac{s}{\Omega_{3dB}\cdot \omega_D}$ &
       $S \rightarrow \dfrac{1}{S}$ &
@@ -369,7 +369,7 @@ Keine Tabelle, \matlab{ellip, ellipap}
 \end{minipage}
 
 
-\subsubsection{LC-Tiefpass bestimmen (TP) \formelbuch{389/420} }
+\subsubsection{LC-Tiefpass bestimmen (TP) \formelbuch{362,407} }
 \label{Rref bestimmen}
 \begin{tabular}{ll}
 \parbox{10cm}{
@@ -389,12 +389,12 @@ Keine Tabelle, \matlab{ellip, ellipap}
 \renewcommand{\arraystretch}{1.5}
 \begin{tabular}{|p{5.5cm}|p{5.5cm}|p{6cm}|}
 \hline
-Butterworth \formelbuch{421}
-	& Tschebyscheff I \formelbuch{424, 425}
-	& Kritisch gedämpfte Filter \formelbuch{423}\\
+Butterworth \formelbuch{309}
+	& Tschebyscheff I \formelbuch{410-411}
+	& Kritisch gedämpfte Filter \formelbuch{408}\\
 \hline
-Cauer \formelbuch{427, 428}
-	& Bessel \formelbuch{422}
+Cauer \formelbuch{414-415}
+	& Bessel \formelbuch{412}
 	& \\
 \hline
 \end{tabular}
@@ -419,17 +419,17 @@ C_{FI} = \dfrac{C_{FI3dB}}{\Omega_{3dB}}}$ \qquad (nicht bei Cauer-Filter)
 	\renewcommand{\arraystretch}{1.5}
 	\begin{tabular}{|p{2cm}|p{7.5cm}|}
 	\hline
-	Tiefpass-Hochpass \formelbuch{386}
+	Tiefpass-Hochpass \formelbuch{373}
 		& \parbox{7cm}{
 		\includegraphics[width=7cm]{./images/filter-bauteile-tp-hp.png}}
 		\\
 	\hline
-	Tiefpass-Bandpass \formelbuch{387}
+	Tiefpass-Bandpass \formelbuch{374}
 		& \parbox{7cm}{
 		\includegraphics[width=7cm]{./images/filter-bauteile-tp-bp.png}}
 		\\
 	\hline
-	Tiefpass-Bandsperre \formelbuch{388}
+	Tiefpass-Bandsperre \formelbuch{375}
 		& \parbox{7cm}{
 		\includegraphics[width=7cm]{./images/filter-bauteile-tp-bs.png}}
 		\\
@@ -437,7 +437,7 @@ C_{FI} = \dfrac{C_{FI3dB}}{\Omega_{3dB}}}$ \qquad (nicht bei Cauer-Filter)
 	\end{tabular}
 	\renewcommand{\arraystretch}{1}
   
-  \subsubsection{LC in Impedanz und Frequenz entnormieren\formelbuch{391}}
+  \subsubsection{LC in Impedanz und Frequenz entnormieren \formelbuch{377}}
   \label{LC entnormieren}
   $\boxed{L = L_{FI} \cdot \dfrac{R_r}{\omega_r} \qquad
   C = C_{FI} \cdot \dfrac{1}{R_r \cdot \omega_r}}$
@@ -453,7 +453,7 @@ C_{FI} = \dfrac{C_{FI3dB}}{\Omega_{3dB}}}$ \qquad (nicht bei Cauer-Filter)
 
 
 \newpage
-\subsection{Vergleich der Approximationsarten\formelbuch{344}}
+\subsection{Vergleich der Approximationsarten \formelbuch{331-341}}
 \scriptsize
 \begin{center}
 \includegraphics[height=11.5cm]{./images/filter-butterworth.png}

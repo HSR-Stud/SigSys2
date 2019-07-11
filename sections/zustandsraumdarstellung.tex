@@ -1,12 +1,12 @@
-\section{Zustandsraumdarstellung (ZRD)\formelbuch{265}}
+\section{Zustandsraumdarstellung (ZRD) \formelbuch{253-288}}
 Darstellung einer Differentialgleichung $n$. Ordnung durch ein
 Differentialgleichungssystem von $n$ Gleichungen 1. Ordnung.
 
-\subsection{Definition \formelbuch{267}}
+\subsection{Definition \formelbuch{255}}
 \begin{multicols}{2}
 	\adjustbox{width=\linewidth}{\input{./tikz/Zustandsraumdarstellung/Definition.tex}}
 	
-	Bestimmung der Matrizen A,B,C,D siehe auch \formelbuch{298}
+	Bestimmung der Matrizen A,B,C,D siehe auch \formelbuch{257}
 	
 	$\dot{\underline{x}}(t) = {\boldsymbol A} \underline{x}(t) + {\boldsymbol B} \underline{u}(t)$ 
   \qquad (Zustandsgleichung) \\
@@ -23,7 +23,7 @@ Differentialgleichungssystem von $n$ Gleichungen 1. Ordnung.
 	\end{description}	
 \end{multicols}
 
-\subsection{Äquivalente ZRD\formelbuch{269}}
+\subsection{Äquivalente ZRD \formelbuch{257-258}}
   \begin{tabular}{p{6cm}p{6cm}p{6cm}}
     \[\underline{\dot{\xi}}(t) = \underbrace{\mathbf{TAT^{-1}}}_{\hat A}\underline\xi(t) +
     \underbrace{\mathbf{TB}}_{\hat B}\underline u(t) \] &
@@ -37,15 +37,15 @@ Differentialgleichungssystem von $n$ Gleichungen 1. Ordnung.
     die aber alle ein identisches Systemverhalten aufweisen.
   \end{tabular}
   
-\subsection{Stabilität der inneren Systemzustände \formelbuch{285}}
+\subsection{Stabilität der inneren Systemzustände \formelbuch{274}}
   Wenn alle Realteile der Eigenwerte $\lambda$ der Systemmatrix ${\boldsymbol A}$
   negativ sind, ist ein LTI-System asymptotisch stabil, \newline
   $\left | \lambda\boldsymbol{I} - \boldsymbol{A} \right |   =0 \rightarrow \forall~\lambda \quad\Re \{\lambda\}<0$
   jedoch nicht umgekehrt. 
 
-\subsection{ZRD im Zeitbereich \formelbuch{270}}
+\subsection{ZRD im Zeitbereich \formelbuch{259-262}}
 
-\subsection{ZRD im Frequenzbereich \formelbuch{274} \matlab{ss2tf}}
+\subsection{ZRD im Frequenzbereich \formelbuch{263-273} \matlab{ss2tf}}
   \[ \boldsymbol{H(s)} = \frac{\underline{Y}(s)}{\underline{U}(s)} =
   \boldsymbol{C}\left(s\boldsymbol{I}-\boldsymbol{A}\right)^{-1}\boldsymbol{B}+\boldsymbol{D} \qquad
    (\text{Anfangsbedingungen: } \vec{x(0)} = \vec 0) \]
@@ -86,14 +86,14 @@ Differentialgleichungssystem von $n$ Gleichungen 1. Ordnung.
   \]
 
 
-\subsection{Bestimmung der ZRD aus der UTF\formelbuch{277}}
+\subsection{Bestimmung der ZRD aus der UTF \formelbuch{266}}
   \[ \boxed{
   H(s)=\frac{Y(s)}{U(s)}=\frac{b_{m} s^{m} + b_{m-1} s^{m-1} +\cdots+b_{1} s 
   + b_{0}}{s^{n} + a_{n-1} s^{n-1} + \cdots + a_{1} s + a_{0}}}
   \]\\
 
 
-\subsubsection{Regelungsnormalform \formelbuch{277}}
+\subsubsection{Regelungsnormalform \formelbuch{266}}
   \includegraphics[width=9cm]{./images/zrd-regelungsnormalform.png} \\
   \scriptsize
   \begin{equation*}
@@ -161,7 +161,7 @@ Differentialgleichungssystem von $n$ Gleichungen 1. Ordnung.
   \normalsize
 
 \begin{samepage}
-\subsubsection{Beobachtungsnormalform \formelbuch{279 }}
+\subsubsection{Beobachtungsnormalform \formelbuch{268}}
   \includegraphics[width=9cm]{./images/zrd-beobachtungsnormalform.png} \\
   \scriptsize
   \begin{eqnarray*}
@@ -229,7 +229,7 @@ Differentialgleichungssystem von $n$ Gleichungen 1. Ordnung.
 
 %\newpage
 
-\subsubsection{Digaonalform \formelbuch{281}}
+\subsubsection{Diagonalform \formelbuch{270}}
 \begin{multicols}{2}
   Für einfache, reelle Pole mit $m=n$ \\
   \scriptsize 
@@ -276,15 +276,15 @@ Differentialgleichungssystem von $n$ Gleichungen 1. Ordnung.
   \includegraphics[width=6.5cm]{./images/zrd-diagonalform}
 \end{multicols}
 
-\subsubsection{Jordan-Normalform\formelbuch{283}}
+\subsubsection{Jordan-Normalform \formelbuch{273}}
   Ist für mehrfache, reelle Pole. Die Jordan-Normalform ist gleich aufgebaut wie die Diagonalform, 
   es kann jedoch auf der oberen Nebendiagonalen z.T 1 haben. 
   Mehr Details im Skript S.283
 
 
 
-\subsection{Beobachtbar- \& Steuerbarkeit \formelbuch{287}}
-\subsubsection{Steuerbarkeit\formelbuch{287} \matlab{ctrb}}
+\subsection{Beobachtbar- \& Steuerbarkeit \formelbuch{276-280}}
+\subsubsection{Steuerbarkeit \formelbuch{276} \matlab{ctrb}}
 Gibt es Zustände von $\underline{x} (t)$ die nicht von den
 Eingängen $\underline{u} (t)$ beeinflusst werden? Wenn ja,
 dann ist das System nicht steuerbar!
@@ -292,7 +292,7 @@ dann ist das System nicht steuerbar!
 Wenn $|Q_{Steuerbarkeit}|= \left| \left [ \boldsymbol{B~~AB~~ A^2B~\ldots~
 A^{n-1}B} \right ] \right|  \neq 0$, dann ist das System vollständig steuerbar.
 
-\subsubsection{Ausgangssteuerbarkeit\formelbuch{290}}
+\subsubsection{Ausgangssteuerbarkeit\formelbuch{279}}
 Ein System ist vollständig ausgangssteuerbar, wenn es eine Steuerfunktion $\underline{u} (t)$ gibt,
 welche die Ausgänge $\underline{y}(t)$ innerhalb einer endlichen Zeitspanne in einen Endwert bringt.
 
@@ -300,7 +300,7 @@ Wenn $rang(Q_{AusgStrbrkeit}) = rang \left( \left [ \boldsymbol{CB~~ CAB~~ CA^2B
 CA^{n-1}B ~~ D}\right ] \right) = k$ ($k$= Anzahl Ausgänge), dann ist das System vollständig ausgangssteuerbar. \\
 Rang einer Matrix: max. Anzahl lin. unabhängiger Zeilen (= lin. unabh. Spalten)
 
-\subsubsection{Beobachtbarkeit\formelbuch{288} \matlab{obsv}}
+\subsubsection{Beobachtbarkeit \formelbuch{277} \matlab{obsv}}
 Gibt es Zustände $\underline{x}(t)$ die keinen Einfluss auf die Ausgänge
 $\underline{y}(t)$ haben? Wenn ja, kann man aus dem Verhalten von 
 $\underline{y}(t)$ nicht auf die Zustände $\underline{x}(t)$ schliessen!
