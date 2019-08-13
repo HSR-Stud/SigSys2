@@ -1,3 +1,7 @@
 # SigSys2 - Signale und Systeme 2
+Stand: FS2019
 
-[Selina Malacarne] (https://github.com/smalacar)
+[![Build Status](https://travis-ci.org/n04hk/SigSys2.svg?branch=master)](https://travis-ci.org/n04hk/SigSys2)
+
+# License
+CC by-nc-sa

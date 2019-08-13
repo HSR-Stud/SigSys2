@@ -1,5 +1,5 @@
-\section{Frequenzverhalten}
-\subsection{Logarithmische Darstellungen}
+\section{Frequenzverhalten \formelbuch{205-251}}
+\subsection{Logarithmische Darstellung \formelbuch{206-210}}
 \begin{tabular}{ll}
 \parbox{7cm}{
 	\scriptsize
@@ -135,7 +135,7 @@ $x+10dB$	& $T_P \cdot 10$ & $T_A \cdot \sqrt{10} \approx T_A \cdot 3.162$\\
 \end{tabular}
 \newpage
 
-\subsection{Frequenzgang\formelbuch{164}}
+\subsection{Frequenzgang \formelbuch{211-219}}
 \label{Polfrequenz Polguete}
   \begin{minipage}[l]{12cm}
     \[ H(s) = \frac{Y(s)}{X(s)}=\frac{b_ms^m+b_{m-1}s^{m-1}+\ldots+b_1s+b_0}
@@ -168,8 +168,8 @@ $x+10dB$	& $T_P \cdot 10$ & $T_A \cdot \sqrt{10} \approx T_A \cdot 3.162$\\
   \subsubsection{Bode-Diagramm und Pol-Nullstellenverteilung}
   siehe im Anhang
 
-\subsection{Minimal- und nicht-minimalphasige Systeme \formelbuch{173}}
-\subsubsection{Allpass-Systeme\formelbuch{173}}
+\subsection{Minimal- und nicht-minimalphasige Systeme \formelbuch{220-224}}
+\subsubsection{Allpass-Systeme\formelbuch{220}}
 Allpässe werden vor allem als Laufzeitkorrekturglieder und als
 Verzögerungselemente verwendet. Der Amplitudengang ist konstant ($|H(jw)| =
 const \neq 0$) und die Pol- bzw. Nullstellen haben in Paaren auftretende Null-
@@ -180,14 +180,14 @@ Wobei $Q(s)$ ein striktes Hurwitz-Polynom ist.
 
 
 
-\subsubsection{Minimalphasennetzwerk \formelbuch{174}}
+\subsubsection{Minimalphasennetzwerke \formelbuch{221}}
 \begin{itemize}
   \item Keine Nullstellen in der rechten Halbebene
   \item Nullstellen auf der imaginären Achse erlaubt
 \end{itemize}
 
 
-\subsubsection{Nicht-Minimalphasennetzwerk\formelbuch{174}}
+\subsubsection{Nicht-Minimalphasennetzwerk \formelbuch{221}}
 Ein Nicht-Minimalphasennetzwerk kann durch Kaskadierung eines Allpasses und
 eine Minimalphasennetzwerk realisiert werden:\\
 \includegraphics[width=12cm]{./images/nicht-minimalphasennetzwerk.png}\\
@@ -202,8 +202,8 @@ $H(s) = H_M(s) \cdot H_A(s)$
   instabil & = & Pol in RHE oder mehrfach Pole auf der imaginären Achse
 \end{tabular}
 
-\subsection{Bode-Diagramm \matlab{bode} \formelbuch{178}}
-Siehe \formelbuch{178} für Beispiele\\
+\subsection{Bode-Diagramm \matlab{bode} \formelbuch{225-239}}
+Siehe \formelbuch{225} für Beispiele\\
 \begin{tabular}{ll}
 	\parbox{7cm}{
 		\includegraphics[width=7cm]{./images/bode-stabilitaet.png}
@@ -214,23 +214,22 @@ Siehe \formelbuch{178} für Beispiele\\
 		doppelt-logarithmischer Form, der zweite zeigt die Phase in Grad und in
 		linearer Form in Abhängigkeit der Frequenz dar.
 		
-		\subsubsection{Stabilitätsbestimmung \formelbuch{206} \matlab{margin,
+		\subsubsection{Stabilitätsbestimmung \formelbuch{248-250} \matlab{margin,
 		allmargin}}
 		Der {\bf Amplitudenrand} ist der Abstand des
 		Amplitudenganges zur 0~dB-Linie bei der Kreisfrequenz $\omega$, wo die Phase
-		gleich $-\pi$ (-180 Grad) ist. \\
+		gleich $-\pi$ ist. \\
 		
 		Der {\bf Phasenrand} ist der Abstand das Phasenganges zur
 		-$\pi$-Linie bei der Kreisfrequenz $\omega$, wo die Amplitude gleich 0~dB
 		ist. \\
 		
-		Damit eine System stabil ist, m\"ussen Phasen- und Amplitudenrand
-		$>0$ sein. Je gr\"osser der Phasen- und Amplitudenrand ist, desto
-		``stabiler'' ist das System.
+		Damit ein System stabil ist, m\"ussen Phasen- und Amplitudenrand
+		$>0$ sein. Je gr\"osser diese sind, desto ``stabiler'' ist das System.
 	}
 \end{tabular}
 
-\subsubsection{Vom Pol-/Nullstellendiagramm zum Bode-Diagramm \formelbuch{169}}
+\subsubsection{Vom Pol-/Nullstellendiagramm zum Bode-Diagramm \formelbuch{230}}
 \begin{minipage}[b]{12cm}
   \[\boxed{ H(j\omega_0) = K \cdot \frac{(j\omega_0 - z_1)(j\omega_0-z_2)\ldots(j\omega_0-z_m)}
   {(j\omega_0-p_1)(j\omega_0-p_2)\ldots(j\omega_0-p_n)} = |H(j\omega_0)|\cdot \e^{j\varphi(\omega_0)}}\]
@@ -256,7 +255,7 @@ Siehe \formelbuch{178} für Beispiele\\
 	& $\rightarrow 0$ & mehr Pol- als Nullstellen \\ \hline
 \end{tabular}
 \end{minipage}
-\begin{minipage}{8cm}
+\begin{minipage}{9.5cm}
 \begin{itemize}
   \item Pol auf Höhe $j\omega_x \Longrightarrow$ Überhöhung bei $\omega_x$
   \item Nullstelle auf Höhe $j\omega_x \Longrightarrow$ Dämpfung bei $\omega_x$
@@ -266,10 +265,19 @@ Siehe \formelbuch{178} für Beispiele\\
   \item $\frac{\prod{\text{Abstände NS zu 
         $\omega$}}}{\prod{\text{Abstände PS zu 
         $\omega$}}} < 1 \Longrightarrow$ Dämpfung
-  \item Beim Durchlaufen eines Pols oder Nullstelle auf der $j\omega$-Achse, macht der Phasengang
-        einen Sprung von $180^{\circ}$
+  \item Beim Durchlaufen eines Pols oder einer Nullstelle auf der $j\omega$-Achse, macht der Phasengang einen Sprung von $180^{\circ}$
 \end{itemize}
-\end{minipage}
+\end{minipage}\\
+
+\textbf{Regeln:}
+\begin{itemize}
+	\setlength{\itemsep}{-0.5em}
+	\item reelle einfache Nullstellen ''knicken nach oben weg''
+	\item reelle einfache Polstellen ''knicken nach unten weg''
+	\item Pol-, Nullstellen auf der gleichen Stelle heben sich (theoretisch) auf
+	\item konj. komplexe Nullstellen haben eine Senke
+	\item konj. komplexe Polstellen haben eine Überhöhung
+\end{itemize}
 
 \newpage 
 \input{sections/BodeApproximation}
@@ -293,63 +301,64 @@ Siehe \formelbuch{178} für Beispiele\\
 %\renewcommand{\arraystretch}{1}\\
 
 
-\subsection{Ortskurve (Nyquist-Diagramm)\matlab{nyquist} \formelbuch{193} }
+\subsection{Ortskurve (Nyquist-Diagramm) \matlab{nyquist} \formelbuch{240-247}}
 \begin{tabular}{ll}
 	\parbox{5cm}{
 		\includegraphics[width=5cm]{./images/nyquist.png}
     \includegraphics[width=5cm]{./images/nyquist_stab.png}
 	}
 	& \parbox{13cm}{
-		\subsubsection{Definition\formelbuch{193}}
+		\subsubsection{Definition}
 		Im Gegensatz zum Bode-Diagramm wird beim Nyquist-Diagramm Betrag und Phase in
 		einem einzigen Diagramm dargestellt, nämlich indem man den Real- und
 		Imaginärteil des Ausgabewertes direkt in die komplexe Zahlenebene zeichnet.
 		
-		\subsubsection{Stabilitätsbestimmung\formelbuch{204}}
+		\subsubsection{Stabilitätsbestimmung \formelbuch{245-247}}
 		Ist der {\bf offene} Regelkreis $H(s)$ {\bf asymptotisch
 		stabil}\index{asymptotisch stabil}, so ist der {\bf geschlossene}
 		Regelkreis $1+H(s)=D(s)+N(s)$ asymptotisch stabil, wenn die {\bf
 		Ortskurve} des {\bf offenen} Regelkreises den kritischen Punkt
 		(-1,$j0$) weder umkreist noch durchl\"auft.
 	}
+
 \end{tabular}
 
 
-\subsection{Nichols-Diagramm\matlab{nichols} \formelbuch{198}}
+\subsection{Nichols-Diagramm \matlab{nichols}}
 \begin{tabular}{ll}
 	\parbox{5cm}{
 		\includegraphics[width=5cm]{./images/nichols.png}
     \includegraphics[width=5cm]{./images/nichols_stab.png}
 	}
 	& \parbox{11cm}{
-		\subsubsection{Definition\formelbuch{198}}
+		\subsubsection{Definition}
 		Das Nichols Diagramm (auch Amplituden-Phasen-Diagramm) ist die Darstellung des
 		Absolutbetrages (Verstärkung, logarithmisch) in Abhängigkeit der Phase. Das Nichols Diagramm ist zur
 		Bestimmung der Stabilität in rückgekoppelten Systemen verwendbar.
     
-    \subsubsection{Stabilitätsbestimmung\formelbuch{208}}
+    \subsubsection{Stabilitätsbestimmung}
     Beim Nichols Diagramm lassen sich Amplitudenrand und Phasenrand am einfachsten aus dem Diagramm lesen.
 	}
 \end{tabular}
 
-\subsection{Phasen-, und Gruppenlaufzeit\formelbuch{130}}
+\subsection{Phasen-, und Gruppenlaufzeit \formelbuch{182-186}}
   \begin{tabular}{|l|l|p{10cm}|}
     \hline
       & \textbf{Formel} & \textbf{Definition}\\
     \hline
-      Phasenlaufzeit\formelbuch{130} &
+      Phasenlaufzeit\formelbuch{182} &
       $ \tau_P(\omega) = \dfrac{-\varphi(\omega)}{\omega}$ &
       Die Phasenlaufzeit ist nur für \textbf{reine Sinusschwingungen} exakt bestimmbar. 
       Mit einer Phasenlaufzeit wird das Ausgangssignal wird gegenüber dem Eingangsignal verzögert. \\
     \hline
-      Gruppenlaufzeit\formelbuch{131/304} &
+      Gruppenlaufzeit\formelbuch{183} &
       $\tau_g(\omega) = \dfrac{-\mathrm{d}\varphi(\omega)}{\mathrm{d}\omega}$ &
       Die Gruppenlaufzeit gilt für Signale mit mehreren Frequenzanteilen. Die Gruppenlaufzeit
       kann als \textbf{Laufzeit eines Signals} interpretiert werden. \\
     \hline
   \end{tabular}
   
-\subsection{Bestimmung der UTF aus dem Frequenzgang\formelbuch{306}}
+\subsection{Bestimmung der UTF aus dem Frequenzgang \formelbuch{292}}
   \begin{tabular}{p{6cm}p{12cm}}
     \vspace{-1.5\topsep}
     $\dfrac{N(s)}{D(s)} \cdot \dfrac{N(-s)}{D(-s)} = \left.|H(j\omega)|^2\right|_{\omega^2=-s^2}$ &
