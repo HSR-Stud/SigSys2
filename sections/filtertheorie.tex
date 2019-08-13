@@ -256,17 +256,17 @@ Keine Tabelle, \matlab{ellip, ellipap}
 \renewcommand{\arraystretch}{1.5}
 \begin{tabular}{|l|l|l|l|}
   \hline
-  \multicolumn{2}{|l|}{\textbf{Tiefpass-Hochpass}}
-    & \textbf{Tiefpass-Bandpass}
-    & \textbf{Tiefpass-Bandsperre} \\ 
+  \multicolumn{2}{|l|}{\small{\textbf{Tiefpass-Hochpass}}}
+    & \textbf{\small{Tiefpass-Bandpass}}
+    & \textbf{\small{Tiefpass-Bandsperre}} \\ 
   \multicolumn{2}{|l|}{\parbox{6cm}{
-    \includegraphics[width=6cm]{./images/filter-transf-tp-hp.png}
+    \input{tikz/filter-transf-tp-hp}
     }}
   & \parbox{6cm}{
-    \includegraphics[width=6cm]{./images/filter-transf-tp-bp.png}
+    \input{tikz/filter-transf-tp-bp}
     }
-  & \parbox{6cm}{
-    \includegraphics[width=6cm]{./images/filter-transf-tp-bs.png}
+  & \parbox{6cm}{\hspace*{-0.5cm}
+    \input{tikz/filter-transf-tp-bs}
     } \\
   \hline \hline
     & \textbf{TP $\Leftrightarrow$ HP} \formelbuch{342} 
