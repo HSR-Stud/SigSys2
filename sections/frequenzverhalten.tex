@@ -218,15 +218,14 @@ Siehe \formelbuch{225} für Beispiele\\
 		allmargin}}
 		Der {\bf Amplitudenrand} ist der Abstand des
 		Amplitudenganges zur 0~dB-Linie bei der Kreisfrequenz $\omega$, wo die Phase
-		gleich $-\pi$ (-180 Grad) ist. \\
+		gleich $-\pi$ ist. \\
 		
 		Der {\bf Phasenrand} ist der Abstand das Phasenganges zur
 		-$\pi$-Linie bei der Kreisfrequenz $\omega$, wo die Amplitude gleich 0~dB
 		ist. \\
 		
-		Damit eine System stabil ist, m\"ussen Phasen- und Amplitudenrand
-		$>0$ sein. Je gr\"osser der Phasen- und Amplitudenrand ist, desto
-		``stabiler'' ist das System.
+		Damit ein System stabil ist, m\"ussen Phasen- und Amplitudenrand
+		$>0$ sein. Je gr\"osser diese sind, desto ``stabiler'' ist das System.
 	}
 \end{tabular}
 
@@ -256,7 +255,7 @@ Siehe \formelbuch{225} für Beispiele\\
 	& $\rightarrow 0$ & mehr Pol- als Nullstellen \\ \hline
 \end{tabular}
 \end{minipage}
-\begin{minipage}{8cm}
+\begin{minipage}{9.5cm}
 \begin{itemize}
   \item Pol auf Höhe $j\omega_x \Longrightarrow$ Überhöhung bei $\omega_x$
   \item Nullstelle auf Höhe $j\omega_x \Longrightarrow$ Dämpfung bei $\omega_x$
@@ -266,10 +265,19 @@ Siehe \formelbuch{225} für Beispiele\\
   \item $\frac{\prod{\text{Abstände NS zu 
         $\omega$}}}{\prod{\text{Abstände PS zu 
         $\omega$}}} < 1 \Longrightarrow$ Dämpfung
-  \item Beim Durchlaufen eines Pols oder Nullstelle auf der $j\omega$-Achse, macht der Phasengang
-        einen Sprung von $180^{\circ}$
+  \item Beim Durchlaufen eines Pols oder einer Nullstelle auf der $j\omega$-Achse, macht der Phasengang einen Sprung von $180^{\circ}$
 \end{itemize}
-\end{minipage}
+\end{minipage}\\
+
+\textbf{Regeln:}
+\begin{itemize}
+	\setlength{\itemsep}{-0.5em}
+	\item reelle einfache Nullstellen ''knicken nach oben weg''
+	\item reelle einfache Polstellen ''knicken nach unten weg''
+	\item Pol-, Nullstellen auf der gleichen Stelle heben sich (theoretisch) auf
+	\item konj. komplexe Nullstellen haben eine Senke
+	\item konj. komplexe Polstellen haben eine Überhöhung
+\end{itemize}
 
 \newpage 
 \input{sections/BodeApproximation}
@@ -312,6 +320,7 @@ Siehe \formelbuch{225} für Beispiele\\
 		Ortskurve} des {\bf offenen} Regelkreises den kritischen Punkt
 		(-1,$j0$) weder umkreist noch durchl\"auft.
 	}
+
 \end{tabular}
 
 
